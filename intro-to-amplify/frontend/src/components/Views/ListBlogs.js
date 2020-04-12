@@ -4,8 +4,8 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { Link } from 'react-router-dom';
 
 // Files
-import { listBlogs } from '../graphql/queries';
-import { createBlog } from '../graphql/mutations';
+import { listBlogs } from '../../graphql/queries';
+import { createBlog } from '../../graphql/mutations';
 
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
@@ -48,7 +48,7 @@ const Blogs = () => {
       <div>
         {blogs.map((item, i) => (
           <div key={item.id}>
-            <Link to={{ pathname: `/${item.id}` }}>{item.name}</Link>
+            <Link to={{ pathname: `/blog/${item.id}` }}>{item.name}</Link>
           </div>
         ))}
       </div>

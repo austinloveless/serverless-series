@@ -6,8 +6,9 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 // Files
 import './App.css';
-import Blogs from './components/Blogs';
-import ListBlogs from './components/ListBlogs';
+import Blogs from './components/Views/Blogs';
+import ListBlogs from './components/Views/ListBlogs';
+import Posts from './components/Views/Posts';
 
 // Config
 import aws_exports from './aws-exports';
@@ -19,7 +20,8 @@ const App = () => {
       <div className='App'>
         <h1>Amplify Blogs</h1>
         <Route exact path='/' component={ListBlogs} />
-        <Route path='/:blogId' component={Blogs} />
+        <Route exact path='/blog/:blogId' component={Blogs} />
+        <Route exact path='/blog/:blogId/post/:postId' component={Posts} />
       </div>
     </Router>
   );
