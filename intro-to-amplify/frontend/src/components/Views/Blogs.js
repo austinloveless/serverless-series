@@ -1,11 +1,11 @@
 // Dependencies
 import React, { useState, useEffect } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
-import { Link } from 'react-router-dom';
 
 // Files
 import { getBlog } from '../../graphql/queries';
 import { updateBlog, deleteBlog, createPost } from '../../graphql/mutations';
+import Posts from '../Children/Posts';
 
 const Blog = ({ match, history }) => {
   const [blog, setBlog] = useState([]);
@@ -98,13 +98,7 @@ const Blog = ({ match, history }) => {
           <br />
 
           <button onClick={() => setAddPost(true)}>Add Post</button>
-          {posts.map((item, i) => (
-            <div key={item.id}>
-              <Link to={{ pathname: `/blog/${blog.id}/post/${item.id}` }}>
-                {item.title}
-              </Link>
-            </div>
-          ))}
+          <Posts posts={posts} blog={blog} />
         </div>
       </div>
     </div>

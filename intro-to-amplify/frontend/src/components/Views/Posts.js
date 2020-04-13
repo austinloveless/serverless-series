@@ -5,6 +5,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 // Files
 import { getPost } from '../../graphql/queries';
 import { updatePost, deletePost, createComment } from '../../graphql/mutations';
+import Comments from '../Children/Comments';
 
 const Post = ({ match, history }) => {
   const [post, setPost] = useState([]);
@@ -79,11 +80,9 @@ const Post = ({ match, history }) => {
           </button>
           <button onClick={() => setAddComment(true)}>Add Comment</button>
           <div key={post.id}>
-            <li>{post.title}</li>
+            <h2>{post.title}</h2>
           </div>
-          {comments.map((item, i) => (
-            <div key={item.id}>{item.content}</div>
-          ))}
+          <Comments comments={comments} />
         </div>
       </div>
     </div>
