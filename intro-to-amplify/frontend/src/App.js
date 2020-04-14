@@ -3,12 +3,13 @@ import React from 'react';
 import Amplify from 'aws-amplify';
 import { withAuthenticator } from 'aws-amplify-react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Typography } from '@material-ui/core';
 
 // Files
 import './App.css';
-import Blogs from './components/Views/Blogs';
-import ListBlogs from './components/Views/ListBlogs';
-import Posts from './components/Views/Posts';
+import BlogView from './components/Blogs/Views/BlogView';
+import Home from './components/Home';
+import PostView from './components/Posts/Views/PostView';
 
 // Config
 import aws_exports from './aws-exports';
@@ -18,10 +19,10 @@ const App = () => {
   return (
     <Router>
       <div className='App'>
-        <h1>Amplify Blogs</h1>
-        <Route exact path='/' component={ListBlogs} />
-        <Route exact path='/blog/:blogId' component={Blogs} />
-        <Route exact path='/blog/:blogId/post/:postId' component={Posts} />
+        <Typography variant='h1'> Amplify Blogs!</Typography>
+        <Route exact path='/' component={Home} />
+        <Route exact path='/blog/:blogId' component={BlogView} />
+        <Route exact path='/blog/:blogId/post/:postId' component={PostView} />
       </div>
     </Router>
   );
