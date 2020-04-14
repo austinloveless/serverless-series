@@ -23,3 +23,27 @@
 ### Diagram
 
 ![intro-to-amplify-diagram](assets/Intro-to-amplify-diagram.png)
+
+## To run this app:
+
+1. Clone the repository
+
+- `git clone https://github.com/austinloveless/serverless-series`
+
+2. Change into the directory
+
+- `cd graphql`
+
+3. Install the dependencies
+
+- `npm install`
+
+4. Deploy the amplify project
+
+- `amplify init`
+
+- `amplify push`
+
+5. Start the app
+
+- `npm start`
