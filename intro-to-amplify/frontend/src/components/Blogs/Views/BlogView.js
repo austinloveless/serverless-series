@@ -41,11 +41,14 @@ const Blog = ({ match, history }) => {
   return (
     <Container>
       <Typography variant='h5'>Blog: {blog.name}</Typography>
-      <Button onClick={() => handleDeleteBlog(blog.id)}>
-        <span style={{ color: 'red' }}>&times;</span>
+      <Button
+        color='secondary'
+        onClick={() => handleDeleteBlog(blog.id)}
+        variant='outlined'
+      >
+        <span style={{ color: 'red' }}>Delete</span>
       </Button>
-      <Typography>Posts: </Typography>
-
+      <Typography variant='h6'>Posts: </Typography>
       <PostChild posts={posts} blog={blog} />
       <br />
       <Button

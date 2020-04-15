@@ -1,42 +1,78 @@
 // Dependencies
-import React, { useState } from 'react';
+import React from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, makeStyles } from '@material-ui/core';
 
 // Files
 import { createPost } from '../../../graphql/mutations';
+import useForm from '../../../hooks/useForm';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: '25ch',
+    },
+  },
+}));
+
+const INITIAL_POST_STATE = {
+  title: '',
+  content: '',
+};
 const CreatePost = ({ posts, blog, setPosts, setCreatePost }) => {
-  const [postInput, setPostInput] = useState('');
+  const { values, handleChanges } = useForm(INITIAL_POST_STATE);
+  const { title, content } = values;
+  const classes = useStyles();
 
   const handleAddPost = async (event) => {
     event.preventDefault();
-    const payload = { title: postInput, postBlogId: blog.id };
+    const payload = { title, content, postBlogId: blog.id };
     const { data } = await API.graphql(
       graphqlOperation(createPost, { input: payload })
     );
     const newPost = data.createPost;
     const updatedPosts = [newPost, ...posts];
     setPosts(updatedPosts);
-    setPostInput('');
     setCreatePost(false);
   };
 
   return (
     <div>
-      <form onSubmit={handleAddPost}>
+      <form
+        onSubmit={handleAddPost}
+        className={classes.root}
+        autoComplete='off'
+      >
         <br />
+        <div>
+          <TextField
+            id='outlined-basic'
+            label='Title'
+            variant='outlined'
+            name='title'
+            value={title}
+            onChange={(e) => {
+              handleChanges(e);
+            }}
+          />
+        </div>
 
-        <TextField
-          id='outlined-basic'
-          label='Outlined'
-          variant='outlined'
-          value={postInput}
-          onChange={({ target }) => setPostInput(target.value)}
-        />
+        <div>
+          <TextField
+            id='standard-multiline-flexible'
+            label='Content'
+            variant='outlined'
+            name='content'
+            multiline
+            rows={4}
+            value={content}
+            onChange={(e) => {
+              handleChanges(e);
+            }}
+          />
+        </div>
         <br />
-        <br />
-
         <Button variant='contained' color='primary' type='submit'>
           Submit
         </Button>

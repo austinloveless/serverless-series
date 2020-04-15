@@ -1,13 +1,13 @@
 {
 	"auth": {
-		"introtoamplify0c0a9018": {
+		"introtoamplify502a115d": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": []
 		}
 	},
 	"api": {
-		"introToAmplify": {
+		"graphql": {
 			"service": "AppSync",
 			"providerPlugin": "awscloudformation",
 			"output": {
@@ -16,17 +16,11 @@
 					"defaultAuthentication": {
 						"authenticationType": "AMAZON_COGNITO_USER_POOLS",
 						"userPoolConfig": {
-							"userPoolId": "authintrotoamplify0c0a9018"
+							"userPoolId": "authintrotoamplify502a115d"
 						}
 					}
 				}
 			}
-		}
-	},
-	"hosting": {
-		"S3AndCloudFront": {
-			"service": "S3AndCloudFront",
-			"providerPlugin": "awscloudformation"
 		}
 	}
 }

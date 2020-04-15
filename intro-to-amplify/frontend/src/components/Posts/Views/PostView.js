@@ -18,7 +18,7 @@ import CreateComment from '../Children/Comments/CreateComment';
 
 const useStyles = makeStyles({
   card: {
-    width: 600,
+    width: 700,
   },
 });
 
@@ -57,8 +57,15 @@ const Post = ({ match, history }) => {
       <Card className={classes.card}>
         <CardContent>
           <Typography variant='h5'> Post: {post.title}</Typography>
-          <Button onClick={() => handleDeletePost(post.id)}>
-            <span style={{ color: 'red' }}>&times;</span>
+          <Typography variant='body1'>{post.content}</Typography>
+          <br />
+          <br />
+          <Button
+            color='secondary'
+            onClick={() => handleDeletePost(post.id)}
+            variant='outlined'
+          >
+            <span style={{ color: 'red' }}>Delete</span>
           </Button>
           <Typography variant='h6'>Comments: </Typography>
 

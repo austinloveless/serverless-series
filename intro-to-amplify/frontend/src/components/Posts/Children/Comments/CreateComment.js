@@ -28,7 +28,7 @@ const CreateBlog = ({ setComments, comments, post, setCreateComment }) => {
         <br />
         <TextField
           id='outlined-basic'
-          label='Outlined'
+          label='Create Comment'
           variant='outlined'
           value={commentInput}
           onChange={({ target }) => setCommentInput(target.value)}

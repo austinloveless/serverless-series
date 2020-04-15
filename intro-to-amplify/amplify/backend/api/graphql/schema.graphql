@@ -6,6 +6,7 @@ type Blog @auth(rules: [{ allow: owner }]) @model {
 type Post @auth(rules: [{ allow: owner }]) @model {
   id: ID!
   title: String!
+  content: String
   blog: Blog @connection(name: "BlogPosts")
   comments: [Comment] @connection(name: "PostComments")
 }

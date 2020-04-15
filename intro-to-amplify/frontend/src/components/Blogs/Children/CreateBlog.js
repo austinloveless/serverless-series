@@ -28,7 +28,7 @@ const CreateBlog = ({ setBlogs, blogs, setCreateBlog }) => {
         <br />
         <TextField
           id='outlined-basic'
-          label='Outlined'
+          label='Create Blog'
           variant='outlined'
           value={blogInput}
           onChange={({ target }) => setBlogInput(target.value)}
