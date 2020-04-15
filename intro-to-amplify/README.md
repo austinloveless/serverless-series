@@ -22,7 +22,7 @@
 
 ### Diagram
 
-![intro-to-amplify-diagram](assets/Intro-to-amplify-diagram.png)
+![intro-to-amplify-diagram](../assets/Intro-to-amplify-diagram.png)
 
 ## To run this app:
 
