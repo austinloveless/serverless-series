@@ -1,15 +1,12 @@
 projects:
-  graphql:
-    schemaPath: frontend/src/graphql/schema.json
+  introToAmplify:
+    schemaPath: frontend/graphql/schema.json
     includes:
-      - frontend/src/graphql/**/*.js
+      - frontend/graphql/**/*.js
     excludes:
       - ./amplify/**
     extensions:
       amplify:
         codeGenTarget: javascript
         generatedFileName: ''
-        docsFilePath: frontend/src/graphql
-extensions:
-  amplify:
-    version: 3
+        docsFilePath: frontend/graphql
