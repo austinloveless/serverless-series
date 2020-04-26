@@ -8,26 +8,24 @@ import { PhotoPicker } from 'aws-amplify-react';
 // Files
 import { createBlog } from '../../../graphql/mutations';
 
-const CreateBlog = ({ setBlogs, blogs, setCreateBlog }) => {
+const CreateBlog = ({ setBlogs, blogs, setCreateBlog, user }) => {
   const [blogInput, setBlogInput] = useState('');
   const [file, setFile] = useState({});
 
   const handleFileChange = (data) => {
-    console.log('data: ', data);
     setFile(data.file);
-  };
-
-  const handleSaveFile = async () => {
-    await Storage.put(file.name, file);
-    console.log('successfully saved file...');
   };
 
   const handleAddBlog = async (event) => {
     event.preventDefault();
-    const payload = { name: blogInput };
+    const payload = {
+      name: blogInput,
+      thumbnail: `${user.email}/${blogInput}/${file.name}`,
+    };
     const { data } = await API.graphql(
       graphqlOperation(createBlog, { input: payload })
     );
+    await Storage.put(`${user.email}/${blogInput}/${file.name}`, file);
     const newBlog = data.createBlog;
     const updatedBlogs = [newBlog, ...blogs];
     setBlogs(updatedBlogs);
@@ -52,9 +50,6 @@ const CreateBlog = ({ setBlogs, blogs, setCreateBlog }) => {
           Submit
         </Button>
         <PhotoPicker preview onPick={(data) => handleFileChange(data)} />
-        <Button variant='outlined' color='primary' onClick={handleSaveFile}>
-          Save File
-        </Button>
       </form>
     </div>
   );

@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import { Button, Container, Typography } from '@material-ui/core';
-import { Storage } from 'aws-amplify';
 import { S3Image } from 'aws-amplify-react';
 
 // Files
@@ -19,17 +18,9 @@ const Blog = ({ match, history }) => {
 
   useEffect(() => {
     handleGetBlog(match);
-    listFiles();
   }, [match]);
 
-  const listFiles = async () => {
-    console.log('asdf');
-    const files = await Storage.list('');
-    console.log(files);
-
-    setFiles(files);
-  };
-
+  console.log(blog);
   const handleGetBlog = async (match) => {
     const { data } = await API.graphql(
       graphqlOperation(getBlog, {
@@ -60,11 +51,9 @@ const Blog = ({ match, history }) => {
       >
         <span style={{ color: 'red' }}>Delete</span>
       </Button>
-      {files.map((f, i) => (
-        <div style={{ width: 400, margin: '0 auto' }} key={i}>
-          <S3Image imgKey={`${f.key}`} />
-        </div>
-      ))}
+
+      <S3Image imgKey={blog.thumbnail} />
+
       <Typography variant='h6'>Posts: </Typography>
       <PostChild posts={posts} blog={blog} />
       <br />

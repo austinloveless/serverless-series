@@ -6,17 +6,23 @@ import {
   Typography,
   makeStyles,
   Grid,
+  CardMedia,
 } from '@material-ui/core';
+import { S3Image } from 'aws-amplify-react';
 
 const useStyles = makeStyles({
   root: {
-    width: 275,
+    width: 350,
   },
   title: {
     fontSize: 14,
   },
   pos: {
     marginBottom: 12,
+  },
+  media: {
+    width: 300,
+    height: 250,
   },
 });
 const Blogs = ({ blogs }) => {
@@ -28,6 +34,8 @@ const Blogs = ({ blogs }) => {
         <Grid item key={item.id}>
           <Card className={classes.root}>
             <CardContent>
+              <S3Image className={classes.media} imgKey={item.thumbnail} />
+
               <Typography variant='h5' component='h2'>
                 <Link to={{ pathname: `/blog/${item.id}` }}> {item.name}</Link>
               </Typography>
