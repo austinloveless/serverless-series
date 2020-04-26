@@ -29,18 +29,18 @@ const Post = ({ match, history }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    const handleGetPost = async (match) => {
-      const { data } = await API.graphql(
-        graphqlOperation(getPost, {
-          id: match.params.postId,
-        })
-      );
-      setPost(data.getPost);
-      setComments(data.getPost.comments.items);
-    };
+    handleGetPost(match);
+  }, [match]);
 
-    handleGetPost();
-  }, []);
+  const handleGetPost = async (match) => {
+    const { data } = await API.graphql(
+      graphqlOperation(getPost, {
+        id: match.params.postId,
+      })
+    );
+    setPost(data.getPost);
+    setComments(data.getPost.comments.items);
+  };
 
   const handleDeletePost = async (id) => {
     const payload = { id };

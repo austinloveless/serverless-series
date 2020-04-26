@@ -15,18 +15,18 @@ const Blog = ({ match, history }) => {
   const [createPost, setCreatePost] = useState(false);
 
   useEffect(() => {
-    const handleGetBlog = async (match) => {
-      const { data } = await API.graphql(
-        graphqlOperation(getBlog, {
-          id: match.params.blogId,
-        })
-      );
-      setBlog(data.getBlog);
-      setPosts(data.getBlog.posts.items);
-    };
+    handleGetBlog(match);
+  }, [match]);
 
-    handleGetBlog();
-  }, []);
+  const handleGetBlog = async (match) => {
+    const { data } = await API.graphql(
+      graphqlOperation(getBlog, {
+        id: match.params.blogId,
+      })
+    );
+    setBlog(data.getBlog);
+    setPosts(data.getBlog.posts.items);
+  };
 
   const handleDeleteBlog = async (id) => {
     const payload = { id };
