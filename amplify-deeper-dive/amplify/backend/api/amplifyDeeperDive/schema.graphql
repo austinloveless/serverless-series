@@ -1,16 +1,22 @@
-type Blog @auth(rules: [{ allow: owner }]) @model {
+type Blog
+  @auth(rules: [{ allow: owner, operations: [create, update, delete] }])
+  @model {
   id: ID!
   name: String!
   posts: [Post] @connection(name: "BlogPosts")
 }
-type Post @auth(rules: [{ allow: owner }]) @model {
+type Post
+  @auth(rules: [{ allow: owner, operations: [create, update, delete] }])
+  @model {
   id: ID!
   title: String!
   content: String
   blog: Blog @connection(name: "BlogPosts")
   comments: [Comment] @connection(name: "PostComments")
 }
-type Comment @auth(rules: [{ allow: owner }]) @model {
+type Comment
+  @auth(rules: [{ allow: owner, operations: [create, update, delete] }])
+  @model {
   id: ID!
   content: String
   post: Post @connection(name: "PostComments")
