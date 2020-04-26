@@ -1,6 +1,6 @@
 {
     "identityPoolName": "amplifydeeperdive26cf4e7c_identitypool_26cf4e7c",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "amplif26cf4e7c",
     "userPoolName": "amplifydeeperdive26cf4e7c_userpool_26cf4e7c",
     "autoVerifiedAttributes": [
