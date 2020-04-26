@@ -1,0 +1,26 @@
+{
+	"auth": {
+		"amplifydeeperdive26cf4e7c": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": []
+		}
+	},
+	"api": {
+		"amplifyDeeperDive": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"authConfig": {
+					"additionalAuthenticationProviders": [],
+					"defaultAuthentication": {
+						"authenticationType": "AMAZON_COGNITO_USER_POOLS",
+						"userPoolConfig": {
+							"userPoolId": "authamplifydeeperdive26cf4e7c"
+						}
+					}
+				}
+			}
+		}
+	}
+}

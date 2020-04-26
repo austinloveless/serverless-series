@@ -1,0 +1,12 @@
+projects:
+  amplifyDeeperDive:
+    schemaPath: src/graphql/schema.json
+    includes:
+      - frontend/src/graphql/*/**.js
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: javascript
+        generatedFileName: ''
+        docsFilePath: frontend/src/graphql
