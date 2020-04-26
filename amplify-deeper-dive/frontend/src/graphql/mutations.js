@@ -9,11 +9,13 @@ export const createBlog = /* GraphQL */ `
     createBlog(input: $input, condition: $condition) {
       id
       name
+      thumbnail
       posts {
         items {
           id
           title
           content
+          thumbnail
           owner
         }
         nextToken
@@ -30,11 +32,13 @@ export const updateBlog = /* GraphQL */ `
     updateBlog(input: $input, condition: $condition) {
       id
       name
+      thumbnail
       posts {
         items {
           id
           title
           content
+          thumbnail
           owner
         }
         nextToken
@@ -51,11 +55,13 @@ export const deleteBlog = /* GraphQL */ `
     deleteBlog(input: $input, condition: $condition) {
       id
       name
+      thumbnail
       posts {
         items {
           id
           title
           content
+          thumbnail
           owner
         }
         nextToken
@@ -73,9 +79,11 @@ export const createPost = /* GraphQL */ `
       id
       title
       content
+      thumbnail
       blog {
         id
         name
+        thumbnail
         posts {
           nextToken
         }
@@ -102,9 +110,11 @@ export const updatePost = /* GraphQL */ `
       id
       title
       content
+      thumbnail
       blog {
         id
         name
+        thumbnail
         posts {
           nextToken
         }
@@ -131,9 +141,11 @@ export const deletePost = /* GraphQL */ `
       id
       title
       content
+      thumbnail
       blog {
         id
         name
+        thumbnail
         posts {
           nextToken
         }
@@ -163,9 +175,11 @@ export const createComment = /* GraphQL */ `
         id
         title
         content
+        thumbnail
         blog {
           id
           name
+          thumbnail
           owner
         }
         comments {
@@ -189,9 +203,11 @@ export const updateComment = /* GraphQL */ `
         id
         title
         content
+        thumbnail
         blog {
           id
           name
+          thumbnail
           owner
         }
         comments {
@@ -215,9 +231,11 @@ export const deleteComment = /* GraphQL */ `
         id
         title
         content
+        thumbnail
         blog {
           id
           name
+          thumbnail
           owner
         }
         comments {

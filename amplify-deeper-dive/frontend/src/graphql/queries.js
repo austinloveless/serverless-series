@@ -6,11 +6,13 @@ export const getBlog = /* GraphQL */ `
     getBlog(id: $id) {
       id
       name
+      thumbnail
       posts {
         items {
           id
           title
           content
+          thumbnail
           owner
         }
         nextToken
@@ -29,6 +31,7 @@ export const listBlogs = /* GraphQL */ `
       items {
         id
         name
+        thumbnail
         posts {
           nextToken
         }
@@ -44,9 +47,11 @@ export const getPost = /* GraphQL */ `
       id
       title
       content
+      thumbnail
       blog {
         id
         name
+        thumbnail
         posts {
           nextToken
         }
@@ -75,9 +80,11 @@ export const listPosts = /* GraphQL */ `
         id
         title
         content
+        thumbnail
         blog {
           id
           name
+          thumbnail
           owner
         }
         comments {
@@ -98,9 +105,11 @@ export const getComment = /* GraphQL */ `
         id
         title
         content
+        thumbnail
         blog {
           id
           name
+          thumbnail
           owner
         }
         comments {
@@ -126,6 +135,7 @@ export const listComments = /* GraphQL */ `
           id
           title
           content
+          thumbnail
           owner
         }
         owner

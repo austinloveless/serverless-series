@@ -6,11 +6,13 @@ export const onCreateBlog = /* GraphQL */ `
     onCreateBlog(owner: $owner) {
       id
       name
+      thumbnail
       posts {
         items {
           id
           title
           content
+          thumbnail
           owner
         }
         nextToken
@@ -24,11 +26,13 @@ export const onUpdateBlog = /* GraphQL */ `
     onUpdateBlog(owner: $owner) {
       id
       name
+      thumbnail
       posts {
         items {
           id
           title
           content
+          thumbnail
           owner
         }
         nextToken
@@ -42,11 +46,13 @@ export const onDeleteBlog = /* GraphQL */ `
     onDeleteBlog(owner: $owner) {
       id
       name
+      thumbnail
       posts {
         items {
           id
           title
           content
+          thumbnail
           owner
         }
         nextToken
@@ -61,9 +67,11 @@ export const onCreatePost = /* GraphQL */ `
       id
       title
       content
+      thumbnail
       blog {
         id
         name
+        thumbnail
         posts {
           nextToken
         }
@@ -87,9 +95,11 @@ export const onUpdatePost = /* GraphQL */ `
       id
       title
       content
+      thumbnail
       blog {
         id
         name
+        thumbnail
         posts {
           nextToken
         }
@@ -113,9 +123,11 @@ export const onDeletePost = /* GraphQL */ `
       id
       title
       content
+      thumbnail
       blog {
         id
         name
+        thumbnail
         posts {
           nextToken
         }
@@ -142,9 +154,11 @@ export const onCreateComment = /* GraphQL */ `
         id
         title
         content
+        thumbnail
         blog {
           id
           name
+          thumbnail
           owner
         }
         comments {
@@ -165,9 +179,11 @@ export const onUpdateComment = /* GraphQL */ `
         id
         title
         content
+        thumbnail
         blog {
           id
           name
+          thumbnail
           owner
         }
         comments {
@@ -188,9 +204,11 @@ export const onDeleteComment = /* GraphQL */ `
         id
         title
         content
+        thumbnail
         blog {
           id
           name
+          thumbnail
           owner
         }
         comments {
