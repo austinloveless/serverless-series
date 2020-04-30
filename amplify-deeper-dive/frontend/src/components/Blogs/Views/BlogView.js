@@ -7,8 +7,7 @@ import { S3Image } from 'aws-amplify-react';
 // Files
 import { getBlog } from '../../../graphql/queries';
 import { deleteBlog } from '../../../graphql/mutations';
-import PostChild from '../../Posts/Children/PostChild';
-import CreatePost from '../../Posts/Children/CreatePost';
+import { Posts, CreatePost } from '../../Posts/Children';
 
 const Blog = ({ match, history }) => {
   const [blog, setBlog] = useState([]);
@@ -55,7 +54,7 @@ const Blog = ({ match, history }) => {
       <S3Image imgKey={blog.thumbnail} />
 
       <Typography variant='h6'>Posts: </Typography>
-      <PostChild posts={posts} blog={blog} />
+      <Posts posts={posts} blog={blog} />
       <br />
       <Button
         variant='contained'

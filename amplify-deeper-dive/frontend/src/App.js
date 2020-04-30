@@ -21,8 +21,8 @@ const App = () => {
       <div className='App'>
         <Typography variant='h1'> Amplify Blogs!</Typography>
         <Route exact path='/' component={Home} />
-        <Route exact path='/blog/:blogId' component={BlogView} />
-        <Route exact path='/blog/:blogId/post/:postId' component={PostView} />
+        <Route exact path='/:blogId' component={BlogView} />
+        <Route exact path='/:blogId/:postId' component={PostView} />
       </div>
     </Router>
   );
