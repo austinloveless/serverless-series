@@ -4,7 +4,8 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { Button, Container } from '@material-ui/core';
 // Files
 import { listBlogs } from '../graphql/queries';
-import { Blogs, CreateBlog } from './Blogs/Children';
+import Blogs from './Children/Blogs';
+import BlogForm from './Children/BlogForm';
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
@@ -35,7 +36,7 @@ const Home = () => {
         Add Blog
       </Button>
       {createBlog ? (
-        <CreateBlog
+        <BlogForm
           blogs={blogs}
           setBlogs={setBlogs}
           setCreateBlog={setCreateBlog}
