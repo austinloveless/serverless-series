@@ -13,8 +13,7 @@ import {
 // Files
 import { getPost } from '../../../graphql/queries';
 import { deletePost } from '../../../graphql/mutations';
-import CommentChild from '../Children/Comments/CommentChild';
-import CreateComment from '../Children/Comments/CreateComment';
+import { Comments, CreateComment } from './Comments';
 
 const useStyles = makeStyles({
   card: {
@@ -38,6 +37,7 @@ const Post = ({ match, history }) => {
         id: match.params.postId,
       })
     );
+    console.log('id', data);
     setPost(data.getPost);
     setComments(data.getPost.comments.items);
   };
@@ -69,7 +69,7 @@ const Post = ({ match, history }) => {
           </Button>
           <Typography variant='h6'>Comments: </Typography>
 
-          <CommentChild comments={comments} />
+          <Comments comments={comments} />
           <br />
           <Button
             variant='contained'

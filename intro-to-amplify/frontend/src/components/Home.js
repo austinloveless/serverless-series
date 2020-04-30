@@ -4,10 +4,9 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { Button, Container } from '@material-ui/core';
 // Files
 import { listBlogs } from '../graphql/queries';
-import BlogChild from './Blogs/Children/BlogChild';
-import CreateBlog from './Blogs/Children/CreateBlog';
+import { Blogs, CreateBlog } from './Blogs/Children';
 
-const ListBlogs = () => {
+const Home = () => {
   const [blogs, setBlogs] = useState([]);
   const [createBlog, setCreateBlog] = useState(false);
 
@@ -26,11 +25,7 @@ const ListBlogs = () => {
 
   return (
     <Container maxWidth='lg'>
-      <BlogChild
-        blogs={blogs}
-        setBlogs={setBlogs}
-        setCreateBlog={setCreateBlog}
-      />
+      <Blogs blogs={blogs} setBlogs={setBlogs} setCreateBlog={setCreateBlog} />
       <br />
       <Button
         variant='contained'
@@ -50,4 +45,4 @@ const ListBlogs = () => {
   );
 };
 
-export default ListBlogs;
+export default Home;

@@ -4,9 +4,9 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { TextField, Button } from '@material-ui/core';
 
 // Files
-import { createComment } from '../../../../graphql/mutations';
+import { createComment } from '../../../graphql/mutations';
 
-const CreateBlog = ({ setComments, comments, post, setCreateComment }) => {
+const CreateComment = ({ setComments, comments, post, setCreateComment }) => {
   const [commentInput, setCommentInput] = useState('');
 
   const handleAddComment = async (event) => {
@@ -43,4 +43,4 @@ const CreateBlog = ({ setComments, comments, post, setCreateComment }) => {
   );
 };
 
-export default CreateBlog;
+export default CreateComment;

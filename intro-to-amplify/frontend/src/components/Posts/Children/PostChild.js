@@ -27,13 +27,13 @@ const Posts = ({ posts, blog }) => {
 
   return (
     <Grid container spacing={1}>
-      {posts.map((item) => (
-        <Grid item key={item.id}>
+      {posts.map((post) => (
+        <Grid item key={post.id}>
           <Card className={classes.root}>
             <CardContent>
               <Typography variant='h5' component='h2'>
-                <Link to={{ pathname: `/blog/${blog.id}/post/${item.id}` }}>
-                  {item.title}
+                <Link to={{ pathname: `/${blog.id}/${post.id}` }}>
+                  {post.title}
                 </Link>
               </Typography>
               <Typography
@@ -44,7 +44,7 @@ const Posts = ({ posts, blog }) => {
                 Owner:
               </Typography>
               <Typography className={classes.pos} color='textSecondary'>
-                {item.owner}
+                {post.owner}
               </Typography>
             </CardContent>
           </Card>
