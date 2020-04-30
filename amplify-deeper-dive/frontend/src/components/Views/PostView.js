@@ -11,9 +11,10 @@ import {
 } from '@material-ui/core';
 
 // Files
-import { getPost } from '../../../graphql/queries';
-import { deletePost } from '../../../graphql/mutations';
-import { Comments, CreateComment } from '../Comments';
+import { getPost } from '../../graphql/queries';
+import { deletePost } from '../../graphql/mutations';
+import Comments from '../Children/Comments';
+import CommentForm from '../Children/CommentForm';
 
 const useStyles = makeStyles({
   card: {
@@ -78,7 +79,7 @@ const Post = ({ match, history }) => {
             Add Comment
           </Button>
           {createComment ? (
-            <CreateComment
+            <CommentForm
               comments={comments}
               setComments={setComments}
               setCreateComment={setCreateComment}

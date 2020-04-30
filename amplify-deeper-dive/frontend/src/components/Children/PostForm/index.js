@@ -20,7 +20,7 @@ const INITIAL_POST_STATE = {
   title: '',
   content: '',
 };
-const CreatePost = ({ posts, blog, setPosts, setCreatePost }) => {
+const PostForm = ({ posts, blog, setPosts, setCreatePost }) => {
   const { values, handleChanges } = useForm(INITIAL_POST_STATE);
   const { title, content } = values;
   const classes = useStyles();
@@ -81,4 +81,4 @@ const CreatePost = ({ posts, blog, setPosts, setCreatePost }) => {
   );
 };
 
-export default CreatePost;
+export default PostForm;

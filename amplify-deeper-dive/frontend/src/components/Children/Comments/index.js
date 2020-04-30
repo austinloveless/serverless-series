@@ -12,9 +12,9 @@ const Comments = ({ comments }) => {
 
   return (
     <div>
-      {comments.map((item) => (
-        <div key={item.id}>
-          <Typography>{item.content}</Typography>
+      {comments.map((comment) => (
+        <div key={comment.id}>
+          <Typography>{comment.content}</Typography>
           <Typography
             className={classes.title}
             color='textSecondary'
@@ -23,7 +23,7 @@ const Comments = ({ comments }) => {
             Owner:
           </Typography>
           <Typography className={classes.pos} color='textSecondary'>
-            {item.owner}
+            {comment.owner}
           </Typography>
           <Divider />
           <br />

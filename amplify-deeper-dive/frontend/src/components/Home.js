@@ -6,9 +6,10 @@ import { Auth } from 'aws-amplify';
 
 // Files
 import { listBlogs } from '../graphql/queries';
-import { Blogs, CreateBlog } from './Blogs/Children';
+import Blogs from './Children/Blogs';
+import BlogForm from './Children/BlogForm';
 
-const ListBlogs = () => {
+const Home = () => {
   const [blogs, setBlogs] = useState([]);
   const [createBlog, setCreateBlog] = useState(false);
   const [user, setUser] = useState([]);
@@ -44,7 +45,7 @@ const ListBlogs = () => {
         Add Blog
       </Button>
       {createBlog ? (
-        <CreateBlog
+        <BlogForm
           user={user}
           blogs={blogs}
           setBlogs={setBlogs}
@@ -55,4 +56,4 @@ const ListBlogs = () => {
   );
 };
 
-export default ListBlogs;
+export default Home;

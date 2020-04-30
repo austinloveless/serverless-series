@@ -7,9 +7,8 @@ import { Typography } from '@material-ui/core';
 
 // Files
 import './App.css';
-import BlogView from './components/Blogs/Views/BlogView';
 import Home from './components/Home';
-import PostView from './components/Posts/Views/PostView';
+import { BlogView, PostView } from './components/Views';
 
 // Config
 import aws_exports from './aws-exports';

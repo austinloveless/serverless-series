@@ -8,7 +8,7 @@ import { PhotoPicker } from 'aws-amplify-react';
 // Files
 import { createBlog } from '../../../graphql/mutations';
 
-const CreateBlog = ({ setBlogs, blogs, setCreateBlog, user }) => {
+const BlogForm = ({ setBlogs, blogs, setCreateBlog, user }) => {
   const [blogInput, setBlogInput] = useState('');
   const [file, setFile] = useState({});
 
@@ -55,4 +55,4 @@ const CreateBlog = ({ setBlogs, blogs, setCreateBlog, user }) => {
   );
 };
 
-export default CreateBlog;
+export default BlogForm;

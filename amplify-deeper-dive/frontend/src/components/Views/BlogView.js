@@ -5,9 +5,10 @@ import { Button, Container, Typography } from '@material-ui/core';
 import { S3Image } from 'aws-amplify-react';
 
 // Files
-import { getBlog } from '../../../graphql/queries';
-import { deleteBlog } from '../../../graphql/mutations';
-import { Posts, CreatePost } from '../../Posts/Children';
+import { getBlog } from '../../graphql/queries';
+import { deleteBlog } from '../../graphql/mutations';
+import Posts from '../Children/Posts';
+import PostForm from '../Children/PostForm';
 
 const Blog = ({ match, history }) => {
   const [blog, setBlog] = useState([]);
@@ -64,7 +65,7 @@ const Blog = ({ match, history }) => {
         Add Post
       </Button>
       {createPost ? (
-        <CreatePost
+        <PostForm
           posts={posts}
           blog={blog}
           setPosts={setPosts}

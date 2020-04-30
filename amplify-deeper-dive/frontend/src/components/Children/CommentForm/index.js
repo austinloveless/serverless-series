@@ -6,7 +6,7 @@ import { TextField, Button } from '@material-ui/core';
 // Files
 import { createComment } from '../../../graphql/mutations';
 
-const CreateComment = ({ setComments, comments, post, setCreateComment }) => {
+const CommentForm = ({ setComments, comments, post, setCreateComment }) => {
   const [commentInput, setCommentInput] = useState('');
 
   const handleAddComment = async (event) => {
@@ -43,4 +43,4 @@ const CreateComment = ({ setComments, comments, post, setCreateComment }) => {
   );
 };
 
-export default CreateComment;
+export default CommentForm;
