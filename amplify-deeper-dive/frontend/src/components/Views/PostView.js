@@ -9,6 +9,7 @@ import {
   CardContent,
   makeStyles,
 } from '@material-ui/core';
+import { S3Image } from 'aws-amplify-react';
 
 // Files
 import { getPost } from '../../graphql/queries';
@@ -20,9 +21,13 @@ const useStyles = makeStyles({
   card: {
     width: 700,
   },
+  media: {
+    width: 500,
+    height: 500,
+  },
 });
 
-const Post = ({ match, history }) => {
+const PostView = ({ match, history }) => {
   const [post, setPost] = useState([]);
   const [comments, setComments] = useState([]);
   const [createComment, setCreateComment] = useState(false);
@@ -56,6 +61,8 @@ const Post = ({ match, history }) => {
     <Grid container key={post.id} style={{ justifyContent: 'center' }}>
       <Card className={classes.card}>
         <CardContent>
+          <S3Image className={classes.media} imgKey={post.originalImage} />
+
           <Typography variant='h5'> Post: {post.title}</Typography>
           <Typography variant='body1'>{post.content}</Typography>
           <br />
@@ -92,4 +99,4 @@ const Post = ({ match, history }) => {
   );
 };
 
-export default Post;
+export default PostView;

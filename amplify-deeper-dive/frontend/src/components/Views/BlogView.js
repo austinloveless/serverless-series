@@ -17,11 +17,10 @@ const useStyles = makeStyles({
   },
 });
 
-const Blog = ({ match, history }) => {
+const BlogView = ({ match, history, user }) => {
   const [blog, setBlog] = useState([]);
   const [posts, setPosts] = useState([]);
   const [createPost, setCreatePost] = useState(false);
-  const [files, setFiles] = useState([]);
   const classes = useStyles();
 
   useEffect(() => {
@@ -73,6 +72,7 @@ const Blog = ({ match, history }) => {
       </Button>
       {createPost ? (
         <PostForm
+          user={user}
           posts={posts}
           blog={blog}
           setPosts={setPosts}
@@ -83,4 +83,4 @@ const Blog = ({ match, history }) => {
   );
 };
 
-export default Blog;
+export default BlogView;

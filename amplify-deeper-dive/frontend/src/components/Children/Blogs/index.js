@@ -6,7 +6,6 @@ import {
   Typography,
   makeStyles,
   Grid,
-  CardMedia,
 } from '@material-ui/core';
 import { S3Image } from 'aws-amplify-react';
 

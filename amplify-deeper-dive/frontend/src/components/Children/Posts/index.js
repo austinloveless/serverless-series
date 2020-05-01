@@ -7,6 +7,7 @@ import {
   makeStyles,
   Grid,
 } from '@material-ui/core';
+import { S3Image } from 'aws-amplify-react';
 
 const useStyles = makeStyles({
   root: {
@@ -31,6 +32,8 @@ const Posts = ({ posts, blog }) => {
         <Grid item key={post.id}>
           <Card className={classes.root}>
             <CardContent>
+              <S3Image imgKey={post.thumbnail} />
+
               <Typography variant='h5' component='h2'>
                 <Link to={{ pathname: `/${blog.id}/${post.id}` }}>
                   {post.title}

@@ -2,31 +2,23 @@
 import React, { useState, useEffect } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import { Button, Container } from '@material-ui/core';
-import { Auth } from 'aws-amplify';
 
 // Files
-import { listBlogs } from '../graphql/queries';
-import Blogs from './Children/Blogs';
-import BlogForm from './Children/BlogForm';
+import { listBlogs } from '../../graphql/queries';
+import Blogs from '../Children/Blogs';
+import BlogForm from '../Children/BlogForm';
 
-const Home = () => {
+const Home = ({ user }) => {
   const [blogs, setBlogs] = useState([]);
   const [createBlog, setCreateBlog] = useState(false);
-  const [user, setUser] = useState([]);
 
   useEffect(() => {
     handleListBlogs();
-    getUser();
   }, []);
 
   const handleListBlogs = async () => {
     const { data } = await API.graphql(graphqlOperation(listBlogs));
     setBlogs(data.listBlogs.items);
-  };
-
-  const getUser = async () => {
-    const user = await Auth.currentAuthenticatedUser();
-    setUser(user.signInUserSession.idToken.payload);
   };
 
   const handleToggleCreateBlog = () => {

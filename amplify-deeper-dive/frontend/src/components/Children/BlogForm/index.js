@@ -20,13 +20,16 @@ const BlogForm = ({ setBlogs, blogs, setCreateBlog, user }) => {
     event.preventDefault();
     const payload = {
       name: blogInput,
-      thumbnail: `thumbnails/public/${user.email}/${blogInput}/${file.name}`,
-      originalImage: `${user.email}/${blogInput}/${file.name}`,
+      thumbnail: `thumbnails/public/${user.email}/blogImages/${blogInput}/${file.name}`,
+      originalImage: `${user.email}/blogImages/${blogInput}/${file.name}`,
     };
     const { data } = await API.graphql(
       graphqlOperation(createBlog, { input: payload })
     );
-    await Storage.put(`${user.email}/${blogInput}/${file.name}`, file);
+    await Storage.put(
+      `${user.email}/blogImages/${blogInput}/${file.name}`,
+      file
+    );
     const newBlog = data.createBlog;
     const updatedBlogs = [newBlog, ...blogs];
     setBlogs(updatedBlogs);

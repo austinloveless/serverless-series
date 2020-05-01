@@ -1,7 +1,9 @@
 // Dependencies
-import React from 'react';
+import React, { useState } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import { TextField, Button, makeStyles } from '@material-ui/core';
+import { Storage } from 'aws-amplify';
+import { PhotoPicker } from 'aws-amplify-react';
 
 // Files
 import { createPost } from '../../../graphql/mutations';
@@ -20,17 +22,30 @@ const INITIAL_POST_STATE = {
   title: '',
   content: '',
 };
-const PostForm = ({ posts, blog, setPosts, setCreatePost }) => {
+const PostForm = ({ posts, blog, setPosts, setCreatePost, user }) => {
   const { values, handleChanges } = useForm(INITIAL_POST_STATE);
   const { title, content } = values;
+  const [file, setFile] = useState({});
   const classes = useStyles();
+
+  const handleFileChange = (data) => {
+    setFile(data.file);
+  };
 
   const handleAddPost = async (event) => {
     event.preventDefault();
-    const payload = { title, content, postBlogId: blog.id };
+    const payload = {
+      title,
+      content,
+      postBlogId: blog.id,
+      thumbnail: `thumbnails/public/${user.email}/postImages/${title}/${file.name}`,
+      originalImage: `${user.email}/postImages/${title}/${file.name}`,
+    };
     const { data } = await API.graphql(
       graphqlOperation(createPost, { input: payload })
     );
+    await Storage.put(`${user.email}/postImages/${title}/${file.name}`, file);
+
     const newPost = data.createPost;
     const updatedPosts = [newPost, ...posts];
     setPosts(updatedPosts);
@@ -73,6 +88,8 @@ const PostForm = ({ posts, blog, setPosts, setCreatePost }) => {
           />
         </div>
         <br />
+        <PhotoPicker preview onPick={(data) => handleFileChange(data)} />
+
         <Button variant='contained' color='primary' type='submit'>
           Submit
         </Button>
