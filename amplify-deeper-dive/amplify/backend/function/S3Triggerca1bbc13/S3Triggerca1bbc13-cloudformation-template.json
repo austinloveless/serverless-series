@@ -60,7 +60,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-intro-to-amplify-deeperdive-130422-deployment",
-					"S3Key": "amplify-builds/S3Triggerca1bbc13-5a7a36416d3463796270-build.zip"
+					"S3Key": "amplify-builds/S3Triggerca1bbc13-34517461454b4363674a-build.zip"
 				}
 			}
 		},
