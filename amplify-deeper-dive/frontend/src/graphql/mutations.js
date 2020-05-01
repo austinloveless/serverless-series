@@ -10,12 +10,14 @@ export const createBlog = /* GraphQL */ `
       id
       name
       thumbnail
+      originalImage
       posts {
         items {
           id
           title
           content
           thumbnail
+          originalImage
           owner
         }
         nextToken
@@ -33,12 +35,14 @@ export const updateBlog = /* GraphQL */ `
       id
       name
       thumbnail
+      originalImage
       posts {
         items {
           id
           title
           content
           thumbnail
+          originalImage
           owner
         }
         nextToken
@@ -56,12 +60,14 @@ export const deleteBlog = /* GraphQL */ `
       id
       name
       thumbnail
+      originalImage
       posts {
         items {
           id
           title
           content
           thumbnail
+          originalImage
           owner
         }
         nextToken
@@ -80,10 +86,12 @@ export const createPost = /* GraphQL */ `
       title
       content
       thumbnail
+      originalImage
       blog {
         id
         name
         thumbnail
+        originalImage
         posts {
           nextToken
         }
@@ -111,10 +119,12 @@ export const updatePost = /* GraphQL */ `
       title
       content
       thumbnail
+      originalImage
       blog {
         id
         name
         thumbnail
+        originalImage
         posts {
           nextToken
         }
@@ -142,10 +152,12 @@ export const deletePost = /* GraphQL */ `
       title
       content
       thumbnail
+      originalImage
       blog {
         id
         name
         thumbnail
+        originalImage
         posts {
           nextToken
         }
@@ -176,10 +188,12 @@ export const createComment = /* GraphQL */ `
         title
         content
         thumbnail
+        originalImage
         blog {
           id
           name
           thumbnail
+          originalImage
           owner
         }
         comments {
@@ -204,10 +218,12 @@ export const updateComment = /* GraphQL */ `
         title
         content
         thumbnail
+        originalImage
         blog {
           id
           name
           thumbnail
+          originalImage
           owner
         }
         comments {
@@ -232,10 +248,12 @@ export const deleteComment = /* GraphQL */ `
         title
         content
         thumbnail
+        originalImage
         blog {
           id
           name
           thumbnail
+          originalImage
           owner
         }
         comments {

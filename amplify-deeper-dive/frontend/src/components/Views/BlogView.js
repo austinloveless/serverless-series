@@ -1,7 +1,7 @@
 // Dependencies
 import React, { useState, useEffect } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
-import { Button, Container, Typography } from '@material-ui/core';
+import { Button, Container, Typography, makeStyles } from '@material-ui/core';
 import { S3Image } from 'aws-amplify-react';
 
 // Files
@@ -10,17 +10,24 @@ import { deleteBlog } from '../../graphql/mutations';
 import Posts from '../Children/Posts';
 import PostForm from '../Children/PostForm';
 
+const useStyles = makeStyles({
+  media: {
+    width: 500,
+    height: 500,
+  },
+});
+
 const Blog = ({ match, history }) => {
   const [blog, setBlog] = useState([]);
   const [posts, setPosts] = useState([]);
   const [createPost, setCreatePost] = useState(false);
   const [files, setFiles] = useState([]);
+  const classes = useStyles();
 
   useEffect(() => {
     handleGetBlog(match);
   }, [match]);
 
-  console.log(blog);
   const handleGetBlog = async (match) => {
     const { data } = await API.graphql(
       graphqlOperation(getBlog, {
@@ -52,7 +59,7 @@ const Blog = ({ match, history }) => {
         <span style={{ color: 'red' }}>Delete</span>
       </Button>
 
-      <S3Image imgKey={blog.thumbnail} />
+      <S3Image className={classes.media} imgKey={blog.originalImage} />
 
       <Typography variant='h6'>Posts: </Typography>
       <Posts posts={posts} blog={blog} />

@@ -25,6 +25,7 @@ const useStyles = makeStyles({
     height: 250,
   },
 });
+
 const Blogs = ({ blogs }) => {
   const classes = useStyles();
 

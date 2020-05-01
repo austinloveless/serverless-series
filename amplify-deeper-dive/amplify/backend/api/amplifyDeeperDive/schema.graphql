@@ -4,6 +4,7 @@ type Blog
   id: ID!
   name: String!
   thumbnail: String
+  originalImage: String
   posts: [Post] @connection(name: "BlogPosts")
 }
 type Post
@@ -13,6 +14,7 @@ type Post
   title: String!
   content: String
   thumbnail: String
+  originalImage: String
   blog: Blog @connection(name: "BlogPosts")
   comments: [Comment] @connection(name: "PostComments")
 }

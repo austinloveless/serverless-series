@@ -7,12 +7,14 @@ export const onCreateBlog = /* GraphQL */ `
       id
       name
       thumbnail
+      originalImage
       posts {
         items {
           id
           title
           content
           thumbnail
+          originalImage
           owner
         }
         nextToken
@@ -27,12 +29,14 @@ export const onUpdateBlog = /* GraphQL */ `
       id
       name
       thumbnail
+      originalImage
       posts {
         items {
           id
           title
           content
           thumbnail
+          originalImage
           owner
         }
         nextToken
@@ -47,12 +51,14 @@ export const onDeleteBlog = /* GraphQL */ `
       id
       name
       thumbnail
+      originalImage
       posts {
         items {
           id
           title
           content
           thumbnail
+          originalImage
           owner
         }
         nextToken
@@ -68,10 +74,12 @@ export const onCreatePost = /* GraphQL */ `
       title
       content
       thumbnail
+      originalImage
       blog {
         id
         name
         thumbnail
+        originalImage
         posts {
           nextToken
         }
@@ -96,10 +104,12 @@ export const onUpdatePost = /* GraphQL */ `
       title
       content
       thumbnail
+      originalImage
       blog {
         id
         name
         thumbnail
+        originalImage
         posts {
           nextToken
         }
@@ -124,10 +134,12 @@ export const onDeletePost = /* GraphQL */ `
       title
       content
       thumbnail
+      originalImage
       blog {
         id
         name
         thumbnail
+        originalImage
         posts {
           nextToken
         }
@@ -155,10 +167,12 @@ export const onCreateComment = /* GraphQL */ `
         title
         content
         thumbnail
+        originalImage
         blog {
           id
           name
           thumbnail
+          originalImage
           owner
         }
         comments {
@@ -180,10 +194,12 @@ export const onUpdateComment = /* GraphQL */ `
         title
         content
         thumbnail
+        originalImage
         blog {
           id
           name
           thumbnail
+          originalImage
           owner
         }
         comments {
@@ -205,10 +221,12 @@ export const onDeleteComment = /* GraphQL */ `
         title
         content
         thumbnail
+        originalImage
         blog {
           id
           name
           thumbnail
+          originalImage
           owner
         }
         comments {
