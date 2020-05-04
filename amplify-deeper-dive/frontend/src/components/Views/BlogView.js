@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import { Button, Container, Typography, makeStyles } from '@material-ui/core';
 import { S3Image } from 'aws-amplify-react';
+import { Link } from 'react-router-dom';
 
 // Files
 import { getBlog } from '../../graphql/queries';
-import { deleteBlog } from '../../graphql/mutations';
 import Posts from '../Children/Posts';
 import PostForm from '../Children/PostForm';
 
@@ -37,12 +37,6 @@ const BlogView = ({ match, history, user }) => {
     setPosts(data.getBlog.posts.items);
   };
 
-  const handleDeleteBlog = async (id) => {
-    const payload = { id };
-    await API.graphql(graphqlOperation(deleteBlog, { input: payload }));
-    history.push('/');
-  };
-
   const handleToggleCreatePost = () => {
     createPost === false ? setCreatePost(true) : setCreatePost(false);
   };
@@ -50,13 +44,11 @@ const BlogView = ({ match, history, user }) => {
   return (
     <Container>
       <Typography variant='h5'>Blog: {blog.name}</Typography>
-      <Button
-        color='secondary'
-        onClick={() => handleDeleteBlog(blog.id)}
-        variant='outlined'
-      >
-        <span style={{ color: 'red' }}>Delete</span>
-      </Button>
+      <Link to={{ pathname: `/${blog.id}/edit/blog` }}>
+        <Button color='primary' onClick={() => blog.id} variant='outlined'>
+          Edit
+        </Button>
+      </Link>
 
       <S3Image className={classes.media} imgKey={blog.originalImage} />
 
