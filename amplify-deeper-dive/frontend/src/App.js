@@ -7,7 +7,13 @@ import { Typography } from '@material-ui/core';
 
 // Files
 import './App.css';
-import { BlogView, PostView, HomeView, BlogEditView } from './components/Views';
+import {
+  HomeView,
+  BlogView,
+  BlogEditView,
+  PostView,
+  PostEditView,
+} from './components/Views';
 
 // Config
 import aws_exports from './aws-exports';
@@ -50,6 +56,13 @@ const App = () => {
             path='/:blogId/edit/blog'
             component={({ match, history }) => (
               <BlogEditView match={match} history={history} user={user} />
+            )}
+          />
+          <Route
+            exact
+            path='/:blogId/:postId/edit/post'
+            component={({ match, history }) => (
+              <PostEditView match={match} history={history} user={user} />
             )}
           />
         </div>

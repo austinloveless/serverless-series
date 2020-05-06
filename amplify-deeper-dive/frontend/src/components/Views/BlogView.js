@@ -45,7 +45,7 @@ const BlogView = ({ match, history, user }) => {
     <Container>
       <Typography variant='h5'>Blog: {blog.name}</Typography>
       <Link to={{ pathname: `/${blog.id}/edit/blog` }}>
-        <Button color='primary' onClick={() => blog.id} variant='outlined'>
+        <Button color='primary' variant='outlined'>
           Edit
         </Button>
       </Link>

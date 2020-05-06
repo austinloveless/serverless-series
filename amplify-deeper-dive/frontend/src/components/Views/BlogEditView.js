@@ -1,6 +1,8 @@
 // Dependencies
 import React, { useState, useEffect } from 'react';
-import { API, graphqlOperation } from 'aws-amplify';
+import { API, graphqlOperation, Storage } from 'aws-amplify';
+import { S3Image, PhotoPicker } from 'aws-amplify-react';
+
 import {
   Button,
   Container,
@@ -8,14 +10,10 @@ import {
   makeStyles,
   TextField,
 } from '@material-ui/core';
-import { S3Image } from 'aws-amplify-react';
-import { PhotoPicker } from 'aws-amplify-react';
-import { Storage } from 'aws-amplify';
 
 // Files
 import { getBlog } from '../../graphql/queries';
-import { deleteBlog } from '../../graphql/mutations';
-import { updateBlog } from '../../graphql/mutations';
+import { deleteBlog, updateBlog } from '../../graphql/mutations';
 
 const useStyles = makeStyles({
   media: {
@@ -33,6 +31,7 @@ const INTITIAL_STATE = {
 const BlogEditView = ({ match, history, user }) => {
   const [blog, setBlog] = useState(INTITIAL_STATE);
   const [file, setFile] = useState({});
+  const [changeImage, setChangeImage] = useState(false);
   const classes = useStyles();
 
   useEffect(() => {
@@ -78,7 +77,6 @@ const BlogEditView = ({ match, history, user }) => {
       thumbnail: file.name
         ? `thumbnails/public/${user.email}/blogImages/${blog.name}/${file.name}`
         : `${blog.thumbnail}`,
-
       originalImage: file.name
         ? `${user.email}/blogImages/${blog.name}/${file.name}`
         : `${blog.originalImage}`,
@@ -90,13 +88,16 @@ const BlogEditView = ({ match, history, user }) => {
       );
       setFile('');
     }
-
     const { data } = await API.graphql(
       graphqlOperation(updateBlog, { input: payload })
     );
-    const updatedBlogs = data.updateBlog;
-    setBlog(updatedBlogs);
+    const updatedBlog = data.updateBlog;
+    setBlog(updatedBlog);
     history.push(`/${blog.id}`);
+  };
+
+  const handleToggleChangeImage = () => {
+    changeImage === false ? setChangeImage(true) : setChangeImage(false);
   };
 
   return (
@@ -109,7 +110,21 @@ const BlogEditView = ({ match, history, user }) => {
       >
         <span style={{ color: 'red' }}>Delete</span>
       </Button>
-      <S3Image className={classes.media} imgKey={blog.originalImage} />
+      {changeImage ? (
+        <PhotoPicker
+          preview
+          title='Select a New Photo'
+          onPick={(data) => handleFileChange(data)}
+        />
+      ) : (
+        <S3Image
+          className={classes.media}
+          imgKey={blog.originalImage}
+          onClick={handleToggleChangeImage}
+          style={{ cursor: 'pointer' }}
+        />
+      )}
+
       <form onSubmit={handleUpdateBlog}>
         <br />
         <TextField
@@ -121,9 +136,9 @@ const BlogEditView = ({ match, history, user }) => {
             handleChanges(e);
           }}
         />
-        <PhotoPicker preview onPick={(data) => handleFileChange(data)} />
-
-        <Button variant='contained' color='primary' type='submit'>
+        <br />
+        <br />
+        <Button variant='outlined' color='primary' type='submit'>
           Save
         </Button>
       </form>

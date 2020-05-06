@@ -10,10 +10,10 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import { S3Image } from 'aws-amplify-react';
+import { Link } from 'react-router-dom';
 
 // Files
 import { getPost } from '../../graphql/queries';
-import { deletePost } from '../../graphql/mutations';
 import Comments from '../Children/Comments';
 import CommentForm from '../Children/CommentForm';
 
@@ -47,12 +47,6 @@ const PostView = ({ match, history }) => {
     setComments(data.getPost.comments.items);
   };
 
-  const handleDeletePost = async (id) => {
-    const payload = { id };
-    await API.graphql(graphqlOperation(deletePost, { input: payload }));
-    history.push('/');
-  };
-
   const handleToggleCreateComment = () => {
     createComment === false ? setCreateComment(true) : setCreateComment(false);
   };
@@ -67,13 +61,13 @@ const PostView = ({ match, history }) => {
           <Typography variant='body1'>{post.content}</Typography>
           <br />
           <br />
-          <Button
-            color='secondary'
-            onClick={() => handleDeletePost(post.id)}
-            variant='outlined'
+          <Link
+            to={{ pathname: `/${match.params.blogId}/${post.id}/edit/post` }}
           >
-            <span style={{ color: 'red' }}>Delete</span>
-          </Button>
+            <Button color='primary' variant='outlined'>
+              Edit
+            </Button>
+          </Link>
           <Typography variant='h6'>Comments: </Typography>
 
           <Comments comments={comments} />

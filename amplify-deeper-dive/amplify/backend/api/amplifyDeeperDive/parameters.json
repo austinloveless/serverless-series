@@ -7,5 +7,6 @@
             "authamplifydeeperdive26cf4e7c",
             "Outputs.UserPoolId"
         ]
-    }
+    },
+    "DynamoDBEnablePointInTimeRecovery": "true"
 }
