@@ -18,10 +18,18 @@ type Post
   blog: Blog @connection(name: "BlogPosts")
   comments: [Comment] @connection(name: "PostComments")
 }
+
 type Comment
-  @auth(rules: [{ allow: owner, operations: [create, update, delete] }])
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, update, delete] }
+      { allow: owner, ownerField: "postOwner", operations: [delete] }
+    ]
+  )
   @model {
   id: ID!
   content: String
+  owner: String
+  postOwner: String
   post: Post @connection(name: "PostComments")
 }

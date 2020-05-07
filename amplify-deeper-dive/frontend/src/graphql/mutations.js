@@ -102,6 +102,7 @@ export const createPost = /* GraphQL */ `
           id
           content
           owner
+          postOwner
         }
         nextToken
       }
@@ -135,6 +136,7 @@ export const updatePost = /* GraphQL */ `
           id
           content
           owner
+          postOwner
         }
         nextToken
       }
@@ -168,6 +170,7 @@ export const deletePost = /* GraphQL */ `
           id
           content
           owner
+          postOwner
         }
         nextToken
       }
@@ -183,6 +186,8 @@ export const createComment = /* GraphQL */ `
     createComment(input: $input, condition: $condition) {
       id
       content
+      owner
+      postOwner
       post {
         id
         title
@@ -201,7 +206,6 @@ export const createComment = /* GraphQL */ `
         }
         owner
       }
-      owner
     }
   }
 `;
@@ -213,6 +217,8 @@ export const updateComment = /* GraphQL */ `
     updateComment(input: $input, condition: $condition) {
       id
       content
+      owner
+      postOwner
       post {
         id
         title
@@ -231,7 +237,6 @@ export const updateComment = /* GraphQL */ `
         }
         owner
       }
-      owner
     }
   }
 `;
@@ -243,6 +248,8 @@ export const deleteComment = /* GraphQL */ `
     deleteComment(input: $input, condition: $condition) {
       id
       content
+      owner
+      postOwner
       post {
         id
         title
@@ -261,7 +268,6 @@ export const deleteComment = /* GraphQL */ `
         }
         owner
       }
-      owner
     }
   }
 `;

@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 
 // Files
 import { getPost } from '../../graphql/queries';
+import { deleteComment } from '../../graphql/mutations';
 import Comments from '../Children/Comments';
 import CommentForm from '../Children/CommentForm';
 
@@ -27,7 +28,7 @@ const useStyles = makeStyles({
   },
 });
 
-const PostView = ({ match, history }) => {
+const PostView = ({ match, user }) => {
   const [post, setPost] = useState([]);
   const [comments, setComments] = useState([]);
   const [createComment, setCreateComment] = useState(false);
@@ -51,6 +52,17 @@ const PostView = ({ match, history }) => {
     createComment === false ? setCreateComment(true) : setCreateComment(false);
   };
 
+  const handleDeleteComment = async (id) => {
+    const payload = { id };
+    const { data } = await API.graphql(
+      graphqlOperation(deleteComment, { input: payload })
+    );
+    const updatedComments = comments.filter(
+      (comment) => comment.id !== data.deleteComment.id
+    );
+    setComments(updatedComments);
+  };
+
   return (
     <Grid container key={post.id} style={{ justifyContent: 'center' }}>
       <Card className={classes.card}>
@@ -61,24 +73,25 @@ const PostView = ({ match, history }) => {
           <Typography variant='body1'>{post.content}</Typography>
           <br />
           <br />
-          <Link
-            to={{ pathname: `/${match.params.blogId}/${post.id}/edit/post` }}
-          >
-            <Button color='primary' variant='outlined'>
-              Edit
-            </Button>
-          </Link>
+          {post.owner === user.email ? (
+            <Link
+              to={{ pathname: `/${match.params.blogId}/${post.id}/edit/post` }}
+            >
+              <Button color='primary' variant='outlined'>
+                Edit
+              </Button>
+            </Link>
+          ) : null}
+
           <Typography variant='h6'>Comments: </Typography>
 
-          <Comments comments={comments} />
+          <Comments
+            postOwner={post.owner}
+            user={user}
+            comments={comments}
+            handleDeleteComment={handleDeleteComment}
+          />
           <br />
-          <Button
-            variant='contained'
-            color='primary'
-            onClick={() => handleToggleCreateComment()}
-          >
-            Add Comment
-          </Button>
           {createComment ? (
             <CommentForm
               comments={comments}
@@ -86,7 +99,15 @@ const PostView = ({ match, history }) => {
               setCreateComment={setCreateComment}
               post={post}
             />
-          ) : null}
+          ) : (
+            <Button
+              variant='contained'
+              color='primary'
+              onClick={() => handleToggleCreateComment()}
+            >
+              Add Comment
+            </Button>
+          )}
         </CardContent>
       </Card>
     </Grid>

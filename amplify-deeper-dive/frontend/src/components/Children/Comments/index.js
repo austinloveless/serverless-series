@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, makeStyles, Divider } from '@material-ui/core';
+import { Typography, makeStyles, Divider, Button } from '@material-ui/core';
 
 const useStyles = makeStyles({
   title: {
@@ -7,7 +7,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Comments = ({ comments }) => {
+const Comments = ({ comments, handleDeleteComment, user, postOwner }) => {
   const classes = useStyles();
 
   return (
@@ -25,6 +25,16 @@ const Comments = ({ comments }) => {
           <Typography className={classes.pos} color='textSecondary'>
             {comment.owner}
           </Typography>
+          {user.email === comment.owner || user.email === postOwner ? (
+            <Button
+              color='secondary'
+              onClick={() => handleDeleteComment(comment.id)}
+              variant='outlined'
+            >
+              <span style={{ color: 'red' }}>Delete</span>
+            </Button>
+          ) : null}
+
           <Divider />
           <br />
         </div>

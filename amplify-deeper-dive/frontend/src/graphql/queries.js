@@ -67,6 +67,7 @@ export const getPost = /* GraphQL */ `
           id
           content
           owner
+          postOwner
         }
         nextToken
       }
@@ -108,6 +109,8 @@ export const getComment = /* GraphQL */ `
     getComment(id: $id) {
       id
       content
+      owner
+      postOwner
       post {
         id
         title
@@ -126,7 +129,6 @@ export const getComment = /* GraphQL */ `
         }
         owner
       }
-      owner
     }
   }
 `;
@@ -140,6 +142,8 @@ export const listComments = /* GraphQL */ `
       items {
         id
         content
+        owner
+        postOwner
         post {
           id
           title
@@ -148,7 +152,6 @@ export const listComments = /* GraphQL */ `
           originalImage
           owner
         }
-        owner
       }
       nextToken
     }

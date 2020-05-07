@@ -11,7 +11,11 @@ const CommentForm = ({ setComments, comments, post, setCreateComment }) => {
 
   const handleAddComment = async (event) => {
     event.preventDefault();
-    const payload = { content: commentInput, commentPostId: post.id };
+    const payload = {
+      content: commentInput,
+      commentPostId: post.id,
+      postOwner: post.owner,
+    };
     const { data } = await API.graphql(
       graphqlOperation(createComment, { input: payload })
     );

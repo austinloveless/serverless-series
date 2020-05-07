@@ -90,6 +90,7 @@ export const onCreatePost = /* GraphQL */ `
           id
           content
           owner
+          postOwner
         }
         nextToken
       }
@@ -120,6 +121,7 @@ export const onUpdatePost = /* GraphQL */ `
           id
           content
           owner
+          postOwner
         }
         nextToken
       }
@@ -150,6 +152,7 @@ export const onDeletePost = /* GraphQL */ `
           id
           content
           owner
+          postOwner
         }
         nextToken
       }
@@ -162,6 +165,8 @@ export const onCreateComment = /* GraphQL */ `
     onCreateComment(owner: $owner) {
       id
       content
+      owner
+      postOwner
       post {
         id
         title
@@ -180,7 +185,6 @@ export const onCreateComment = /* GraphQL */ `
         }
         owner
       }
-      owner
     }
   }
 `;
@@ -189,6 +193,8 @@ export const onUpdateComment = /* GraphQL */ `
     onUpdateComment(owner: $owner) {
       id
       content
+      owner
+      postOwner
       post {
         id
         title
@@ -207,15 +213,16 @@ export const onUpdateComment = /* GraphQL */ `
         }
         owner
       }
-      owner
     }
   }
 `;
 export const onDeleteComment = /* GraphQL */ `
-  subscription OnDeleteComment($owner: String!) {
-    onDeleteComment(owner: $owner) {
+  subscription OnDeleteComment($owner: String!, $postOwner: String!) {
+    onDeleteComment(owner: $owner, postOwner: $postOwner) {
       id
       content
+      owner
+      postOwner
       post {
         id
         title
@@ -234,7 +241,6 @@ export const onDeleteComment = /* GraphQL */ `
         }
         owner
       }
-      owner
     }
   }
 `;
