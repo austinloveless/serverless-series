@@ -37,7 +37,7 @@ const Blogs = ({ blogs }) => {
               <S3Image className={classes.media} imgKey={blog.thumbnail} />
 
               <Typography variant='h5' component='h2'>
-                <Link to={{ pathname: `/${blog.id}` }}> {blog.name}</Link>
+                <Link to={{ pathname: `/blog/${blog.id}` }}> {blog.name}</Link>
               </Typography>
               <Typography
                 className={classes.title}

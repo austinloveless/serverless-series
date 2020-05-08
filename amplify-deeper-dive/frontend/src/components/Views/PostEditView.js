@@ -5,7 +5,6 @@ import { S3Image, PhotoPicker } from 'aws-amplify-react';
 
 import {
   Button,
-  Typography,
   Card,
   Grid,
   CardContent,
@@ -16,7 +15,6 @@ import {
 // Files
 import { getPost } from '../../graphql/queries';
 import { deletePost, updatePost } from '../../graphql/mutations';
-import Comments from '../Children/Comments';
 
 const useStyles = makeStyles({
   card: {
@@ -37,7 +35,6 @@ const INTITIAL_STATE = {
 
 const PostEditView = ({ match, history, user }) => {
   const [post, setPost] = useState(INTITIAL_STATE);
-  const [comments, setComments] = useState([]);
   const [changeImage, setChangeImage] = useState(false);
   const [file, setFile] = useState({});
   const classes = useStyles();
@@ -53,7 +50,6 @@ const PostEditView = ({ match, history, user }) => {
       })
     );
     setPost(data.getPost);
-    setComments(data.getPost.comments.items);
     setFile(data.getPost.originalImage);
   };
 
@@ -97,13 +93,13 @@ const PostEditView = ({ match, history, user }) => {
     );
     const updatedPost = data.updatePost;
     setPost(updatedPost);
-    history.push(`/${match.params.blogId}/${post.id}`);
+    history.push(`/blog/${match.params.blogId}/post/${post.id}`);
   };
 
   const handleDeletePost = async (id) => {
     const payload = { id };
     await API.graphql(graphqlOperation(deletePost, { input: payload }));
-    history.push(`/${match.params.blogId}/${post.id}`);
+    history.push(`/blog/${match.params.blogId}/post/${post.id}`);
   };
 
   const handleToggleChangeImage = () => {
@@ -167,13 +163,6 @@ const PostEditView = ({ match, history, user }) => {
               Save
             </Button>
           </form>
-          <br />
-          <br />
-
-          <Typography variant='h6'>Comments: </Typography>
-
-          <Comments comments={comments} />
-          <br />
         </CardContent>
       </Card>
     </Grid>

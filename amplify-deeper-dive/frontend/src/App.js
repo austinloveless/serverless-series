@@ -13,6 +13,7 @@ import {
   BlogEditView,
   PostView,
   PostEditView,
+  UserProfileView,
 } from './components/Views';
 
 // Config
@@ -36,33 +37,45 @@ const App = () => {
       {user ? (
         <div className='App'>
           <Typography variant='h1'> Amplify Blogs!</Typography>
+          {/* Home Route */}
           <Route exact path='/' component={() => <HomeView user={user} />} />
+
+          {/* Blog Routes */}
           <Route
             exact
-            path='/:blogId'
+            path='/blog/:blogId'
             component={({ match, history }) => (
               <BlogView match={match} history={history} user={user} />
             )}
           />
           <Route
+            path='/blog/:blogId/edit/'
+            component={({ match, history }) => (
+              <BlogEditView match={match} history={history} user={user} />
+            )}
+          />
+
+          {/* Post Routes */}
+          <Route
             exact
-            path='/:blogId/:postId'
+            path='/blog/:blogId/post/:postId'
             component={({ match, history }) => (
               <PostView match={match} history={history} user={user} />
             )}
           />
           <Route
-            exact
-            path='/:blogId/edit/blog'
-            component={({ match, history }) => (
-              <BlogEditView match={match} history={history} user={user} />
-            )}
-          />
-          <Route
-            exact
-            path='/:blogId/:postId/edit/post'
+            path='/blog/:blogId/post/:postId/edit/'
             component={({ match, history }) => (
               <PostEditView match={match} history={history} user={user} />
+            )}
+          />
+
+          {/* User Routes */}
+          <Route
+            exact
+            path='/user-profile'
+            component={({ match, history }) => (
+              <UserProfileView match={match} history={history} user={user} />
             )}
           />
         </div>

@@ -44,11 +44,13 @@ const BlogView = ({ match, history, user }) => {
   return (
     <Container>
       <Typography variant='h5'>Blog: {blog.name}</Typography>
-      <Link to={{ pathname: `/${blog.id}/edit/blog` }}>
-        <Button color='primary' variant='outlined'>
-          Edit
-        </Button>
-      </Link>
+      {blog.owner === user.email ? (
+        <Link to={{ pathname: `/blog/${blog.id}/edit/` }}>
+          <Button color='primary' variant='outlined'>
+            Edit
+          </Button>
+        </Link>
+      ) : null}
 
       <S3Image className={classes.media} imgKey={blog.originalImage} />
 

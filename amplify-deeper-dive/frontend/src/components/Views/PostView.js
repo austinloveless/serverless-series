@@ -75,7 +75,9 @@ const PostView = ({ match, user }) => {
           <br />
           {post.owner === user.email ? (
             <Link
-              to={{ pathname: `/${match.params.blogId}/${post.id}/edit/post` }}
+              to={{
+                pathname: `/blog/${match.params.blogId}/post/${post.id}/edit/`,
+              }}
             >
               <Button color='primary' variant='outlined'>
                 Edit
