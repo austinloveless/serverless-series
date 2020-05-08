@@ -33,3 +33,11 @@ type Comment
   postOwner: String
   post: Post @connection(name: "PostComments")
 }
+
+type User
+  @auth(rules: [{ allow: owner, operations: [create, update, delete] }])
+  @model {
+  id: ID!
+  username: String
+  profilePicture: String
+}

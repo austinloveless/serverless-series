@@ -244,3 +244,33 @@ export const onDeleteComment = /* GraphQL */ `
     }
   }
 `;
+export const onCreateUser = /* GraphQL */ `
+  subscription OnCreateUser($owner: String!) {
+    onCreateUser(owner: $owner) {
+      id
+      username
+      profilePicture
+      owner
+    }
+  }
+`;
+export const onUpdateUser = /* GraphQL */ `
+  subscription OnUpdateUser($owner: String!) {
+    onUpdateUser(owner: $owner) {
+      id
+      username
+      profilePicture
+      owner
+    }
+  }
+`;
+export const onDeleteUser = /* GraphQL */ `
+  subscription OnDeleteUser($owner: String!) {
+    onDeleteUser(owner: $owner) {
+      id
+      username
+      profilePicture
+      owner
+    }
+  }
+`;
