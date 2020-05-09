@@ -1,7 +1,7 @@
 // Dependencies
 import React, { useState, useEffect } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
-import { Button, Container } from '@material-ui/core';
+import { Button, Container, Typography } from '@material-ui/core';
 
 // Files
 import { listBlogs } from '../../graphql/queries';
@@ -27,6 +27,8 @@ const Home = ({ user }) => {
 
   return (
     <Container maxWidth='lg'>
+      <Typography variant='h1'> Amplify Blogs!</Typography>
+
       <Blogs blogs={blogs} setBlogs={setBlogs} setCreateBlog={setCreateBlog} />
       <br />
       <Button

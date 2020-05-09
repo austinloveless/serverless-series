@@ -105,7 +105,7 @@ const PostEditView = ({ match, history, user }) => {
   const handleDeletePost = async (id) => {
     const payload = { id };
     await API.graphql(graphqlOperation(deletePost, { input: payload }));
-    history.push(`/blog/${match.params.blogId}/post/${post.id}`);
+    history.push(`/blog/${match.params.blogId}`);
   };
 
   const handleToggleChangeImage = () => {

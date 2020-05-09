@@ -33,19 +33,24 @@ const PostForm = ({ posts, blog, setPosts, setCreatePost, user }) => {
 
   const handleAddPost = async (event) => {
     event.preventDefault();
+    const imageTitle = title.replace(/\s+/g, '-');
+
     const payload = {
       title,
       content,
       postBlogId: blog.id,
-      thumbnail: `thumbnails/public/${user.email}/postImages/${title}/${file.name}`,
-      originalImage: `${user.email}/postImages/${title}/${file.name}`,
+      thumbnail: `thumbnails/public/${user.email}/postImages/${imageTitle}/${file.name}`,
+      originalImage: `${user.email}/postImages/${imageTitle}/${file.name}`,
       editors: [user.email],
     };
+    console.log(payload);
     const { data } = await API.graphql(
       graphqlOperation(createPost, { input: payload })
     );
-    console.log('post data', data);
-    await Storage.put(`${user.email}/postImages/${title}/${file.name}`, file);
+    await Storage.put(
+      `${user.email}/postImages/${imageTitle}/${file.name}`,
+      file
+    );
 
     const newPost = data.createPost;
     const updatedPosts = [newPost, ...posts];

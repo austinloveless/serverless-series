@@ -93,7 +93,7 @@ const BlogEditView = ({ match, history, user }) => {
     );
     const updatedBlog = data.updateBlog;
     setBlog(updatedBlog);
-    history.push(`/blog/${blog.id}`);
+    history.push(`/`);
   };
 
   const handleToggleChangeImage = () => {

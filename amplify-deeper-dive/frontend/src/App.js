@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import Amplify, { Auth, API, graphqlOperation } from 'aws-amplify';
 import { withAuthenticator } from 'aws-amplify-react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Typography } from '@material-ui/core';
 
 // Files
 import './App.css';
@@ -22,6 +21,7 @@ import { getUser } from './graphql/queries';
 
 // Config
 import aws_exports from './aws-exports';
+import SideNav from './components/Children/SideNav';
 Amplify.configure(aws_exports);
 
 const App = () => {
@@ -51,63 +51,66 @@ const App = () => {
   return (
     <Router>
       {noUser ? (
-        <CreateUser user={user} setNoUser={setNoUser} />
-      ) : (
         <div className='App'>
-          <Typography variant='h1'> Amplify Blogs!</Typography>
-          {/* Home Route */}
-          <Route exact path='/' component={() => <HomeView user={user} />} />
-
-          {/* Blog Routes */}
-          <Route
-            exact
-            path='/blog/:blogId'
-            component={({ match, history }) => (
-              <BlogView match={match} history={history} user={user} />
-            )}
-          />
-          <Route
-            path='/blog/:blogId/edit/'
-            component={({ match, history }) => (
-              <BlogEditView match={match} history={history} user={user} />
-            )}
-          />
-
-          {/* Post Routes */}
-          <Route
-            exact
-            path='/blog/:blogId/post/:postId'
-            component={({ match, history }) => (
-              <PostView match={match} history={history} user={user} />
-            )}
-          />
-          <Route
-            path='/blog/:blogId/post/:postId/edit/'
-            component={({ match, history }) => (
-              <PostEditView match={match} history={history} user={user} />
-            )}
-          />
-
-          {/* User Routes */}
-          <Route
-            exact
-            path='/user-profile'
-            component={({ match, history }) => (
-              <UserProfileView match={match} history={history} user={user} />
-            )}
-          />
-          <Route
-            exact
-            path='/user-profile/:username/edit'
-            component={({ match, history }) => (
-              <UserProfileEditView
-                match={match}
-                history={history}
-                user={user}
-              />
-            )}
-          />
+          <CreateUser user={user} setNoUser={setNoUser} />
         </div>
+      ) : (
+        <SideNav>
+          <div className='App'>
+            {/* Home Route */}
+            <Route exact path='/' component={() => <HomeView user={user} />} />
+
+            {/* Blog Routes */}
+            <Route
+              exact
+              path='/blog/:blogId'
+              component={({ match, history }) => (
+                <BlogView match={match} history={history} user={user} />
+              )}
+            />
+            <Route
+              path='/blog/:blogId/edit/'
+              component={({ match, history }) => (
+                <BlogEditView match={match} history={history} user={user} />
+              )}
+            />
+
+            {/* Post Routes */}
+            <Route
+              exact
+              path='/blog/:blogId/post/:postId'
+              component={({ match, history }) => (
+                <PostView match={match} history={history} user={user} />
+              )}
+            />
+            <Route
+              path='/blog/:blogId/post/:postId/edit/'
+              component={({ match, history }) => (
+                <PostEditView match={match} history={history} user={user} />
+              )}
+            />
+
+            {/* User Routes */}
+            <Route
+              exact
+              path='/user-profile'
+              component={({ match, history }) => (
+                <UserProfileView match={match} history={history} user={user} />
+              )}
+            />
+            <Route
+              exact
+              path='/user-profile/:username/edit'
+              component={({ match, history }) => (
+                <UserProfileEditView
+                  match={match}
+                  history={history}
+                  user={user}
+                />
+              )}
+            />
+          </div>
+        </SideNav>
       )}
     </Router>
   );
