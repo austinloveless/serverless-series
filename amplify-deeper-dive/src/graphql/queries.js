@@ -20,6 +20,12 @@ export const getBlog = /* GraphQL */ `
         }
         nextToken
       }
+      users {
+        items {
+          id
+        }
+        nextToken
+      }
       owner
     }
   }
@@ -37,6 +43,9 @@ export const listBlogs = /* GraphQL */ `
         thumbnail
         originalImage
         posts {
+          nextToken
+        }
+        users {
           nextToken
         }
         owner
@@ -63,6 +72,9 @@ export const getPost = /* GraphQL */ `
         posts {
           nextToken
         }
+        users {
+          nextToken
+        }
         owner
       }
       comments {
@@ -80,6 +92,9 @@ export const getPost = /* GraphQL */ `
         profilePicture
         about
         posts {
+          nextToken
+        }
+        blogs {
           nextToken
         }
         owner
@@ -205,6 +220,12 @@ export const getUser = /* GraphQL */ `
         }
         nextToken
       }
+      blogs {
+        items {
+          id
+        }
+        nextToken
+      }
       owner
     }
   }
@@ -232,7 +253,71 @@ export const listUsers = /* GraphQL */ `
         posts {
           nextToken
         }
+        blogs {
+          nextToken
+        }
         owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getBlogUserJoin = /* GraphQL */ `
+  query GetBlogUserJoin($id: ID!) {
+    getBlogUserJoin(id: $id) {
+      id
+      blog {
+        id
+        name
+        thumbnail
+        originalImage
+        posts {
+          nextToken
+        }
+        users {
+          nextToken
+        }
+        owner
+      }
+      user {
+        id
+        username
+        profilePicture
+        about
+        posts {
+          nextToken
+        }
+        blogs {
+          nextToken
+        }
+        owner
+      }
+    }
+  }
+`;
+export const listBlogUserJoins = /* GraphQL */ `
+  query ListBlogUserJoins(
+    $filter: ModelBlogUserJoinFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listBlogUserJoins(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        blog {
+          id
+          name
+          thumbnail
+          originalImage
+          owner
+        }
+        user {
+          id
+          username
+          profilePicture
+          about
+          owner
+        }
       }
       nextToken
     }

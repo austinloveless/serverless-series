@@ -31,6 +31,7 @@ const INTITIAL_STATE = {
   content: '',
   thumbnail: '',
   originalImage: '',
+  editors: [],
 };
 
 const PostEditView = ({ match, history, user }) => {
@@ -74,6 +75,10 @@ const PostEditView = ({ match, history, user }) => {
       id: post.id,
       title: post.title,
       content: post.content,
+      editors:
+        typeof post.editors === 'string'
+          ? post.editors.split(',')
+          : post.editors,
       thumbnail: file.name
         ? `thumbnails/public/${user.email}/postImages/${post.name}/${file.name}`
         : `${post.thumbnail}`,
@@ -91,6 +96,7 @@ const PostEditView = ({ match, history, user }) => {
     const { data } = await API.graphql(
       graphqlOperation(updatePost, { input: payload })
     );
+
     const updatedPost = data.updatePost;
     setPost(updatedPost);
     history.push(`/blog/${match.params.blogId}/post/${post.id}`);
@@ -153,6 +159,20 @@ const PostEditView = ({ match, history, user }) => {
                 multiline
                 rows={4}
                 value={post.content}
+                onChange={(e) => {
+                  handleChanges(e);
+                }}
+              />
+            </div>
+            <br />
+            <div>
+              <TextField
+                iid='standard-multiline-flexible'
+                variant='outlined'
+                multiline
+                rows={4}
+                value={post.editors}
+                name='editors'
                 onChange={(e) => {
                   handleChanges(e);
                 }}

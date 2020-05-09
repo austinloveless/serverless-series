@@ -6,17 +6,26 @@ type Blog
   thumbnail: String
   originalImage: String
   posts: [Post] @connection(name: "BlogPosts")
+  users: [BlogUserJoin] @connection(name: "UserBlogs")
 }
 type Post
-  @auth(rules: [{ allow: owner, operations: [create, update, delete] }])
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, update, delete] }
+      { allow: owner, ownerField: "editors", operations: [update] }
+    ]
+  )
   @model {
   id: ID!
   title: String!
   content: String
   thumbnail: String
   originalImage: String
+  editors: [String]
+  owner: String
   blog: Blog @connection(name: "BlogPosts")
   comments: [Comment] @connection(name: "PostComments")
+  user: User @connection(name: "UserPosts")
 }
 
 type Comment
@@ -36,8 +45,18 @@ type Comment
 
 type User
   @auth(rules: [{ allow: owner, operations: [create, update, delete] }])
+  @key(fields: ["username"])
   @model {
   id: ID!
-  username: String
+  username: String!
   profilePicture: String
+  about: String
+  posts: [Post] @connection(name: "UserPosts")
+  blogs: [BlogUserJoin] @connection(name: "BlogUsers")
+}
+
+type BlogUserJoin @model {
+  id: ID!
+  blog: Blog! @connection(name: "UserBlogs")
+  user: User! @connection(name: "BlogUsers")
 }

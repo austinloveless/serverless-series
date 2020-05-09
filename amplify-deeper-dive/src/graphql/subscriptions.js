@@ -20,6 +20,12 @@ export const onCreateBlog = /* GraphQL */ `
         }
         nextToken
       }
+      users {
+        items {
+          id
+        }
+        nextToken
+      }
       owner
     }
   }
@@ -40,6 +46,12 @@ export const onUpdateBlog = /* GraphQL */ `
           originalImage
           editors
           owner
+        }
+        nextToken
+      }
+      users {
+        items {
+          id
         }
         nextToken
       }
@@ -66,6 +78,12 @@ export const onDeleteBlog = /* GraphQL */ `
         }
         nextToken
       }
+      users {
+        items {
+          id
+        }
+        nextToken
+      }
       owner
     }
   }
@@ -88,6 +106,9 @@ export const onCreatePost = /* GraphQL */ `
         posts {
           nextToken
         }
+        users {
+          nextToken
+        }
         owner
       }
       comments {
@@ -105,6 +126,9 @@ export const onCreatePost = /* GraphQL */ `
         profilePicture
         about
         posts {
+          nextToken
+        }
+        blogs {
           nextToken
         }
         owner
@@ -130,6 +154,9 @@ export const onUpdatePost = /* GraphQL */ `
         posts {
           nextToken
         }
+        users {
+          nextToken
+        }
         owner
       }
       comments {
@@ -147,6 +174,9 @@ export const onUpdatePost = /* GraphQL */ `
         profilePicture
         about
         posts {
+          nextToken
+        }
+        blogs {
           nextToken
         }
         owner
@@ -172,6 +202,9 @@ export const onDeletePost = /* GraphQL */ `
         posts {
           nextToken
         }
+        users {
+          nextToken
+        }
         owner
       }
       comments {
@@ -189,6 +222,9 @@ export const onDeletePost = /* GraphQL */ `
         profilePicture
         about
         posts {
+          nextToken
+        }
+        blogs {
           nextToken
         }
         owner
@@ -323,6 +359,12 @@ export const onCreateUser = /* GraphQL */ `
         }
         nextToken
       }
+      blogs {
+        items {
+          id
+        }
+        nextToken
+      }
       owner
     }
   }
@@ -343,6 +385,12 @@ export const onUpdateUser = /* GraphQL */ `
           originalImage
           editors
           owner
+        }
+        nextToken
+      }
+      blogs {
+        items {
+          id
         }
         nextToken
       }
@@ -369,7 +417,112 @@ export const onDeleteUser = /* GraphQL */ `
         }
         nextToken
       }
+      blogs {
+        items {
+          id
+        }
+        nextToken
+      }
       owner
+    }
+  }
+`;
+export const onCreateBlogUserJoin = /* GraphQL */ `
+  subscription OnCreateBlogUserJoin {
+    onCreateBlogUserJoin {
+      id
+      blog {
+        id
+        name
+        thumbnail
+        originalImage
+        posts {
+          nextToken
+        }
+        users {
+          nextToken
+        }
+        owner
+      }
+      user {
+        id
+        username
+        profilePicture
+        about
+        posts {
+          nextToken
+        }
+        blogs {
+          nextToken
+        }
+        owner
+      }
+    }
+  }
+`;
+export const onUpdateBlogUserJoin = /* GraphQL */ `
+  subscription OnUpdateBlogUserJoin {
+    onUpdateBlogUserJoin {
+      id
+      blog {
+        id
+        name
+        thumbnail
+        originalImage
+        posts {
+          nextToken
+        }
+        users {
+          nextToken
+        }
+        owner
+      }
+      user {
+        id
+        username
+        profilePicture
+        about
+        posts {
+          nextToken
+        }
+        blogs {
+          nextToken
+        }
+        owner
+      }
+    }
+  }
+`;
+export const onDeleteBlogUserJoin = /* GraphQL */ `
+  subscription OnDeleteBlogUserJoin {
+    onDeleteBlogUserJoin {
+      id
+      blog {
+        id
+        name
+        thumbnail
+        originalImage
+        posts {
+          nextToken
+        }
+        users {
+          nextToken
+        }
+        owner
+      }
+      user {
+        id
+        username
+        profilePicture
+        about
+        posts {
+          nextToken
+        }
+        blogs {
+          nextToken
+        }
+        owner
+      }
     }
   }
 `;

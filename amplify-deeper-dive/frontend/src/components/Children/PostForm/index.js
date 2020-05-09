@@ -1,8 +1,7 @@
 // Dependencies
 import React, { useState } from 'react';
-import { API, graphqlOperation } from 'aws-amplify';
+import { API, graphqlOperation, Storage } from 'aws-amplify';
 import { TextField, Button, makeStyles } from '@material-ui/core';
-import { Storage } from 'aws-amplify';
 import { PhotoPicker } from 'aws-amplify-react';
 
 // Files
@@ -40,10 +39,12 @@ const PostForm = ({ posts, blog, setPosts, setCreatePost, user }) => {
       postBlogId: blog.id,
       thumbnail: `thumbnails/public/${user.email}/postImages/${title}/${file.name}`,
       originalImage: `${user.email}/postImages/${title}/${file.name}`,
+      editors: [user.email],
     };
     const { data } = await API.graphql(
       graphqlOperation(createPost, { input: payload })
     );
+    console.log('post data', data);
     await Storage.put(`${user.email}/postImages/${title}/${file.name}`, file);
 
     const newPost = data.createPost;

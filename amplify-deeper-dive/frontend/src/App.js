@@ -1,6 +1,6 @@
 // Dependencies
 import React, { useEffect, useState } from 'react';
-import Amplify, { Auth } from 'aws-amplify';
+import Amplify, { Auth, API, graphqlOperation } from 'aws-amplify';
 import { withAuthenticator } from 'aws-amplify-react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
@@ -14,7 +14,11 @@ import {
   PostView,
   PostEditView,
   UserProfileView,
+  UserProfileEditView,
 } from './components/Views';
+import CreateUser from './components/Children/CreateUser';
+
+import { getUser } from './graphql/queries';
 
 // Config
 import aws_exports from './aws-exports';
@@ -22,19 +26,33 @@ Amplify.configure(aws_exports);
 
 const App = () => {
   const [user, setUser] = useState([]);
+  const [noUser, setNoUser] = useState(false);
 
   useEffect(() => {
-    getUser();
+    const getCognitoUser = async () => {
+      const user = await Auth.currentAuthenticatedUser();
+      setUser(user.signInUserSession.idToken.payload);
+      handleUser(user.signInUserSession.idToken.payload);
+    };
+    getCognitoUser();
   }, []);
 
-  const getUser = async () => {
-    const user = await Auth.currentAuthenticatedUser();
-    setUser(user.signInUserSession.idToken.payload);
+  const handleUser = async (payload) => {
+    const { data } = await API.graphql(
+      graphqlOperation(getUser, {
+        username: payload.email,
+      })
+    );
+    if (data.getUser === null) {
+      setNoUser(true);
+    }
   };
 
   return (
     <Router>
-      {user ? (
+      {noUser ? (
+        <CreateUser user={user} setNoUser={setNoUser} />
+      ) : (
         <div className='App'>
           <Typography variant='h1'> Amplify Blogs!</Typography>
           {/* Home Route */}
@@ -78,8 +96,19 @@ const App = () => {
               <UserProfileView match={match} history={history} user={user} />
             )}
           />
+          <Route
+            exact
+            path='/user-profile/:username/edit'
+            component={({ match, history }) => (
+              <UserProfileEditView
+                match={match}
+                history={history}
+                user={user}
+              />
+            )}
+          />
         </div>
-      ) : null}
+      )}
     </Router>
   );
 };

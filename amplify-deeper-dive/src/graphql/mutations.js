@@ -23,6 +23,12 @@ export const createBlog = /* GraphQL */ `
         }
         nextToken
       }
+      users {
+        items {
+          id
+        }
+        nextToken
+      }
       owner
     }
   }
@@ -46,6 +52,12 @@ export const updateBlog = /* GraphQL */ `
           originalImage
           editors
           owner
+        }
+        nextToken
+      }
+      users {
+        items {
+          id
         }
         nextToken
       }
@@ -75,6 +87,12 @@ export const deleteBlog = /* GraphQL */ `
         }
         nextToken
       }
+      users {
+        items {
+          id
+        }
+        nextToken
+      }
       owner
     }
   }
@@ -100,6 +118,9 @@ export const createPost = /* GraphQL */ `
         posts {
           nextToken
         }
+        users {
+          nextToken
+        }
         owner
       }
       comments {
@@ -117,6 +138,9 @@ export const createPost = /* GraphQL */ `
         profilePicture
         about
         posts {
+          nextToken
+        }
+        blogs {
           nextToken
         }
         owner
@@ -145,6 +169,9 @@ export const updatePost = /* GraphQL */ `
         posts {
           nextToken
         }
+        users {
+          nextToken
+        }
         owner
       }
       comments {
@@ -162,6 +189,9 @@ export const updatePost = /* GraphQL */ `
         profilePicture
         about
         posts {
+          nextToken
+        }
+        blogs {
           nextToken
         }
         owner
@@ -190,6 +220,9 @@ export const deletePost = /* GraphQL */ `
         posts {
           nextToken
         }
+        users {
+          nextToken
+        }
         owner
       }
       comments {
@@ -207,6 +240,9 @@ export const deletePost = /* GraphQL */ `
         profilePicture
         about
         posts {
+          nextToken
+        }
+        blogs {
           nextToken
         }
         owner
@@ -353,6 +389,12 @@ export const createUser = /* GraphQL */ `
         }
         nextToken
       }
+      blogs {
+        items {
+          id
+        }
+        nextToken
+      }
       owner
     }
   }
@@ -376,6 +418,12 @@ export const updateUser = /* GraphQL */ `
           originalImage
           editors
           owner
+        }
+        nextToken
+      }
+      blogs {
+        items {
+          id
         }
         nextToken
       }
@@ -405,7 +453,121 @@ export const deleteUser = /* GraphQL */ `
         }
         nextToken
       }
+      blogs {
+        items {
+          id
+        }
+        nextToken
+      }
       owner
+    }
+  }
+`;
+export const createBlogUserJoin = /* GraphQL */ `
+  mutation CreateBlogUserJoin(
+    $input: CreateBlogUserJoinInput!
+    $condition: ModelBlogUserJoinConditionInput
+  ) {
+    createBlogUserJoin(input: $input, condition: $condition) {
+      id
+      blog {
+        id
+        name
+        thumbnail
+        originalImage
+        posts {
+          nextToken
+        }
+        users {
+          nextToken
+        }
+        owner
+      }
+      user {
+        id
+        username
+        profilePicture
+        about
+        posts {
+          nextToken
+        }
+        blogs {
+          nextToken
+        }
+        owner
+      }
+    }
+  }
+`;
+export const updateBlogUserJoin = /* GraphQL */ `
+  mutation UpdateBlogUserJoin(
+    $input: UpdateBlogUserJoinInput!
+    $condition: ModelBlogUserJoinConditionInput
+  ) {
+    updateBlogUserJoin(input: $input, condition: $condition) {
+      id
+      blog {
+        id
+        name
+        thumbnail
+        originalImage
+        posts {
+          nextToken
+        }
+        users {
+          nextToken
+        }
+        owner
+      }
+      user {
+        id
+        username
+        profilePicture
+        about
+        posts {
+          nextToken
+        }
+        blogs {
+          nextToken
+        }
+        owner
+      }
+    }
+  }
+`;
+export const deleteBlogUserJoin = /* GraphQL */ `
+  mutation DeleteBlogUserJoin(
+    $input: DeleteBlogUserJoinInput!
+    $condition: ModelBlogUserJoinConditionInput
+  ) {
+    deleteBlogUserJoin(input: $input, condition: $condition) {
+      id
+      blog {
+        id
+        name
+        thumbnail
+        originalImage
+        posts {
+          nextToken
+        }
+        users {
+          nextToken
+        }
+        owner
+      }
+      user {
+        id
+        username
+        profilePicture
+        about
+        posts {
+          nextToken
+        }
+        blogs {
+          nextToken
+        }
+        owner
+      }
     }
   }
 `;

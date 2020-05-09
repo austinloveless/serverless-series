@@ -71,18 +71,25 @@ const PostView = ({ match, user }) => {
 
           <Typography variant='h5'> Post: {post.title}</Typography>
           <Typography variant='body1'>{post.content}</Typography>
+          <Typography>Author: {post.owner}</Typography>
           <br />
           <br />
-          {post.owner === user.email ? (
-            <Link
-              to={{
-                pathname: `/blog/${match.params.blogId}/post/${post.id}/edit/`,
-              }}
-            >
-              <Button color='primary' variant='outlined'>
-                Edit
-              </Button>
-            </Link>
+          {post.editors && post.editors.includes(user.email) ? (
+            <div>
+              <Link
+                to={{
+                  pathname: `/blog/${match.params.blogId}/post/${post.id}/edit/`,
+                }}
+              >
+                <Button color='primary' variant='outlined'>
+                  Edit
+                </Button>
+              </Link>
+              <Typography>Editors:</Typography>
+              {post.editors.map((editor) => (
+                <Typography>{editor}</Typography>
+              ))}
+            </div>
           ) : null}
 
           <Typography variant='h6'>Comments: </Typography>

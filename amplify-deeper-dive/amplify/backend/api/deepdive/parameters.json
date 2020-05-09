@@ -1,5 +1,5 @@
 {
-    "AppSyncApiName": "amplifyDeeperDive",
+    "AppSyncApiName": "deepdive",
     "DynamoDBBillingMode": "PAY_PER_REQUEST",
     "DynamoDBEnableServerSideEncryption": "false",
     "AuthCognitoUserPoolId": {
@@ -7,6 +7,5 @@
             "authamplifydeeperdive26cf4e7c",
             "Outputs.UserPoolId"
         ]
-    },
-    "DynamoDBEnablePointInTimeRecovery": "true"
+    }
 }
