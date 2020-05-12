@@ -22,9 +22,11 @@ export const createBlog = /* GraphQL */ `
           draft
           owner
           editors
+          writers
         }
         nextToken
       }
+      writers
       editors
     }
   }
@@ -50,9 +52,11 @@ export const updateBlog = /* GraphQL */ `
           draft
           owner
           editors
+          writers
         }
         nextToken
       }
+      writers
       editors
     }
   }
@@ -78,9 +82,11 @@ export const deleteBlog = /* GraphQL */ `
           draft
           owner
           editors
+          writers
         }
         nextToken
       }
+      writers
       editors
     }
   }
@@ -99,6 +105,7 @@ export const createPost = /* GraphQL */ `
       draft
       owner
       editors
+      writers
       comments {
         items {
           id
@@ -117,6 +124,7 @@ export const createPost = /* GraphQL */ `
         posts {
           nextToken
         }
+        writers
         editors
       }
       user {
@@ -146,6 +154,7 @@ export const updatePost = /* GraphQL */ `
       draft
       owner
       editors
+      writers
       comments {
         items {
           id
@@ -164,6 +173,7 @@ export const updatePost = /* GraphQL */ `
         posts {
           nextToken
         }
+        writers
         editors
       }
       user {
@@ -193,6 +203,7 @@ export const deletePost = /* GraphQL */ `
       draft
       owner
       editors
+      writers
       comments {
         items {
           id
@@ -211,6 +222,7 @@ export const deletePost = /* GraphQL */ `
         posts {
           nextToken
         }
+        writers
         editors
       }
       user {
@@ -245,6 +257,7 @@ export const createComment = /* GraphQL */ `
         draft
         owner
         editors
+        writers
         comments {
           nextToken
         }
@@ -254,6 +267,7 @@ export const createComment = /* GraphQL */ `
           thumbnail
           originalImage
           owner
+          writers
           editors
         }
         user {
@@ -286,6 +300,7 @@ export const updateComment = /* GraphQL */ `
         draft
         owner
         editors
+        writers
         comments {
           nextToken
         }
@@ -295,6 +310,7 @@ export const updateComment = /* GraphQL */ `
           thumbnail
           originalImage
           owner
+          writers
           editors
         }
         user {
@@ -327,6 +343,7 @@ export const deleteComment = /* GraphQL */ `
         draft
         owner
         editors
+        writers
         comments {
           nextToken
         }
@@ -336,6 +353,7 @@ export const deleteComment = /* GraphQL */ `
           thumbnail
           originalImage
           owner
+          writers
           editors
         }
         user {
@@ -369,6 +387,7 @@ export const createUser = /* GraphQL */ `
           draft
           owner
           editors
+          writers
         }
         nextToken
       }
@@ -396,6 +415,7 @@ export const updateUser = /* GraphQL */ `
           draft
           owner
           editors
+          writers
         }
         nextToken
       }
@@ -423,6 +443,7 @@ export const deleteUser = /* GraphQL */ `
           draft
           owner
           editors
+          writers
         }
         nextToken
       }
