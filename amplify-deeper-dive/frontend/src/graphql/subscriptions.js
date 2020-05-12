@@ -8,6 +8,7 @@ export const onCreateBlog = /* GraphQL */ `
       name
       thumbnail
       originalImage
+      owner
       posts {
         items {
           id
@@ -15,12 +16,13 @@ export const onCreateBlog = /* GraphQL */ `
           content
           thumbnail
           originalImage
-          editors
+          draft
           owner
+          editors
         }
         nextToken
       }
-      owner
+      editors
     }
   }
 `;
@@ -31,6 +33,7 @@ export const onUpdateBlog = /* GraphQL */ `
       name
       thumbnail
       originalImage
+      owner
       posts {
         items {
           id
@@ -38,12 +41,13 @@ export const onUpdateBlog = /* GraphQL */ `
           content
           thumbnail
           originalImage
-          editors
+          draft
           owner
+          editors
         }
         nextToken
       }
-      owner
+      editors
     }
   }
 `;
@@ -54,6 +58,7 @@ export const onDeleteBlog = /* GraphQL */ `
       name
       thumbnail
       originalImage
+      owner
       posts {
         items {
           id
@@ -61,43 +66,46 @@ export const onDeleteBlog = /* GraphQL */ `
           content
           thumbnail
           originalImage
-          editors
+          draft
           owner
+          editors
         }
         nextToken
       }
-      owner
+      editors
     }
   }
 `;
 export const onCreatePost = /* GraphQL */ `
-  subscription OnCreatePost($owner: String!) {
-    onCreatePost(owner: $owner) {
+  subscription OnCreatePost($owner: String!, $editors: String!) {
+    onCreatePost(owner: $owner, editors: $editors) {
       id
       title
       content
       thumbnail
       originalImage
-      editors
+      draft
       owner
-      blog {
-        id
-        name
-        thumbnail
-        originalImage
-        posts {
-          nextToken
-        }
-        owner
-      }
+      editors
       comments {
         items {
           id
           content
           owner
-          postOwner
+          postEditors
         }
         nextToken
+      }
+      blog {
+        id
+        name
+        thumbnail
+        originalImage
+        owner
+        posts {
+          nextToken
+        }
+        editors
       }
       user {
         id
@@ -120,26 +128,28 @@ export const onUpdatePost = /* GraphQL */ `
       content
       thumbnail
       originalImage
-      editors
+      draft
       owner
-      blog {
-        id
-        name
-        thumbnail
-        originalImage
-        posts {
-          nextToken
-        }
-        owner
-      }
+      editors
       comments {
         items {
           id
           content
           owner
-          postOwner
+          postEditors
         }
         nextToken
+      }
+      blog {
+        id
+        name
+        thumbnail
+        originalImage
+        owner
+        posts {
+          nextToken
+        }
+        editors
       }
       user {
         id
@@ -155,33 +165,35 @@ export const onUpdatePost = /* GraphQL */ `
   }
 `;
 export const onDeletePost = /* GraphQL */ `
-  subscription OnDeletePost($owner: String!) {
-    onDeletePost(owner: $owner) {
+  subscription OnDeletePost($owner: String!, $editors: String!) {
+    onDeletePost(owner: $owner, editors: $editors) {
       id
       title
       content
       thumbnail
       originalImage
-      editors
+      draft
       owner
-      blog {
-        id
-        name
-        thumbnail
-        originalImage
-        posts {
-          nextToken
-        }
-        owner
-      }
+      editors
       comments {
         items {
           id
           content
           owner
-          postOwner
+          postEditors
         }
         nextToken
+      }
+      blog {
+        id
+        name
+        thumbnail
+        originalImage
+        owner
+        posts {
+          nextToken
+        }
+        editors
       }
       user {
         id
@@ -202,24 +214,26 @@ export const onCreateComment = /* GraphQL */ `
       id
       content
       owner
-      postOwner
+      postEditors
       post {
         id
         title
         content
         thumbnail
         originalImage
-        editors
+        draft
         owner
+        editors
+        comments {
+          nextToken
+        }
         blog {
           id
           name
           thumbnail
           originalImage
           owner
-        }
-        comments {
-          nextToken
+          editors
         }
         user {
           id
@@ -238,24 +252,26 @@ export const onUpdateComment = /* GraphQL */ `
       id
       content
       owner
-      postOwner
+      postEditors
       post {
         id
         title
         content
         thumbnail
         originalImage
-        editors
+        draft
         owner
+        editors
+        comments {
+          nextToken
+        }
         blog {
           id
           name
           thumbnail
           originalImage
           owner
-        }
-        comments {
-          nextToken
+          editors
         }
         user {
           id
@@ -269,29 +285,31 @@ export const onUpdateComment = /* GraphQL */ `
   }
 `;
 export const onDeleteComment = /* GraphQL */ `
-  subscription OnDeleteComment($owner: String!, $postOwner: String!) {
-    onDeleteComment(owner: $owner, postOwner: $postOwner) {
+  subscription OnDeleteComment($owner: String!, $postEditors: String!) {
+    onDeleteComment(owner: $owner, postEditors: $postEditors) {
       id
       content
       owner
-      postOwner
+      postEditors
       post {
         id
         title
         content
         thumbnail
         originalImage
-        editors
+        draft
         owner
+        editors
+        comments {
+          nextToken
+        }
         blog {
           id
           name
           thumbnail
           originalImage
           owner
-        }
-        comments {
-          nextToken
+          editors
         }
         user {
           id
@@ -318,8 +336,9 @@ export const onCreateUser = /* GraphQL */ `
           content
           thumbnail
           originalImage
-          editors
+          draft
           owner
+          editors
         }
         nextToken
       }
@@ -341,8 +360,9 @@ export const onUpdateUser = /* GraphQL */ `
           content
           thumbnail
           originalImage
-          editors
+          draft
           owner
+          editors
         }
         nextToken
       }
@@ -364,8 +384,9 @@ export const onDeleteUser = /* GraphQL */ `
           content
           thumbnail
           originalImage
-          editors
+          draft
           owner
+          editors
         }
         nextToken
       }

@@ -8,6 +8,7 @@ export const getBlog = /* GraphQL */ `
       name
       thumbnail
       originalImage
+      owner
       posts {
         items {
           id
@@ -15,12 +16,13 @@ export const getBlog = /* GraphQL */ `
           content
           thumbnail
           originalImage
-          editors
+          draft
           owner
+          editors
         }
         nextToken
       }
-      owner
+      editors
     }
   }
 `;
@@ -36,10 +38,11 @@ export const listBlogs = /* GraphQL */ `
         name
         thumbnail
         originalImage
+        owner
         posts {
           nextToken
         }
-        owner
+        editors
       }
       nextToken
     }
@@ -53,26 +56,28 @@ export const getPost = /* GraphQL */ `
       content
       thumbnail
       originalImage
-      editors
+      draft
       owner
-      blog {
-        id
-        name
-        thumbnail
-        originalImage
-        posts {
-          nextToken
-        }
-        owner
-      }
+      editors
       comments {
         items {
           id
           content
           owner
-          postOwner
+          postEditors
         }
         nextToken
+      }
+      blog {
+        id
+        name
+        thumbnail
+        originalImage
+        owner
+        posts {
+          nextToken
+        }
+        editors
       }
       user {
         id
@@ -100,17 +105,19 @@ export const listPosts = /* GraphQL */ `
         content
         thumbnail
         originalImage
-        editors
+        draft
         owner
+        editors
+        comments {
+          nextToken
+        }
         blog {
           id
           name
           thumbnail
           originalImage
           owner
-        }
-        comments {
-          nextToken
+          editors
         }
         user {
           id
@@ -130,24 +137,26 @@ export const getComment = /* GraphQL */ `
       id
       content
       owner
-      postOwner
+      postEditors
       post {
         id
         title
         content
         thumbnail
         originalImage
-        editors
+        draft
         owner
+        editors
+        comments {
+          nextToken
+        }
         blog {
           id
           name
           thumbnail
           originalImage
           owner
-        }
-        comments {
-          nextToken
+          editors
         }
         user {
           id
@@ -171,15 +180,16 @@ export const listComments = /* GraphQL */ `
         id
         content
         owner
-        postOwner
+        postEditors
         post {
           id
           title
           content
           thumbnail
           originalImage
-          editors
+          draft
           owner
+          editors
         }
       }
       nextToken
@@ -200,8 +210,9 @@ export const getUser = /* GraphQL */ `
           content
           thumbnail
           originalImage
-          editors
+          draft
           owner
+          editors
         }
         nextToken
       }

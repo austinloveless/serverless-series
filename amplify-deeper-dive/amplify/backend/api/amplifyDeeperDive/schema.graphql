@@ -5,14 +5,21 @@ type Blog
   name: String!
   thumbnail: String
   originalImage: String
+  owner: String
   posts: [Post] @connection(name: "BlogPosts")
-  users: [BlogUserJoin] @connection(name: "UserBlogs")
+  editors: [String]
+  # What a many to many relationship looks like:
+  # editors: [BlogUserJoin] @connection(name: "EditorBlogs")
 }
 type Post
   @auth(
     rules: [
       { allow: owner, operations: [create, update, delete] }
-      { allow: owner, ownerField: "editors", operations: [update] }
+      {
+        allow: owner
+        ownerField: "editors"
+        operations: [update, create, delete]
+      }
     ]
   )
   @model {
@@ -21,10 +28,11 @@ type Post
   content: String
   thumbnail: String
   originalImage: String
-  editors: [String]
+  draft: Boolean
   owner: String
-  blog: Blog @connection(name: "BlogPosts")
+  editors: [String]
   comments: [Comment] @connection(name: "PostComments")
+  blog: Blog @connection(name: "BlogPosts")
   user: User @connection(name: "UserPosts")
 }
 
@@ -32,14 +40,14 @@ type Comment
   @auth(
     rules: [
       { allow: owner, operations: [create, update, delete] }
-      { allow: owner, ownerField: "postOwner", operations: [delete] }
+      { allow: owner, ownerField: "postEditors", operations: [delete] }
     ]
   )
   @model {
   id: ID!
   content: String
   owner: String
-  postOwner: String
+  postEditors: [String]
   post: Post @connection(name: "PostComments")
 }
 
@@ -52,11 +60,11 @@ type User
   profilePicture: String
   about: String
   posts: [Post] @connection(name: "UserPosts")
-  blogs: [BlogUserJoin] @connection(name: "BlogUsers")
+  # blogs: [BlogUserJoin] @connection(name: "BlogEditors")
 }
 
-type BlogUserJoin @model {
-  id: ID!
-  blog: Blog! @connection(name: "UserBlogs")
-  user: User! @connection(name: "BlogUsers")
-}
+# type BlogUserJoin @model {
+# id: ID!
+# blog: Blog! @connection(name: "EditorBlogs")
+# editor: User! @connection(name: "BlogEditors")
+# }

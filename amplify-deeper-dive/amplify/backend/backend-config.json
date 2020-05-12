@@ -7,7 +7,7 @@
 		}
 	},
 	"api": {
-		"deepdive": {
+		"amplifyDeeperDive": {
 			"service": "AppSync",
 			"providerPlugin": "awscloudformation",
 			"output": {

@@ -11,6 +11,7 @@ export const createBlog = /* GraphQL */ `
       name
       thumbnail
       originalImage
+      owner
       posts {
         items {
           id
@@ -18,12 +19,13 @@ export const createBlog = /* GraphQL */ `
           content
           thumbnail
           originalImage
-          editors
+          draft
           owner
+          editors
         }
         nextToken
       }
-      owner
+      editors
     }
   }
 `;
@@ -37,6 +39,7 @@ export const updateBlog = /* GraphQL */ `
       name
       thumbnail
       originalImage
+      owner
       posts {
         items {
           id
@@ -44,12 +47,13 @@ export const updateBlog = /* GraphQL */ `
           content
           thumbnail
           originalImage
-          editors
+          draft
           owner
+          editors
         }
         nextToken
       }
-      owner
+      editors
     }
   }
 `;
@@ -63,6 +67,7 @@ export const deleteBlog = /* GraphQL */ `
       name
       thumbnail
       originalImage
+      owner
       posts {
         items {
           id
@@ -70,12 +75,13 @@ export const deleteBlog = /* GraphQL */ `
           content
           thumbnail
           originalImage
-          editors
+          draft
           owner
+          editors
         }
         nextToken
       }
-      owner
+      editors
     }
   }
 `;
@@ -90,26 +96,28 @@ export const createPost = /* GraphQL */ `
       content
       thumbnail
       originalImage
-      editors
+      draft
       owner
-      blog {
-        id
-        name
-        thumbnail
-        originalImage
-        posts {
-          nextToken
-        }
-        owner
-      }
+      editors
       comments {
         items {
           id
           content
           owner
-          postOwner
+          postEditors
         }
         nextToken
+      }
+      blog {
+        id
+        name
+        thumbnail
+        originalImage
+        owner
+        posts {
+          nextToken
+        }
+        editors
       }
       user {
         id
@@ -135,26 +143,28 @@ export const updatePost = /* GraphQL */ `
       content
       thumbnail
       originalImage
-      editors
+      draft
       owner
-      blog {
-        id
-        name
-        thumbnail
-        originalImage
-        posts {
-          nextToken
-        }
-        owner
-      }
+      editors
       comments {
         items {
           id
           content
           owner
-          postOwner
+          postEditors
         }
         nextToken
+      }
+      blog {
+        id
+        name
+        thumbnail
+        originalImage
+        owner
+        posts {
+          nextToken
+        }
+        editors
       }
       user {
         id
@@ -180,26 +190,28 @@ export const deletePost = /* GraphQL */ `
       content
       thumbnail
       originalImage
-      editors
+      draft
       owner
-      blog {
-        id
-        name
-        thumbnail
-        originalImage
-        posts {
-          nextToken
-        }
-        owner
-      }
+      editors
       comments {
         items {
           id
           content
           owner
-          postOwner
+          postEditors
         }
         nextToken
+      }
+      blog {
+        id
+        name
+        thumbnail
+        originalImage
+        owner
+        posts {
+          nextToken
+        }
+        editors
       }
       user {
         id
@@ -223,24 +235,26 @@ export const createComment = /* GraphQL */ `
       id
       content
       owner
-      postOwner
+      postEditors
       post {
         id
         title
         content
         thumbnail
         originalImage
-        editors
+        draft
         owner
+        editors
+        comments {
+          nextToken
+        }
         blog {
           id
           name
           thumbnail
           originalImage
           owner
-        }
-        comments {
-          nextToken
+          editors
         }
         user {
           id
@@ -262,24 +276,26 @@ export const updateComment = /* GraphQL */ `
       id
       content
       owner
-      postOwner
+      postEditors
       post {
         id
         title
         content
         thumbnail
         originalImage
-        editors
+        draft
         owner
+        editors
+        comments {
+          nextToken
+        }
         blog {
           id
           name
           thumbnail
           originalImage
           owner
-        }
-        comments {
-          nextToken
+          editors
         }
         user {
           id
@@ -301,24 +317,26 @@ export const deleteComment = /* GraphQL */ `
       id
       content
       owner
-      postOwner
+      postEditors
       post {
         id
         title
         content
         thumbnail
         originalImage
-        editors
+        draft
         owner
+        editors
+        comments {
+          nextToken
+        }
         blog {
           id
           name
           thumbnail
           originalImage
           owner
-        }
-        comments {
-          nextToken
+          editors
         }
         user {
           id
@@ -348,8 +366,9 @@ export const createUser = /* GraphQL */ `
           content
           thumbnail
           originalImage
-          editors
+          draft
           owner
+          editors
         }
         nextToken
       }
@@ -374,8 +393,9 @@ export const updateUser = /* GraphQL */ `
           content
           thumbnail
           originalImage
-          editors
+          draft
           owner
+          editors
         }
         nextToken
       }
@@ -400,8 +420,9 @@ export const deleteUser = /* GraphQL */ `
           content
           thumbnail
           originalImage
-          editors
+          draft
           owner
+          editors
         }
         nextToken
       }
