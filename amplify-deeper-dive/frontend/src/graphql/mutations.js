@@ -12,6 +12,8 @@ export const createBlog = /* GraphQL */ `
       thumbnail
       originalImage
       owner
+      writers
+      editors
       posts {
         items {
           id
@@ -26,8 +28,6 @@ export const createBlog = /* GraphQL */ `
         }
         nextToken
       }
-      writers
-      editors
     }
   }
 `;
@@ -42,6 +42,8 @@ export const updateBlog = /* GraphQL */ `
       thumbnail
       originalImage
       owner
+      writers
+      editors
       posts {
         items {
           id
@@ -56,8 +58,6 @@ export const updateBlog = /* GraphQL */ `
         }
         nextToken
       }
-      writers
-      editors
     }
   }
 `;
@@ -72,6 +72,8 @@ export const deleteBlog = /* GraphQL */ `
       thumbnail
       originalImage
       owner
+      writers
+      editors
       posts {
         items {
           id
@@ -86,8 +88,6 @@ export const deleteBlog = /* GraphQL */ `
         }
         nextToken
       }
-      writers
-      editors
     }
   }
 `;
@@ -112,6 +112,7 @@ export const createPost = /* GraphQL */ `
           content
           owner
           postEditors
+          postWriters
         }
         nextToken
       }
@@ -121,11 +122,11 @@ export const createPost = /* GraphQL */ `
         thumbnail
         originalImage
         owner
+        writers
+        editors
         posts {
           nextToken
         }
-        writers
-        editors
       }
       user {
         id
@@ -161,6 +162,7 @@ export const updatePost = /* GraphQL */ `
           content
           owner
           postEditors
+          postWriters
         }
         nextToken
       }
@@ -170,11 +172,11 @@ export const updatePost = /* GraphQL */ `
         thumbnail
         originalImage
         owner
+        writers
+        editors
         posts {
           nextToken
         }
-        writers
-        editors
       }
       user {
         id
@@ -210,6 +212,7 @@ export const deletePost = /* GraphQL */ `
           content
           owner
           postEditors
+          postWriters
         }
         nextToken
       }
@@ -219,11 +222,11 @@ export const deletePost = /* GraphQL */ `
         thumbnail
         originalImage
         owner
+        writers
+        editors
         posts {
           nextToken
         }
-        writers
-        editors
       }
       user {
         id
@@ -248,6 +251,7 @@ export const createComment = /* GraphQL */ `
       content
       owner
       postEditors
+      postWriters
       post {
         id
         title
@@ -291,6 +295,7 @@ export const updateComment = /* GraphQL */ `
       content
       owner
       postEditors
+      postWriters
       post {
         id
         title
@@ -334,6 +339,7 @@ export const deleteComment = /* GraphQL */ `
       content
       owner
       postEditors
+      postWriters
       post {
         id
         title

@@ -11,9 +11,9 @@ type Blog
   thumbnail: String
   originalImage: String
   owner: String
-  posts: [Post] @connection(name: "BlogPosts")
   writers: [String]
   editors: [String]
+  posts: [Post] @connection(name: "BlogPosts")
   # What a many to many relationship looks like:
   # editors: [BlogUserJoin] @connection(name: "EditorBlogs")
 }
@@ -53,6 +53,7 @@ type Comment
     rules: [
       { allow: owner, operations: [create, update, delete] }
       { allow: owner, ownerField: "postEditors", operations: [delete] }
+      { allow: owner, ownerField: "postWriters", operations: [delete] }
     ]
   )
   @model {
@@ -60,6 +61,7 @@ type Comment
   content: String
   owner: String
   postEditors: [String]
+  postWriters: [String]
   post: Post @connection(name: "PostComments")
 }
 

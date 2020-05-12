@@ -14,7 +14,7 @@ const CommentForm = ({ setComments, comments, post, setCreateComment }) => {
     const payload = {
       content: commentInput,
       commentPostId: post.id,
-      postOwner: post.owner,
+      postEditors: post.editors,
     };
     const { data } = await API.graphql(
       graphqlOperation(createComment, { input: payload })

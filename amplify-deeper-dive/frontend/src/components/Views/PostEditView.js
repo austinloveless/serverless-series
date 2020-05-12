@@ -10,6 +10,8 @@ import {
   CardContent,
   makeStyles,
   TextField,
+  FormControlLabel,
+  Switch,
 } from '@material-ui/core';
 
 // Files
@@ -31,13 +33,16 @@ const INTITIAL_STATE = {
   content: '',
   thumbnail: '',
   originalImage: '',
-  editors: [],
+  writers: [],
 };
 
 const PostEditView = ({ match, history, user }) => {
   const [post, setPost] = useState(INTITIAL_STATE);
   const [changeImage, setChangeImage] = useState(false);
   const [file, setFile] = useState({});
+  const [state, setState] = useState({
+    draft: false,
+  });
   const classes = useStyles();
 
   useEffect(() => {
@@ -75,10 +80,11 @@ const PostEditView = ({ match, history, user }) => {
       id: post.id,
       title: post.title,
       content: post.content,
-      editors:
-        typeof post.editors === 'string'
-          ? post.editors.split(',')
-          : post.editors,
+      draft: state.draft === false ? true : false,
+      writers:
+        typeof post.writers === 'string'
+          ? post.writers.split(',')
+          : post.writers,
       thumbnail: file.name
         ? `thumbnails/public/${user.email}/postImages/${post.name}/${file.name}`
         : `${post.thumbnail}`,
@@ -99,7 +105,7 @@ const PostEditView = ({ match, history, user }) => {
 
     const updatedPost = data.updatePost;
     setPost(updatedPost);
-    history.push(`/blog/${match.params.blogId}/post/${post.id}`);
+    history.push(`/blog/${match.params.blogId}`);
   };
 
   const handleDeletePost = async (id) => {
@@ -110,6 +116,10 @@ const PostEditView = ({ match, history, user }) => {
 
   const handleToggleChangeImage = () => {
     changeImage === false ? setChangeImage(true) : setChangeImage(false);
+  };
+
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
   };
 
   return (
@@ -171,11 +181,26 @@ const PostEditView = ({ match, history, user }) => {
                 variant='outlined'
                 multiline
                 rows={4}
-                value={post.editors}
-                name='editors'
+                value={post.writers}
+                name='writers'
                 onChange={(e) => {
                   handleChanges(e);
                 }}
+              />
+            </div>
+            <div>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={state.draft}
+                    onChange={handleChange}
+                    name='draft'
+                    color='primary'
+                  />
+                }
+                label={
+                  state.draft === false ? 'Saving as Draft' : 'Publishing Blog'
+                }
               />
             </div>
             <br />

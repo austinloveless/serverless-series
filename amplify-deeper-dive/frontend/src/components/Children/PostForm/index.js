@@ -1,7 +1,13 @@
 // Dependencies
 import React, { useState } from 'react';
 import { API, graphqlOperation, Storage } from 'aws-amplify';
-import { TextField, Button, makeStyles } from '@material-ui/core';
+import {
+  TextField,
+  Button,
+  makeStyles,
+  Switch,
+  FormControlLabel,
+} from '@material-ui/core';
 import { PhotoPicker } from 'aws-amplify-react';
 
 // Files
@@ -24,6 +30,9 @@ const INITIAL_POST_STATE = {
 const PostForm = ({ posts, blog, setPosts, setCreatePost, user }) => {
   const { values, handleChanges } = useForm(INITIAL_POST_STATE);
   const { title, content } = values;
+  const [state, setState] = useState({
+    draft: false,
+  });
   const [file, setFile] = useState({});
   const classes = useStyles();
 
@@ -41,9 +50,10 @@ const PostForm = ({ posts, blog, setPosts, setCreatePost, user }) => {
       postBlogId: blog.id,
       thumbnail: `thumbnails/public/${user.email}/postImages/${imageTitle}/${file.name}`,
       originalImage: `${user.email}/postImages/${imageTitle}/${file.name}`,
-      editors: [user.email],
+      editors: blog.editors,
+      writers: blog.writers,
+      draft: state.draft === false ? true : false,
     };
-    console.log(payload);
     const { data } = await API.graphql(
       graphqlOperation(createPost, { input: payload })
     );
@@ -51,11 +61,14 @@ const PostForm = ({ posts, blog, setPosts, setCreatePost, user }) => {
       `${user.email}/postImages/${imageTitle}/${file.name}`,
       file
     );
-
     const newPost = data.createPost;
     const updatedPosts = [newPost, ...posts];
     setPosts(updatedPosts);
     setCreatePost(false);
+  };
+
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
   };
 
   return (
@@ -91,6 +104,21 @@ const PostForm = ({ posts, blog, setPosts, setCreatePost, user }) => {
             onChange={(e) => {
               handleChanges(e);
             }}
+          />
+        </div>
+        <div>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={state.draft}
+                onChange={handleChange}
+                name='draft'
+                color='primary'
+              />
+            }
+            label={
+              state.draft === false ? 'Saving as Draft' : 'Publishing Blog'
+            }
           />
         </div>
         <br />

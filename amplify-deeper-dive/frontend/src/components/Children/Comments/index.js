@@ -7,7 +7,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Comments = ({ comments, handleDeleteComment, user, postOwner }) => {
+const Comments = ({ comments, handleDeleteComment, user, postOwner, post }) => {
   const classes = useStyles();
 
   return (
@@ -25,7 +25,10 @@ const Comments = ({ comments, handleDeleteComment, user, postOwner }) => {
           <Typography className={classes.pos} color='textSecondary'>
             {comment.owner}
           </Typography>
-          {user.email === comment.owner || user.email === postOwner ? (
+          {user.email === comment.owner ||
+          user.email === postOwner ||
+          (post.editors && post.editors.includes(user.email)) ||
+          (post.writers && post.writers.includes(user.email)) ? (
             <Button
               color='secondary'
               onClick={() => handleDeleteComment(comment.id)}

@@ -23,12 +23,12 @@ const useStyles = makeStyles({
   },
 });
 
-const Posts = ({ posts, blog }) => {
+const Posts = ({ posts, blog, draftPosts, viewDraft }) => {
   const classes = useStyles();
 
-  return (
-    <Grid container spacing={1}>
-      {posts.map((post) => (
+  const displayPosts = () => {
+    if (viewDraft === true) {
+      return draftPosts.map((post) => (
         <Grid item key={post.id}>
           <Card className={classes.root}>
             <CardContent>
@@ -52,7 +52,39 @@ const Posts = ({ posts, blog }) => {
             </CardContent>
           </Card>
         </Grid>
-      ))}
+      ));
+    } else {
+      return posts.map((post) => (
+        <Grid item key={post.id}>
+          <Card className={classes.root}>
+            <CardContent>
+              <S3Image imgKey={post.thumbnail} />
+
+              <Typography variant='h5' component='h2'>
+                <Link to={{ pathname: `/blog/${blog.id}/post/${post.id}` }}>
+                  {post.title}
+                </Link>
+              </Typography>
+              <Typography
+                className={classes.title}
+                color='textSecondary'
+                gutterBottom
+              >
+                Owner:
+              </Typography>
+              <Typography className={classes.pos} color='textSecondary'>
+                {post.owner}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      ));
+    }
+  };
+
+  return (
+    <Grid container spacing={1}>
+      {displayPosts()}
     </Grid>
   );
 };

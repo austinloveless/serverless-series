@@ -74,7 +74,8 @@ const PostView = ({ match, user }) => {
           <Typography>Author: {post.owner}</Typography>
           <br />
           <br />
-          {post.editors && post.editors.includes(user.email) ? (
+          {(post.editors && post.editors.includes(user.email)) ||
+          (post.writers && post.writers.includes(user.email)) ? (
             <div>
               <Link
                 to={{
@@ -85,18 +86,25 @@ const PostView = ({ match, user }) => {
                   Edit
                 </Button>
               </Link>
-              <Typography>Editors:</Typography>
+              <Typography style={{ fontWeight: 'bold' }}>Editors:</Typography>
               {post.editors.map((editor) => (
-                <Typography>{editor}</Typography>
+                <Typography key={editor}>{editor}</Typography>
               ))}
             </div>
           ) : null}
-
+          <br />
+          <Typography style={{ fontWeight: 'bold' }}>Writers:</Typography>
+          {post.writers &&
+            post.writers.map((writer) => (
+              <Typography key={writer}>{writer}</Typography>
+            ))}
+          <br />
           <Typography variant='h6'>Comments: </Typography>
 
           <Comments
             postOwner={post.owner}
             user={user}
+            post={post}
             comments={comments}
             handleDeleteComment={handleDeleteComment}
           />

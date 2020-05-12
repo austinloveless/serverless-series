@@ -9,6 +9,8 @@ export const getBlog = /* GraphQL */ `
       thumbnail
       originalImage
       owner
+      writers
+      editors
       posts {
         items {
           id
@@ -23,8 +25,6 @@ export const getBlog = /* GraphQL */ `
         }
         nextToken
       }
-      writers
-      editors
     }
   }
 `;
@@ -41,11 +41,11 @@ export const listBlogs = /* GraphQL */ `
         thumbnail
         originalImage
         owner
+        writers
+        editors
         posts {
           nextToken
         }
-        writers
-        editors
       }
       nextToken
     }
@@ -69,6 +69,7 @@ export const getPost = /* GraphQL */ `
           content
           owner
           postEditors
+          postWriters
         }
         nextToken
       }
@@ -78,11 +79,11 @@ export const getPost = /* GraphQL */ `
         thumbnail
         originalImage
         owner
+        writers
+        editors
         posts {
           nextToken
         }
-        writers
-        editors
       }
       user {
         id
@@ -145,6 +146,7 @@ export const getComment = /* GraphQL */ `
       content
       owner
       postEditors
+      postWriters
       post {
         id
         title
@@ -190,6 +192,7 @@ export const listComments = /* GraphQL */ `
         content
         owner
         postEditors
+        postWriters
         post {
           id
           title

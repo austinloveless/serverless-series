@@ -9,6 +9,8 @@ export const onCreateBlog = /* GraphQL */ `
       thumbnail
       originalImage
       owner
+      writers
+      editors
       posts {
         items {
           id
@@ -23,8 +25,6 @@ export const onCreateBlog = /* GraphQL */ `
         }
         nextToken
       }
-      writers
-      editors
     }
   }
 `;
@@ -36,6 +36,8 @@ export const onUpdateBlog = /* GraphQL */ `
       thumbnail
       originalImage
       owner
+      writers
+      editors
       posts {
         items {
           id
@@ -50,8 +52,6 @@ export const onUpdateBlog = /* GraphQL */ `
         }
         nextToken
       }
-      writers
-      editors
     }
   }
 `;
@@ -63,6 +63,8 @@ export const onDeleteBlog = /* GraphQL */ `
       thumbnail
       originalImage
       owner
+      writers
+      editors
       posts {
         items {
           id
@@ -77,8 +79,6 @@ export const onDeleteBlog = /* GraphQL */ `
         }
         nextToken
       }
-      writers
-      editors
     }
   }
 `;
@@ -104,6 +104,7 @@ export const onCreatePost = /* GraphQL */ `
           content
           owner
           postEditors
+          postWriters
         }
         nextToken
       }
@@ -113,11 +114,11 @@ export const onCreatePost = /* GraphQL */ `
         thumbnail
         originalImage
         owner
+        writers
+        editors
         posts {
           nextToken
         }
-        writers
-        editors
       }
       user {
         id
@@ -154,6 +155,7 @@ export const onUpdatePost = /* GraphQL */ `
           content
           owner
           postEditors
+          postWriters
         }
         nextToken
       }
@@ -163,11 +165,11 @@ export const onUpdatePost = /* GraphQL */ `
         thumbnail
         originalImage
         owner
+        writers
+        editors
         posts {
           nextToken
         }
-        writers
-        editors
       }
       user {
         id
@@ -204,6 +206,7 @@ export const onDeletePost = /* GraphQL */ `
           content
           owner
           postEditors
+          postWriters
         }
         nextToken
       }
@@ -213,11 +216,11 @@ export const onDeletePost = /* GraphQL */ `
         thumbnail
         originalImage
         owner
+        writers
+        editors
         posts {
           nextToken
         }
-        writers
-        editors
       }
       user {
         id
@@ -239,6 +242,7 @@ export const onCreateComment = /* GraphQL */ `
       content
       owner
       postEditors
+      postWriters
       post {
         id
         title
@@ -279,6 +283,7 @@ export const onUpdateComment = /* GraphQL */ `
       content
       owner
       postEditors
+      postWriters
       post {
         id
         title
@@ -313,12 +318,21 @@ export const onUpdateComment = /* GraphQL */ `
   }
 `;
 export const onDeleteComment = /* GraphQL */ `
-  subscription OnDeleteComment($owner: String!, $postEditors: String!) {
-    onDeleteComment(owner: $owner, postEditors: $postEditors) {
+  subscription OnDeleteComment(
+    $owner: String!
+    $postEditors: String!
+    $postWriters: String!
+  ) {
+    onDeleteComment(
+      owner: $owner
+      postEditors: $postEditors
+      postWriters: $postWriters
+    ) {
       id
       content
       owner
       postEditors
+      postWriters
       post {
         id
         title

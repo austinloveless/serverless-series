@@ -9,6 +9,7 @@ import {
   Typography,
   makeStyles,
   TextField,
+  FormHelperText,
 } from '@material-ui/core';
 
 // Files
@@ -26,6 +27,8 @@ const INTITIAL_STATE = {
   name: '',
   thumbnail: '',
   originalImage: '',
+  editors: [],
+  writers: [],
 };
 
 const BlogEditView = ({ match, history, user }) => {
@@ -74,6 +77,14 @@ const BlogEditView = ({ match, history, user }) => {
     const payload = {
       id: blog.id,
       name: blog.name,
+      editors:
+        typeof blog.editors === 'string'
+          ? blog.editors.split(',')
+          : blog.editors,
+      writers:
+        typeof blog.writers === 'string'
+          ? blog.writers.split(',')
+          : blog.writers,
       thumbnail: file.name
         ? `thumbnails/public/${user.email}/blogImages/${blog.name}/${file.name}`
         : `${blog.thumbnail}`,
@@ -103,13 +114,15 @@ const BlogEditView = ({ match, history, user }) => {
   return (
     <Container>
       <Typography variant='h5'>Blog: {blog.name}</Typography>
-      <Button
-        color='secondary'
-        onClick={() => handleDeleteBlog(blog.id)}
-        variant='outlined'
-      >
-        <span style={{ color: 'red' }}>Delete</span>
-      </Button>
+      {blog.owner === user.email ? (
+        <Button
+          color='secondary'
+          onClick={() => handleDeleteBlog(blog.id)}
+          variant='outlined'
+        >
+          <span style={{ color: 'red' }}>Delete</span>
+        </Button>
+      ) : null}
       {changeImage ? (
         <PhotoPicker
           preview
@@ -126,18 +139,45 @@ const BlogEditView = ({ match, history, user }) => {
       )}
 
       <form onSubmit={handleUpdateBlog}>
+        <div>
+          <TextField
+            id='outlined-basic'
+            variant='outlined'
+            value={blog.name}
+            name='name'
+            onChange={(e) => {
+              handleChanges(e);
+            }}
+          />
+        </div>
         <br />
-        <TextField
-          id='outlined-basic'
-          variant='outlined'
-          value={blog.name}
-          name='name'
-          onChange={(e) => {
-            handleChanges(e);
-          }}
-        />
-        <br />
-        <br />
+
+        <div>
+          <TextField
+            id='outlined-basic'
+            label='Editors'
+            variant='outlined'
+            name='editors'
+            value={blog.editors}
+            onChange={(e) => handleChanges(e)}
+          />
+          <FormHelperText>
+            Editors can review submissions, add stories, edit and publish
+            submitted drafts, and remove any stories from this Blog.
+          </FormHelperText>
+          <TextField
+            id='outlined-basic'
+            label='Writers'
+            variant='outlined'
+            name='writers'
+            value={blog.writers}
+            onChange={(e) => handleChanges(e)}
+          />
+          <FormHelperText>
+            Add new writers. Writers can submit their stories and remove them
+            from this Blog.
+          </FormHelperText>
+        </div>
         <Button variant='outlined' color='primary' type='submit'>
           Save
         </Button>
