@@ -34,15 +34,13 @@ const INTITIAL_STATE = {
   thumbnail: '',
   originalImage: '',
   writers: [],
+  draft: Boolean,
 };
 
 const PostEditView = ({ match, history, user }) => {
   const [post, setPost] = useState(INTITIAL_STATE);
   const [changeImage, setChangeImage] = useState(false);
   const [file, setFile] = useState({});
-  const [state, setState] = useState({
-    draft: false,
-  });
   const classes = useStyles();
 
   useEffect(() => {
@@ -80,7 +78,7 @@ const PostEditView = ({ match, history, user }) => {
       id: post.id,
       title: post.title,
       content: post.content,
-      draft: state.draft === false ? true : false,
+      draft: post.draft,
       writers:
         typeof post.writers === 'string'
           ? post.writers.split(',')
@@ -105,13 +103,13 @@ const PostEditView = ({ match, history, user }) => {
 
     const updatedPost = data.updatePost;
     setPost(updatedPost);
-    history.push(`/blog/${match.params.blogId}`);
+    history.push(`/posts`);
   };
 
   const handleDeletePost = async (id) => {
     const payload = { id };
     await API.graphql(graphqlOperation(deletePost, { input: payload }));
-    history.push(`/blog/${match.params.blogId}`);
+    history.push(`/posts`);
   };
 
   const handleToggleChangeImage = () => {
@@ -119,7 +117,7 @@ const PostEditView = ({ match, history, user }) => {
   };
 
   const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+    setPost({ ...post, [event.target.name]: event.target.checked });
   };
 
   return (
@@ -192,14 +190,14 @@ const PostEditView = ({ match, history, user }) => {
               <FormControlLabel
                 control={
                   <Switch
-                    checked={state.draft}
+                    checked={post.draft}
                     onChange={handleChange}
                     name='draft'
                     color='primary'
                   />
                 }
                 label={
-                  state.draft === false ? 'Saving as Draft' : 'Publishing Blog'
+                  post.draft === true ? 'Saving as Draft' : 'Publishing Blog'
                 }
               />
             </div>

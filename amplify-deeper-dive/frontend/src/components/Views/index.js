@@ -5,3 +5,5 @@ export { default as BlogEditView } from './BlogEditView';
 export { default as PostEditView } from './PostEditView';
 export { default as UserProfileView } from './UserProfileView';
 export { default as UserProfileEditView } from './UserProfileEditView';
+export { default as ListPostsView } from './ListPostsView';
+export { default as ListBlogsView } from './ListBlogsView';

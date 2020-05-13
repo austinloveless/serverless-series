@@ -11,7 +11,6 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
-  Typography,
 } from '@material-ui/core';
 import {
   ChevronLeft,
@@ -24,7 +23,7 @@ import { useStyles } from './style';
 
 const SideNav = (props) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   let history = useHistory();
 
   const handleDrawerOpen = () => {
@@ -41,7 +40,9 @@ const SideNav = (props) => {
 
   const iconMap = {
     0: { icon: <Wallpaper />, route: '/' },
-    1: { icon: <Assessment />, route: '/user-profile' },
+    1: { icon: <Assessment />, route: '/blogs' },
+    2: { icon: <Assessment />, route: '/posts' },
+    3: { icon: <Assessment />, route: '/user-profile' },
   };
 
   return (
@@ -63,8 +64,6 @@ const SideNav = (props) => {
         <div className={classes.toolbar}>
           {open ? (
             <>
-              <Typography>Amplify Blogs!</Typography>
-
               <IconButton onClick={handleDrawerClose}>
                 <ChevronLeft />
               </IconButton>
@@ -77,7 +76,7 @@ const SideNav = (props) => {
         </div>
         <Divider />
         <List>
-          {['Home', 'User Profile'].map((text, index) => (
+          {['Home', 'Blogs', 'Posts', 'User Profile'].map((text, index) => (
             <ListItem
               button
               key={index}

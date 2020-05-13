@@ -22,6 +22,8 @@ export const getBlog = /* GraphQL */ `
           owner
           editors
           writers
+          postBlogId
+          postUserId
         }
         nextToken
       }
@@ -63,6 +65,8 @@ export const getPost = /* GraphQL */ `
       owner
       editors
       writers
+      postBlogId
+      postUserId
       comments {
         items {
           id
@@ -115,6 +119,8 @@ export const listPosts = /* GraphQL */ `
         owner
         editors
         writers
+        postBlogId
+        postUserId
         comments {
           nextToken
         }
@@ -157,6 +163,8 @@ export const getComment = /* GraphQL */ `
         owner
         editors
         writers
+        postBlogId
+        postUserId
         comments {
           nextToken
         }
@@ -203,6 +211,8 @@ export const listComments = /* GraphQL */ `
           owner
           editors
           writers
+          postBlogId
+          postUserId
         }
       }
       nextToken
@@ -227,6 +237,8 @@ export const getUser = /* GraphQL */ `
           owner
           editors
           writers
+          postBlogId
+          postUserId
         }
         nextToken
       }

@@ -43,6 +43,8 @@ type Post
   owner: String
   editors: [String]
   writers: [String]
+  postBlogId: String
+  postUserId: String
   comments: [Comment] @connection(name: "PostComments")
   blog: Blog @connection(name: "BlogPosts")
   user: User @connection(name: "UserPosts")

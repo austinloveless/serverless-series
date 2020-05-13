@@ -14,6 +14,8 @@ import {
   PostEditView,
   UserProfileView,
   UserProfileEditView,
+  ListPostsView,
+  ListBlogsView,
 } from './components/Views';
 import CreateUser from './components/Children/CreateUser';
 
@@ -63,6 +65,11 @@ const App = () => {
             {/* Blog Routes */}
             <Route
               exact
+              path='/blogs'
+              component={() => <ListBlogsView user={user} />}
+            />
+            <Route
+              exact
               path='/blog/:blogId'
               component={({ match, history }) => (
                 <BlogView match={match} history={history} user={user} />
@@ -76,6 +83,11 @@ const App = () => {
             />
 
             {/* Post Routes */}
+            <Route
+              exact
+              path='/posts'
+              component={() => <ListPostsView user={user} />}
+            />
             <Route
               exact
               path='/blog/:blogId/post/:postId'

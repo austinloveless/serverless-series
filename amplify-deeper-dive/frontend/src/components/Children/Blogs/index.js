@@ -31,7 +31,7 @@ const Blogs = ({ blogs }) => {
   return (
     <Grid container spacing={1}>
       {blogs.map((blog) => (
-        <Grid key={blog.id}>
+        <Grid item key={blog.id} style={{ padding: 10 }}>
           <Card className={classes.root}>
             <CardContent>
               <S3Image className={classes.media} imgKey={blog.thumbnail} />

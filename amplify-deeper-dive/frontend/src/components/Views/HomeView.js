@@ -1,51 +1,11 @@
 // Dependencies
-import React, { useState, useEffect } from 'react';
-import { API, graphqlOperation } from 'aws-amplify';
-import { Button, Container, Typography } from '@material-ui/core';
+import React from 'react';
+import { Container, Typography } from '@material-ui/core';
 
-// Files
-import { listBlogs } from '../../graphql/queries';
-import Blogs from '../Children/Blogs';
-import BlogForm from '../Children/BlogForm';
-
-const Home = ({ user }) => {
-  const [blogs, setBlogs] = useState([]);
-  const [createBlog, setCreateBlog] = useState(false);
-
-  useEffect(() => {
-    handleListBlogs();
-  }, []);
-
-  const handleListBlogs = async () => {
-    const { data } = await API.graphql(graphqlOperation(listBlogs));
-    setBlogs(data.listBlogs.items);
-  };
-
-  const handleToggleCreateBlog = () => {
-    createBlog === false ? setCreateBlog(true) : setCreateBlog(false);
-  };
-
+const Home = () => {
   return (
     <Container maxWidth='lg'>
-      <Typography variant='h1'> Amplify Blogs!</Typography>
-
-      <Blogs blogs={blogs} setBlogs={setBlogs} setCreateBlog={setCreateBlog} />
-      <br />
-      <Button
-        variant='contained'
-        color='primary'
-        onClick={() => handleToggleCreateBlog()}
-      >
-        Add Blog
-      </Button>
-      {createBlog ? (
-        <BlogForm
-          user={user}
-          blogs={blogs}
-          setBlogs={setBlogs}
-          setCreateBlog={setCreateBlog}
-        />
-      ) : null}
+      <Typography variant='h1'>Amplify Blogs!</Typography>
     </Container>
   );
 };

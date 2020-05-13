@@ -54,7 +54,7 @@ const BlogEditView = ({ match, history, user }) => {
   const handleDeleteBlog = async (id) => {
     const payload = { id };
     await API.graphql(graphqlOperation(deleteBlog, { input: payload }));
-    history.push('/');
+    history.push('/blogs');
   };
 
   const handleChanges = (e) => {
@@ -104,7 +104,7 @@ const BlogEditView = ({ match, history, user }) => {
     );
     const updatedBlog = data.updateBlog;
     setBlog(updatedBlog);
-    history.push(`/`);
+    history.push(`/blogs`);
   };
 
   const handleToggleChangeImage = () => {

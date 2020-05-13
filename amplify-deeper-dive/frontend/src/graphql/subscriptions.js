@@ -22,6 +22,8 @@ export const onCreateBlog = /* GraphQL */ `
           owner
           editors
           writers
+          postBlogId
+          postUserId
         }
         nextToken
       }
@@ -49,6 +51,8 @@ export const onUpdateBlog = /* GraphQL */ `
           owner
           editors
           writers
+          postBlogId
+          postUserId
         }
         nextToken
       }
@@ -76,6 +80,8 @@ export const onDeleteBlog = /* GraphQL */ `
           owner
           editors
           writers
+          postBlogId
+          postUserId
         }
         nextToken
       }
@@ -98,6 +104,8 @@ export const onCreatePost = /* GraphQL */ `
       owner
       editors
       writers
+      postBlogId
+      postUserId
       comments {
         items {
           id
@@ -149,6 +157,8 @@ export const onUpdatePost = /* GraphQL */ `
       owner
       editors
       writers
+      postBlogId
+      postUserId
       comments {
         items {
           id
@@ -200,6 +210,8 @@ export const onDeletePost = /* GraphQL */ `
       owner
       editors
       writers
+      postBlogId
+      postUserId
       comments {
         items {
           id
@@ -253,6 +265,8 @@ export const onCreateComment = /* GraphQL */ `
         owner
         editors
         writers
+        postBlogId
+        postUserId
         comments {
           nextToken
         }
@@ -294,6 +308,8 @@ export const onUpdateComment = /* GraphQL */ `
         owner
         editors
         writers
+        postBlogId
+        postUserId
         comments {
           nextToken
         }
@@ -343,6 +359,8 @@ export const onDeleteComment = /* GraphQL */ `
         owner
         editors
         writers
+        postBlogId
+        postUserId
         comments {
           nextToken
         }
@@ -384,6 +402,8 @@ export const onCreateUser = /* GraphQL */ `
           owner
           editors
           writers
+          postBlogId
+          postUserId
         }
         nextToken
       }
@@ -409,6 +429,8 @@ export const onUpdateUser = /* GraphQL */ `
           owner
           editors
           writers
+          postBlogId
+          postUserId
         }
         nextToken
       }
@@ -434,6 +456,8 @@ export const onDeleteUser = /* GraphQL */ `
           owner
           editors
           writers
+          postBlogId
+          postUserId
         }
         nextToken
       }

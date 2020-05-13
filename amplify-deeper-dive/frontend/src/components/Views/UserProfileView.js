@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import { S3Image } from 'aws-amplify-react';
 import { Link } from 'react-router-dom';
-import { Button, Typography, makeStyles } from '@material-ui/core';
+import { Button, Typography, makeStyles, Container } from '@material-ui/core';
 
 // Files
 import { getUser } from '../../graphql/queries';
+import UserPosts from '../Children/UserPosts';
 
 const useStyles = makeStyles({
   media: {
@@ -31,7 +32,7 @@ const UserProfileView = ({ user, match }) => {
   }, [user.email]);
 
   return (
-    <div>
+    <Container>
       <Typography>{userData.username}</Typography>
       <Typography>{userData.about}</Typography>
 
@@ -45,7 +46,10 @@ const UserProfileView = ({ user, match }) => {
           Edit
         </Button>
       </Link>
-    </div>
+      {userData.posts ? <UserPosts posts={userData.posts} /> : null}
+      <br />
+      <br />
+    </Container>
   );
 };
 

@@ -48,6 +48,7 @@ const PostForm = ({ posts, blog, setPosts, setCreatePost, user }) => {
       title,
       content,
       postBlogId: blog.id,
+      postUserId: user.email,
       thumbnail: `thumbnails/public/${user.email}/postImages/${imageTitle}/${file.name}`,
       originalImage: `${user.email}/postImages/${imageTitle}/${file.name}`,
       editors: blog.editors,
@@ -117,7 +118,7 @@ const PostForm = ({ posts, blog, setPosts, setCreatePost, user }) => {
               />
             }
             label={
-              state.draft === false ? 'Saving as Draft' : 'Publishing Blog'
+              state.draft === false ? 'Saving as Draft' : 'Publishing Post'
             }
           />
         </div>
