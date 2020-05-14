@@ -31,7 +31,7 @@ const useStyles = makeStyles(() => ({
 const PostsListView = () => {
   const [posts, setPosts] = useState([]);
   const classes = useStyles();
-  console.log(posts);
+
   useEffect(() => {
     handleGetPost();
   }, []);
