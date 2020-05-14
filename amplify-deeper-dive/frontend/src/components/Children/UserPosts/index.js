@@ -1,5 +1,11 @@
 import React from 'react';
-import { makeStyles, Card, CardContent, Typography } from '@material-ui/core';
+import {
+  makeStyles,
+  Card,
+  CardContent,
+  Typography,
+  Grid,
+} from '@material-ui/core';
 import { S3Image } from 'aws-amplify-react';
 import { Link } from 'react-router-dom';
 
@@ -17,31 +23,87 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const UserPosts = ({ posts }) => {
+const UserPosts = ({ posts, viewDraft }) => {
   const classes = useStyles();
 
+  const displayPosts = () => {
+    if (viewDraft === true) {
+      const draftedPosts = posts.items.filter((post) => post.draft === true);
+      if (draftedPosts) {
+        return draftedPosts.map((post) => (
+          <Grid item key={post.id} style={{ padding: 10 }}>
+            <Card className={classes.root}>
+              <CardContent>
+                <div>
+                  <S3Image imgKey={post.thumbnail} />
+
+                  <Typography variant='h5' component='h2'>
+                    <Link
+                      to={{
+                        pathname: `/blog/${post.postBlogId}/post/${post.id}`,
+                      }}
+                    >
+                      {post.title}
+                    </Link>
+                  </Typography>
+                  <Typography
+                    className={classes.title}
+                    color='textSecondary'
+                    gutterBottom
+                  >
+                    Owner:
+                  </Typography>
+                  <Typography className={classes.pos} color='textSecondary'>
+                    {post.owner}
+                  </Typography>
+                </div>
+              </CardContent>
+            </Card>
+          </Grid>
+        ));
+      }
+    } else {
+      const publishedPosts = posts.items.filter((post) => post.draft === false);
+      if (publishedPosts) {
+        return publishedPosts.map((post) => (
+          <Grid item key={post.id} style={{ padding: 10 }}>
+            <Card className={classes.root}>
+              <CardContent>
+                <div>
+                  <S3Image imgKey={post.thumbnail} />
+
+                  <Typography variant='h5' component='h2'>
+                    <Link
+                      to={{
+                        pathname: `/blog/${post.postBlogId}/post/${post.id}`,
+                      }}
+                    >
+                      {post.title}
+                    </Link>
+                  </Typography>
+                  <Typography
+                    className={classes.title}
+                    color='textSecondary'
+                    gutterBottom
+                  >
+                    Owner:
+                  </Typography>
+                  <Typography className={classes.pos} color='textSecondary'>
+                    {post.owner}
+                  </Typography>
+                </div>
+              </CardContent>
+            </Card>
+          </Grid>
+        ));
+      }
+    }
+  };
+
   return (
-    <>
-      {posts.items.map((post) => (
-        <Card key={post.id} className={classes.root}>
-          <Link to={{ pathname: `/blog/${post.postBlogId}/post/${post.id}` }}>
-            <CardContent>
-              <S3Image imgKey={post.thumbnail} />
-              <Typography
-                className={classes.title}
-                color='textPrimary'
-                gutterBottom
-              >
-                {post.title}
-              </Typography>
-              <Typography className={classes.pos} color='textSecondary'>
-                Status: {post.draft ? 'Draft' : 'Published'}
-              </Typography>
-            </CardContent>
-          </Link>
-        </Card>
-      ))}
-    </>
+    <Grid container direction='row' justify='center' alignItems='center'>
+      {displayPosts()}
+    </Grid>
   );
 };
 

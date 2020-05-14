@@ -12,11 +12,17 @@ import {
   TextField,
   FormControlLabel,
   Switch,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormHelperText,
 } from '@material-ui/core';
 
 // Files
-import { getPost } from '../../graphql/queries';
-import { deletePost, updatePost } from '../../graphql/mutations';
+import { getPost } from '../../../graphql/queries';
+import { deletePost, updatePost } from '../../../graphql/mutations';
+import { listBlogs } from '../../../graphql/queries';
 
 const useStyles = makeStyles({
   card: {
@@ -35,17 +41,25 @@ const INTITIAL_STATE = {
   originalImage: '',
   writers: [],
   draft: Boolean,
+  postBlogId: '',
 };
 
 const PostEditView = ({ match, history, user }) => {
   const [post, setPost] = useState(INTITIAL_STATE);
   const [changeImage, setChangeImage] = useState(false);
   const [file, setFile] = useState({});
+  const [blogs, setBlogs] = useState([]);
   const classes = useStyles();
 
   useEffect(() => {
     handleGetPost(match);
+    handleListBlogs();
   }, [match]);
+
+  const handleListBlogs = async () => {
+    const { data } = await API.graphql(graphqlOperation(listBlogs));
+    setBlogs(data.listBlogs.items);
+  };
 
   const handleGetPost = async (match) => {
     const { data } = await API.graphql(
@@ -74,36 +88,70 @@ const PostEditView = ({ match, history, user }) => {
 
   const handleUpdatePost = async (e) => {
     e.preventDefault();
-    const payload = {
-      id: post.id,
-      title: post.title,
-      content: post.content,
-      draft: post.draft,
-      writers:
-        typeof post.writers === 'string'
-          ? post.writers.split(',')
-          : post.writers,
-      thumbnail: file.name
-        ? `thumbnails/public/${user.email}/postImages/${post.name}/${file.name}`
-        : `${post.thumbnail}`,
-      originalImage: file.name
-        ? `${user.email}/postImages/${post.name}/${file.name}`
-        : `${post.originalImage}`,
-    };
-    if (file.name) {
-      await Storage.put(
-        `${user.email}/postImages/${post.name}/${file.name}`,
-        file
+    if (post.postBlogId) {
+      const payload = {
+        id: post.id,
+        title: post.title,
+        content: post.content,
+        draft: post.draft,
+        postBlogId: post.postBlogId,
+        writers:
+          typeof post.writers === 'string'
+            ? post.writers.split(',')
+            : post.writers,
+        thumbnail: file.name
+          ? `thumbnails/public/${user.email}/postImages/${post.name}/${file.name}`
+          : `${post.thumbnail}`,
+        originalImage: file.name
+          ? `${user.email}/postImages/${post.name}/${file.name}`
+          : `${post.originalImage}`,
+      };
+      if (file.name) {
+        await Storage.put(
+          `${user.email}/postImages/${post.name}/${file.name}`,
+          file
+        );
+        setFile('');
+      }
+      const { data } = await API.graphql(
+        graphqlOperation(updatePost, { input: payload })
       );
-      setFile('');
-    }
-    const { data } = await API.graphql(
-      graphqlOperation(updatePost, { input: payload })
-    );
 
-    const updatedPost = data.updatePost;
-    setPost(updatedPost);
-    history.push(`/posts`);
+      const updatedPost = data.updatePost;
+      setPost(updatedPost);
+      history.push(`/`);
+    } else {
+      const payload = {
+        id: post.id,
+        title: post.title,
+        content: post.content,
+        draft: post.draft,
+        writers:
+          typeof post.writers === 'string'
+            ? post.writers.split(',')
+            : post.writers,
+        thumbnail: file.name
+          ? `thumbnails/public/${user.email}/postImages/${post.name}/${file.name}`
+          : `${post.thumbnail}`,
+        originalImage: file.name
+          ? `${user.email}/postImages/${post.name}/${file.name}`
+          : `${post.originalImage}`,
+      };
+      if (file.name) {
+        await Storage.put(
+          `${user.email}/postImages/${post.name}/${file.name}`,
+          file
+        );
+        setFile('');
+      }
+      const { data } = await API.graphql(
+        graphqlOperation(updatePost, { input: payload })
+      );
+
+      const updatedPost = data.updatePost;
+      setPost(updatedPost);
+      history.push(`/`);
+    }
   };
 
   const handleDeletePost = async (id) => {
@@ -185,6 +233,29 @@ const PostEditView = ({ match, history, user }) => {
                   handleChanges(e);
                 }}
               />
+            </div>
+            <div>
+              <FormControl className={classes.formControl}>
+                <InputLabel id='demo-simple-select-helper-label'>
+                  Add to Blog
+                </InputLabel>
+                <Select
+                  labelId='demo-simple-select-helper-label'
+                  id='demo-simple-select-helper'
+                  value={post.postBlogId}
+                  name='postBlogId'
+                  onChange={(e) => handleChanges(e)}
+                >
+                  {blogs.map((blog) => (
+                    <MenuItem key={blog.id} value={blog.id}>
+                      {blog.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <FormHelperText>
+                  Add (or change) your post to a blog
+                </FormHelperText>
+              </FormControl>
             </div>
             <div>
               <FormControlLabel

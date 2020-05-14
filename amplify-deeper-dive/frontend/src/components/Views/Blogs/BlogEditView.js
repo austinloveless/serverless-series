@@ -13,8 +13,8 @@ import {
 } from '@material-ui/core';
 
 // Files
-import { getBlog } from '../../graphql/queries';
-import { deleteBlog, updateBlog } from '../../graphql/mutations';
+import { getBlog } from '../../../graphql/queries';
+import { deleteBlog, updateBlog } from '../../../graphql/mutations';
 
 const useStyles = makeStyles({
   media: {

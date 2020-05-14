@@ -15,8 +15,11 @@ import {
 import {
   ChevronLeft,
   ChevronRight,
-  Wallpaper,
-  Assessment,
+  Create,
+  Book,
+  Home,
+  Add,
+  AccountBox,
 } from '@material-ui/icons';
 
 import { useStyles } from './style';
@@ -39,10 +42,11 @@ const SideNav = (props) => {
   };
 
   const iconMap = {
-    0: { icon: <Wallpaper />, route: '/' },
-    1: { icon: <Assessment />, route: '/blogs' },
-    2: { icon: <Assessment />, route: '/posts' },
-    3: { icon: <Assessment />, route: '/user-profile' },
+    0: { icon: <Home />, route: '/' },
+    1: { icon: <Book />, route: '/blogs' },
+    2: { icon: <Add />, route: '/new/blog' },
+    3: { icon: <Create />, route: '/new/post' },
+    4: { icon: <AccountBox />, route: '/user-profile' },
   };
 
   return (
@@ -76,16 +80,18 @@ const SideNav = (props) => {
         </div>
         <Divider />
         <List>
-          {['Home', 'Blogs', 'Posts', 'User Profile'].map((text, index) => (
-            <ListItem
-              button
-              key={index}
-              onClick={() => handleIconClick(iconMap[index].route)}
-            >
-              <ListItemIcon>{iconMap[index].icon}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          {['Home', 'Blogs', 'Create Blog', 'Create Post', 'User Profile'].map(
+            (text, index) => (
+              <ListItem
+                button
+                key={index}
+                onClick={() => handleIconClick(iconMap[index].route)}
+              >
+                <ListItemIcon>{iconMap[index].icon}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            )
+          )}
         </List>
       </Drawer>
       <main className={classes.content}>{props.children}</main>

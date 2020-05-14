@@ -13,9 +13,8 @@ import { S3Image } from 'aws-amplify-react';
 import { Link } from 'react-router-dom';
 
 // Files
-import { getBlog } from '../../graphql/queries';
-import Posts from '../Children/Posts';
-import PostForm from '../Children/PostForm';
+import { getBlog } from '../../../graphql/queries';
+import Posts from '../../Children/Posts';
 
 const useStyles = makeStyles({
   media: {
@@ -28,7 +27,6 @@ const BlogView = ({ match, user }) => {
   const [blog, setBlog] = useState([]);
   const [posts, setPosts] = useState([]);
   const [draftPosts, setDraftPosts] = useState([]);
-  const [createPost, setCreatePost] = useState(false);
   const [state, setState] = useState({
     viewDraft: false,
   });
@@ -53,10 +51,6 @@ const BlogView = ({ match, user }) => {
       (post) => post.draft === true
     );
     setDraftPosts(draftedPosts);
-  };
-
-  const handleToggleCreatePost = () => {
-    createPost === false ? setCreatePost(true) : setCreatePost(false);
   };
 
   const handleChange = (event) => {
@@ -107,25 +101,7 @@ const BlogView = ({ match, user }) => {
               }
             />
           </div>
-          <div>
-            <Button
-              variant='contained'
-              color='primary'
-              onClick={() => handleToggleCreatePost()}
-            >
-              Add Post
-            </Button>
-          </div>
         </>
-      ) : null}
-      {createPost ? (
-        <PostForm
-          user={user}
-          posts={posts}
-          blog={blog}
-          setPosts={setPosts}
-          setCreatePost={setCreatePost}
-        />
       ) : null}
     </Container>
   );

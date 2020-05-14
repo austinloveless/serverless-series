@@ -15,7 +15,7 @@ const INITIAL_BLOG_STATE = {
   writers: [],
 };
 
-const BlogForm = ({ setBlogs, blogs, setCreateBlog, user }) => {
+const BlogForm = ({ setBlogs, blogs, user, history }) => {
   const { values, handleChanges } = useForm(INITIAL_BLOG_STATE);
   const { name, editors, writers } = values;
   const [file, setFile] = useState({});
@@ -45,7 +45,7 @@ const BlogForm = ({ setBlogs, blogs, setCreateBlog, user }) => {
     const newBlog = data.createBlog;
     const updatedBlogs = [newBlog, ...blogs];
     setBlogs(updatedBlogs);
-    setCreateBlog(false);
+    history.push('/blogs');
   };
 
   return (

@@ -2,11 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import { S3Image } from 'aws-amplify-react';
 import { Link } from 'react-router-dom';
-import { Button, Typography, makeStyles, Container } from '@material-ui/core';
+import {
+  Button,
+  Typography,
+  makeStyles,
+  Container,
+  FormControlLabel,
+  Switch,
+} from '@material-ui/core';
 
 // Files
-import { getUser } from '../../graphql/queries';
-import UserPosts from '../Children/UserPosts';
+import { getUser } from '../../../graphql/queries';
+import UserPosts from '../../Children/UserPosts';
 
 const useStyles = makeStyles({
   media: {
@@ -15,8 +22,11 @@ const useStyles = makeStyles({
   },
 });
 
-const UserProfileView = ({ user, match }) => {
+const UserProfileView = ({ user }) => {
   const [userData, setUserData] = useState([]);
+  const [state, setState] = useState({
+    viewDraft: false,
+  });
   const classes = useStyles();
 
   useEffect(() => {
@@ -30,6 +40,10 @@ const UserProfileView = ({ user, match }) => {
     };
     handleGetUser();
   }, [user.email]);
+
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
 
   return (
     <Container>
@@ -46,7 +60,28 @@ const UserProfileView = ({ user, match }) => {
           Edit
         </Button>
       </Link>
-      {userData.posts ? <UserPosts posts={userData.posts} /> : null}
+      <div>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={state.viewDraft}
+              onChange={handleChange}
+              name='viewDraft'
+              color='primary'
+            />
+          }
+          label={
+            state.viewDraft === false
+              ? 'Viewing Published Posts'
+              : 'Viewing Drafted Posts'
+          }
+        />
+      </div>
+      {userData.posts ? (
+        <UserPosts posts={userData.posts} viewDraft={state.viewDraft} />
+      ) : (
+        <Link to='/new/post'>Create Post</Link>
+      )}
       <br />
       <br />
     </Container>

@@ -7,6 +7,11 @@ import {
   makeStyles,
   Switch,
   FormControlLabel,
+  FormHelperText,
+  FormControl,
+  Select,
+  InputLabel,
+  MenuItem,
 } from '@material-ui/core';
 import { PhotoPicker } from 'aws-amplify-react';
 
@@ -26,10 +31,13 @@ const useStyles = makeStyles((theme) => ({
 const INITIAL_POST_STATE = {
   title: '',
   content: '',
+  writers: [],
+  editors: [],
+  postBlogId: '',
 };
-const PostForm = ({ posts, blog, setPosts, setCreatePost, user }) => {
+const PostForm = ({ posts, blog, setPosts, user, history, blogs }) => {
   const { values, handleChanges } = useForm(INITIAL_POST_STATE);
-  const { title, content } = values;
+  const { title, content, editors, writers, postBlogId } = values;
   const [state, setState] = useState({
     draft: false,
   });
@@ -47,17 +55,18 @@ const PostForm = ({ posts, blog, setPosts, setCreatePost, user }) => {
     const payload = {
       title,
       content,
-      postBlogId: blog.id,
+      postBlogId,
       postUserId: user.email,
       thumbnail: `thumbnails/public/${user.email}/postImages/${imageTitle}/${file.name}`,
       originalImage: `${user.email}/postImages/${imageTitle}/${file.name}`,
-      editors: blog.editors,
-      writers: blog.writers,
+      editors: typeof editors === 'string' ? editors.split(',') : editors,
+      writers: typeof writers === 'string' ? writers.split(',') : writers,
       draft: state.draft === false ? true : false,
     };
     const { data } = await API.graphql(
       graphqlOperation(createPost, { input: payload })
     );
+
     await Storage.put(
       `${user.email}/postImages/${imageTitle}/${file.name}`,
       file
@@ -65,7 +74,7 @@ const PostForm = ({ posts, blog, setPosts, setCreatePost, user }) => {
     const newPost = data.createPost;
     const updatedPosts = [newPost, ...posts];
     setPosts(updatedPosts);
-    setCreatePost(false);
+    history.push('/');
   };
 
   const handleChange = (event) => {
@@ -106,6 +115,53 @@ const PostForm = ({ posts, blog, setPosts, setCreatePost, user }) => {
               handleChanges(e);
             }}
           />
+        </div>
+        <div>
+          <TextField
+            id='outlined-basic'
+            label='Editors'
+            variant='outlined'
+            name='editors'
+            value={editors}
+            onChange={(e) => handleChanges(e)}
+          />
+          <FormHelperText>
+            Editors can review submissions, add stories, edit and publish
+            submitted drafts, and remove any stories from this Blog.
+          </FormHelperText>
+          <TextField
+            id='outlined-basic'
+            label='Writers'
+            variant='outlined'
+            name='writers'
+            value={writers}
+            onChange={(e) => handleChanges(e)}
+          />
+          <FormHelperText>
+            Add new writers. Writers can submit their stories and remove them
+            from this Blog.
+          </FormHelperText>
+        </div>
+        <div>
+          <FormControl className={classes.formControl}>
+            <InputLabel id='demo-simple-select-helper-label'>
+              Add to Blog
+            </InputLabel>
+            <Select
+              labelId='demo-simple-select-helper-label'
+              id='demo-simple-select-helper'
+              value={postBlogId}
+              name='postBlogId'
+              onChange={(e) => handleChanges(e)}
+            >
+              {blogs.map((blog) => (
+                <MenuItem key={blog.id} value={blog.id}>
+                  {blog.name}
+                </MenuItem>
+              ))}
+            </Select>
+            <FormHelperText>Add (or change) your post to a blog</FormHelperText>
+          </FormControl>
         </div>
         <div>
           <FormControlLabel

@@ -7,15 +7,15 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 // Files
 import './App.css';
 import {
-  HomeView,
   BlogView,
   BlogEditView,
   PostView,
   PostEditView,
   UserProfileView,
   UserProfileEditView,
-  ListPostsView,
-  ListBlogsView,
+  PostsListView,
+  BlogsListView,
+  BlogCreate,
 } from './components/Views';
 import CreateUser from './components/Children/CreateUser';
 
@@ -24,6 +24,7 @@ import { getUser } from './graphql/queries';
 // Config
 import aws_exports from './aws-exports';
 import SideNav from './components/Children/SideNav';
+import PostCreate from './components/Views/Posts/PostCreate';
 Amplify.configure(aws_exports);
 
 const App = () => {
@@ -60,13 +61,20 @@ const App = () => {
         <SideNav>
           <div className='App'>
             {/* Home Route */}
-            <Route exact path='/' component={() => <HomeView user={user} />} />
+            <Route exact path='/' component={() => <PostsListView />} />
 
             {/* Blog Routes */}
             <Route
               exact
               path='/blogs'
-              component={() => <ListBlogsView user={user} />}
+              component={() => <BlogsListView user={user} />}
+            />
+            <Route
+              exact
+              path='/new/blog'
+              component={({ history }) => (
+                <BlogCreate user={user} history={history} />
+              )}
             />
             <Route
               exact
@@ -85,8 +93,10 @@ const App = () => {
             {/* Post Routes */}
             <Route
               exact
-              path='/posts'
-              component={() => <ListPostsView user={user} />}
+              path='/new/post'
+              component={({ match, history }) => (
+                <PostCreate history={history} user={user} />
+              )}
             />
             <Route
               exact

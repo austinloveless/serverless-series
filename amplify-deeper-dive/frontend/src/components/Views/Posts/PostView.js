@@ -13,10 +13,10 @@ import { S3Image } from 'aws-amplify-react';
 import { Link } from 'react-router-dom';
 
 // Files
-import { getPost } from '../../graphql/queries';
-import { deleteComment } from '../../graphql/mutations';
-import Comments from '../Children/Comments';
-import CommentForm from '../Children/CommentForm';
+import { getPost } from '../../../graphql/queries';
+import { deleteComment } from '../../../graphql/mutations';
+import Comments from '../../Children/Comments';
+import CommentForm from '../../Children/CommentForm';
 
 const useStyles = makeStyles({
   card: {

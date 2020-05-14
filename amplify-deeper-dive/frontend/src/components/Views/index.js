@@ -1,9 +1,15 @@
-export { default as PostView } from './PostView';
-export { default as BlogView } from './BlogView';
-export { default as HomeView } from './HomeView';
-export { default as BlogEditView } from './BlogEditView';
-export { default as PostEditView } from './PostEditView';
-export { default as UserProfileView } from './UserProfileView';
-export { default as UserProfileEditView } from './UserProfileEditView';
-export { default as ListPostsView } from './ListPostsView';
-export { default as ListBlogsView } from './ListBlogsView';
+// Blogs
+export { default as BlogView } from './Blogs/BlogView';
+export { default as BlogCreate } from './Blogs/BlogCreate';
+export { default as BlogEditView } from './Blogs/BlogEditView';
+export { default as BlogsListView } from './Blogs/BlogsListView';
+
+// Posts
+export { default as PostView } from './Posts/PostView';
+export { default as PostCreate } from './Posts/PostCreate';
+export { default as PostEditView } from './Posts/PostEditView';
+export { default as PostsListView } from './Posts/PostsListView';
+
+// Users
+export { default as UserProfileView } from './Users/UserProfileView';
+export { default as UserProfileEditView } from './Users/UserProfileEditView';

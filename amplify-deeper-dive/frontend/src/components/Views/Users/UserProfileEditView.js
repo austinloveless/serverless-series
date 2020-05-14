@@ -14,8 +14,8 @@ import {
 } from '@material-ui/core';
 
 // Files
-import { getUser } from '../../graphql/queries';
-import { updateUser } from '../../graphql/mutations';
+import { getUser } from '../../../graphql/queries';
+import { updateUser } from '../../../graphql/mutations';
 
 const useStyles = makeStyles({
   card: {

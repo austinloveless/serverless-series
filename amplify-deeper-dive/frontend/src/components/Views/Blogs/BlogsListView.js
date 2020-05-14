@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import {
   Typography,
-  Card,
   Grid,
+  Card,
   CardContent,
   makeStyles,
 } from '@material-ui/core';
@@ -12,7 +12,7 @@ import { S3Image } from 'aws-amplify-react';
 import { Link } from 'react-router-dom';
 
 // Files
-import { listPosts } from '../../graphql/queries';
+import { listBlogs } from '../../../graphql/queries';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -28,18 +28,16 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ListPostsView = ({ match, user }) => {
-  const [posts, setPosts] = useState([]);
+const BlogsListView = () => {
+  const [blogs, setBlogs] = useState([]);
   const classes = useStyles();
-
   useEffect(() => {
-    handleGetPost(match);
-  }, [match]);
+    handleListBlogs();
+  }, []);
 
-  const handleGetPost = async (match) => {
-    const { data } = await API.graphql(graphqlOperation(listPosts));
-
-    setPosts(data.listPosts.items);
+  const handleListBlogs = async () => {
+    const { data } = await API.graphql(graphqlOperation(listBlogs));
+    setBlogs(data.listBlogs.items);
   };
 
   return (
@@ -50,20 +48,20 @@ const ListPostsView = ({ match, user }) => {
       alignItems='center'
       style={{ marginTop: 50 }}
     >
-      {posts.map((post) => (
-        <Grid item key={post.id} style={{ padding: 10 }}>
+      {blogs.map((blog) => (
+        <Grid item key={blog.id} style={{ padding: 10 }}>
           <Card className={classes.root}>
             <CardContent>
               <div>
-                <S3Image imgKey={post.thumbnail} />
+                <S3Image imgKey={blog.thumbnail} />
 
                 <Typography variant='h5' component='h2'>
                   <Link
                     to={{
-                      pathname: `/blog/${post.postBlogId}/post/${post.id}`,
+                      pathname: `/blog/${blog.id}`,
                     }}
                   >
-                    {post.title}
+                    {blog.name}
                   </Link>
                 </Typography>
                 <Typography
@@ -74,7 +72,7 @@ const ListPostsView = ({ match, user }) => {
                   Owner:
                 </Typography>
                 <Typography className={classes.pos} color='textSecondary'>
-                  {post.owner}
+                  {blog.owner}
                 </Typography>
               </div>
             </CardContent>
@@ -85,4 +83,4 @@ const ListPostsView = ({ match, user }) => {
   );
 };
 
-export default ListPostsView;
+export default BlogsListView;
