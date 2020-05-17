@@ -10,10 +10,12 @@ import {
   FormControlLabel,
   Switch,
 } from '@material-ui/core';
+import { Notifications } from '@material-ui/icons';
 
 // Files
 import { getUser } from '../../../graphql/queries';
 import UserPosts from '../../Children/UserPosts';
+import UserNotifications from '../../Children/UserNotifications';
 
 const useStyles = makeStyles({
   media: {
@@ -27,6 +29,7 @@ const UserProfileView = ({ user }) => {
   const [state, setState] = useState({
     viewDraft: false,
   });
+  const [showNotifications, setShowNotifications] = useState(false);
   const classes = useStyles();
 
   useEffect(() => {
@@ -45,42 +48,91 @@ const UserProfileView = ({ user }) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
+  const handleToggleNotifications = () => {
+    showNotifications === false
+      ? setShowNotifications(true)
+      : setShowNotifications(false);
+  };
+
   return (
     <Container>
       <Typography>{userData.username}</Typography>
       <Typography>{userData.about}</Typography>
-
-      <S3Image className={classes.media} imgKey={userData.profilePicture} />
-      <Link
-        to={{
-          pathname: `/user-profile/${userData.username}/edit`,
-        }}
+      <div
+        style={{ cursor: 'pointer', margin: 'inherit' }}
+        onClick={handleToggleNotifications}
       >
-        <Button color='primary' variant='outlined'>
-          Edit
-        </Button>
-      </Link>
-      <div>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={state.viewDraft}
-              onChange={handleChange}
-              name='viewDraft'
-              color='primary'
-            />
-          }
-          label={
-            state.viewDraft === false
-              ? 'Viewing Published Posts'
-              : 'Viewing Drafted Posts'
-          }
+        <Notifications
+          color={userData.notifications ? 'secondary' : 'primary'}
         />
+        <Typography>
+          Notifications:{' '}
+          {userData.notifications ? userData.notifications.length : null}
+        </Typography>
       </div>
-      {userData.posts ? (
-        <UserPosts posts={userData.posts} viewDraft={state.viewDraft} />
+      <S3Image className={classes.media} imgKey={userData.profilePicture} />
+      {showNotifications ? (
+        <UserNotifications userData={userData} />
       ) : (
-        <Link to='/new/post'>Create Post</Link>
+        <>
+          <Link
+            to={{
+              pathname: `/user-profile/${userData.username}/edit`,
+            }}
+          >
+            <Button color='primary' variant='outlined'>
+              Edit
+            </Button>
+          </Link>
+          <div>
+            <Typography>Followers:</Typography>
+            <Typography>
+              {userData.followers
+                ? userData.followers.map((follower, i) => (
+                    <Link key={i} to={`/user/${follower.username}`}>
+                      <div>{follower.username}</div>
+                    </Link>
+                  ))
+                : null}
+            </Typography>
+          </div>
+          <br />
+          <div>
+            <Typography>Following:</Typography>
+            <Typography>
+              {userData.following
+                ? userData.following.map((following, i) => (
+                    <Link key={i} to={`/user/${following.username}`}>
+                      <div>{following.username}</div>
+                    </Link>
+                  ))
+                : null}
+            </Typography>
+          </div>
+
+          <div>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={state.viewDraft}
+                  onChange={handleChange}
+                  name='viewDraft'
+                  color='primary'
+                />
+              }
+              label={
+                state.viewDraft === false
+                  ? 'Viewing Published Posts'
+                  : 'Viewing Drafted Posts'
+              }
+            />
+          </div>
+          {userData.posts ? (
+            <UserPosts posts={userData.posts} viewDraft={state.viewDraft} />
+          ) : (
+            <Link to='/new/post'>Create Post</Link>
+          )}
+        </>
       )}
       <br />
       <br />

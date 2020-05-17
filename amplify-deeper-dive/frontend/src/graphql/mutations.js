@@ -141,10 +141,23 @@ export const createPost = /* GraphQL */ `
         username
         profilePicture
         about
+        followers {
+          id
+          username
+        }
+        following {
+          id
+          username
+        }
+        notifications {
+          type
+          user
+          id
+        }
+        owner
         posts {
           nextToken
         }
-        owner
       }
     }
   }
@@ -193,10 +206,23 @@ export const updatePost = /* GraphQL */ `
         username
         profilePicture
         about
+        followers {
+          id
+          username
+        }
+        following {
+          id
+          username
+        }
+        notifications {
+          type
+          user
+          id
+        }
+        owner
         posts {
           nextToken
         }
-        owner
       }
     }
   }
@@ -245,10 +271,23 @@ export const deletePost = /* GraphQL */ `
         username
         profilePicture
         about
+        followers {
+          id
+          username
+        }
+        following {
+          id
+          username
+        }
+        notifications {
+          type
+          user
+          id
+        }
+        owner
         posts {
           nextToken
         }
-        owner
       }
     }
   }
@@ -401,6 +440,25 @@ export const createUser = /* GraphQL */ `
       username
       profilePicture
       about
+      followers {
+        id
+        username
+        notifications {
+          type
+          user
+          id
+        }
+      }
+      following {
+        id
+        username
+      }
+      notifications {
+        type
+        user
+        id
+      }
+      owner
       posts {
         items {
           id
@@ -417,7 +475,6 @@ export const createUser = /* GraphQL */ `
         }
         nextToken
       }
-      owner
     }
   }
 `;
@@ -431,6 +488,25 @@ export const updateUser = /* GraphQL */ `
       username
       profilePicture
       about
+      followers {
+        id
+        username
+        notifications {
+          type
+          user
+          id
+        }
+      }
+      following {
+        id
+        username
+      }
+      notifications {
+        type
+        user
+        id
+      }
+      owner
       posts {
         items {
           id
@@ -447,7 +523,6 @@ export const updateUser = /* GraphQL */ `
         }
         nextToken
       }
-      owner
     }
   }
 `;
@@ -461,6 +536,25 @@ export const deleteUser = /* GraphQL */ `
       username
       profilePicture
       about
+      followers {
+        id
+        username
+        notifications {
+          type
+          user
+          id
+        }
+      }
+      following {
+        id
+        username
+      }
+      notifications {
+        type
+        user
+        id
+      }
+      owner
       posts {
         items {
           id
@@ -477,7 +571,6 @@ export const deleteUser = /* GraphQL */ `
         }
         nextToken
       }
-      owner
     }
   }
 `;

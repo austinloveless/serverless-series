@@ -15,13 +15,7 @@ const Comments = ({ comments, handleDeleteComment, user, postOwner, post }) => {
       {comments.map((comment) => (
         <div key={comment.id}>
           <Typography>{comment.content}</Typography>
-          <Typography
-            className={classes.title}
-            color='textSecondary'
-            gutterBottom
-          >
-            Owner:
-          </Typography>
+
           <Typography className={classes.pos} color='textSecondary'>
             {comment.owner}
           </Typography>

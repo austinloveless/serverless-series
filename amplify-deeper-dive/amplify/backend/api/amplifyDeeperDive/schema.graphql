@@ -68,15 +68,42 @@ type Comment
 }
 
 type User
-  @auth(rules: [{ allow: owner, operations: [update, create, delete] }])
   @key(fields: ["username"])
+  @auth(rules: [{ allow: owner, operations: [create, delete] }])
   @model {
   id: ID!
   username: String!
   profilePicture: String
   about: String
+  followers: [Followers]
+  following: [Following]
+  notifications: [Notifications]
+  owner: String
   posts: [Post] @connection(name: "UserPosts")
   # blogs: [BlogUserJoin] @connection(name: "BlogEditors")
+}
+
+type Notifications {
+  type: String
+  user: String
+  id: String
+}
+
+type Followers {
+  id: String
+  username: String
+  notifications: Notifications
+}
+
+type Following {
+  id: String
+  username: String
+}
+
+type Subscription {
+  onAddedBlog(owner: [String]!): Blog @aws_subscribe(mutations: ["createBlog"])
+  onAddedPost(owner: [String]!, editors: [String], writers: [String]): Post
+    @aws_subscribe(mutations: ["createPost"])
 }
 
 # type BlogUserJoin @model {

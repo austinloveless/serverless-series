@@ -94,10 +94,23 @@ export const getPost = /* GraphQL */ `
         username
         profilePicture
         about
+        followers {
+          id
+          username
+        }
+        following {
+          id
+          username
+        }
+        notifications {
+          type
+          user
+          id
+        }
+        owner
         posts {
           nextToken
         }
-        owner
       }
     }
   }
@@ -226,6 +239,25 @@ export const getUser = /* GraphQL */ `
       username
       profilePicture
       about
+      followers {
+        id
+        username
+        notifications {
+          type
+          user
+          id
+        }
+      }
+      following {
+        id
+        username
+      }
+      notifications {
+        type
+        user
+        id
+      }
+      owner
       posts {
         items {
           id
@@ -242,7 +274,6 @@ export const getUser = /* GraphQL */ `
         }
         nextToken
       }
-      owner
     }
   }
 `;
@@ -266,10 +297,23 @@ export const listUsers = /* GraphQL */ `
         username
         profilePicture
         about
+        followers {
+          id
+          username
+        }
+        following {
+          id
+          username
+        }
+        notifications {
+          type
+          user
+          id
+        }
+        owner
         posts {
           nextToken
         }
-        owner
       }
       nextToken
     }

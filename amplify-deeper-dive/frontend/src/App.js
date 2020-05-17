@@ -16,6 +16,7 @@ import {
   PostsListView,
   BlogsListView,
   BlogCreate,
+  UserView,
 } from './components/Views';
 import CreateUser from './components/Children/CreateUser';
 
@@ -30,6 +31,7 @@ Amplify.configure(aws_exports);
 const App = () => {
   const [user, setUser] = useState([]);
   const [noUser, setNoUser] = useState(false);
+  const [loggedInUserData, setLoggedInUserDat] = useState([]);
 
   useEffect(() => {
     const getCognitoUser = async () => {
@@ -46,6 +48,7 @@ const App = () => {
         username: payload.email,
       })
     );
+    setLoggedInUserDat(data.getUser);
     if (data.getUser === null) {
       setNoUser(true);
     }
@@ -95,7 +98,11 @@ const App = () => {
               exact
               path='/new/post'
               component={({ match, history }) => (
-                <PostCreate history={history} user={user} />
+                <PostCreate
+                  history={history}
+                  user={user}
+                  loggedInUserData={loggedInUserData}
+                />
               )}
             />
             <Route
@@ -128,6 +135,18 @@ const App = () => {
                   match={match}
                   history={history}
                   user={user}
+                />
+              )}
+            />
+            <Route
+              exact
+              path='/user/:username'
+              component={({ match, history }) => (
+                <UserView
+                  match={match}
+                  history={history}
+                  user={user}
+                  loggedInUserData={loggedInUserData}
                 />
               )}
             />

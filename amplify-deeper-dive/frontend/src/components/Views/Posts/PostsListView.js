@@ -71,11 +71,13 @@ const PostsListView = () => {
                   color='textSecondary'
                   gutterBottom
                 >
-                  Owner:
+                  Author:
                 </Typography>
-                <Typography className={classes.pos} color='textSecondary'>
-                  {post.owner}
-                </Typography>
+                <Link to={{ pathname: `/user/${post.owner}` }}>
+                  <Typography className={classes.pos} color='textSecondary'>
+                    {post.owner}
+                  </Typography>
+                </Link>
               </div>
             </CardContent>
           </Card>

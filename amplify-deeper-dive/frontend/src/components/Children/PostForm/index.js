@@ -16,7 +16,7 @@ import {
 import { PhotoPicker } from 'aws-amplify-react';
 
 // Files
-import { createPost } from '../../../graphql/mutations';
+import { createPost, updateUser } from '../../../graphql/mutations';
 import useForm from '../../../hooks/useForm';
 
 const useStyles = makeStyles((theme) => ({
@@ -35,7 +35,14 @@ const INITIAL_POST_STATE = {
   editors: [],
   postBlogId: '',
 };
-const PostForm = ({ posts, blog, setPosts, user, history, blogs }) => {
+const PostForm = ({
+  posts,
+  loggedInUserData,
+  setPosts,
+  user,
+  history,
+  blogs,
+}) => {
   const { values, handleChanges } = useForm(INITIAL_POST_STATE);
   const { title, content, editors, writers, postBlogId } = values;
   const [state, setState] = useState({
@@ -66,14 +73,35 @@ const PostForm = ({ posts, blog, setPosts, user, history, blogs }) => {
     const { data } = await API.graphql(
       graphqlOperation(createPost, { input: payload })
     );
-
-    await Storage.put(
-      `${user.email}/postImages/${imageTitle}/${file.name}`,
-      file
-    );
     const newPost = data.createPost;
     const updatedPosts = [newPost, ...posts];
     setPosts(updatedPosts);
+
+    if (data.createPost) {
+      if (loggedInUserData.followers) {
+        await Promise.all(
+          loggedInUserData.followers.map(async (follower) => {
+            const updateUserPayload = {
+              id: follower.id,
+              username: follower.username,
+              notifications: follower.notifications
+                ? [
+                    ...follower.notifications,
+                    { type: 'post', user: user.email, id: newPost.id },
+                  ]
+                : { type: 'post', user: user.email, id: newPost.id },
+            };
+            await API.graphql(
+              graphqlOperation(updateUser, { input: updateUserPayload })
+            );
+          })
+        );
+      }
+      await Storage.put(
+        `${user.email}/postImages/${imageTitle}/${file.name}`,
+        file
+      );
+    }
     history.push('/');
   };
 

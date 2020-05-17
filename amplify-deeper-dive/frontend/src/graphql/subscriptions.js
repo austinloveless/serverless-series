@@ -1,6 +1,101 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onAddedBlog = /* GraphQL */ `
+  subscription OnAddedBlog($owner: [String]!) {
+    onAddedBlog(owner: $owner) {
+      id
+      name
+      thumbnail
+      originalImage
+      owner
+      writers
+      editors
+      posts {
+        items {
+          id
+          title
+          content
+          thumbnail
+          originalImage
+          draft
+          owner
+          editors
+          writers
+          postBlogId
+          postUserId
+        }
+        nextToken
+      }
+    }
+  }
+`;
+export const onAddedPost = /* GraphQL */ `
+  subscription OnAddedPost(
+    $owner: [String]!
+    $editors: [String]
+    $writers: [String]
+  ) {
+    onAddedPost(owner: $owner, editors: $editors, writers: $writers) {
+      id
+      title
+      content
+      thumbnail
+      originalImage
+      draft
+      owner
+      editors
+      writers
+      postBlogId
+      postUserId
+      comments {
+        items {
+          id
+          content
+          owner
+          postEditors
+          postWriters
+        }
+        nextToken
+      }
+      blog {
+        id
+        name
+        thumbnail
+        originalImage
+        owner
+        writers
+        editors
+        posts {
+          nextToken
+        }
+      }
+      user {
+        id
+        username
+        profilePicture
+        about
+        followers {
+          id
+          username
+        }
+        following {
+          id
+          username
+        }
+        notifications {
+          type
+          user
+          id
+        }
+        owner
+        posts {
+          nextToken
+        }
+      }
+    }
+  }
+`;
 export const onCreateBlog = /* GraphQL */ `
   subscription OnCreateBlog($owner: String!) {
     onCreateBlog(owner: $owner) {
@@ -133,10 +228,23 @@ export const onCreatePost = /* GraphQL */ `
         username
         profilePicture
         about
+        followers {
+          id
+          username
+        }
+        following {
+          id
+          username
+        }
+        notifications {
+          type
+          user
+          id
+        }
+        owner
         posts {
           nextToken
         }
-        owner
       }
     }
   }
@@ -186,10 +294,23 @@ export const onUpdatePost = /* GraphQL */ `
         username
         profilePicture
         about
+        followers {
+          id
+          username
+        }
+        following {
+          id
+          username
+        }
+        notifications {
+          type
+          user
+          id
+        }
+        owner
         posts {
           nextToken
         }
-        owner
       }
     }
   }
@@ -239,10 +360,23 @@ export const onDeletePost = /* GraphQL */ `
         username
         profilePicture
         about
+        followers {
+          id
+          username
+        }
+        following {
+          id
+          username
+        }
+        notifications {
+          type
+          user
+          id
+        }
+        owner
         posts {
           nextToken
         }
-        owner
       }
     }
   }
@@ -391,6 +525,25 @@ export const onCreateUser = /* GraphQL */ `
       username
       profilePicture
       about
+      followers {
+        id
+        username
+        notifications {
+          type
+          user
+          id
+        }
+      }
+      following {
+        id
+        username
+      }
+      notifications {
+        type
+        user
+        id
+      }
+      owner
       posts {
         items {
           id
@@ -407,17 +560,35 @@ export const onCreateUser = /* GraphQL */ `
         }
         nextToken
       }
-      owner
     }
   }
 `;
 export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser($owner: String!) {
-    onUpdateUser(owner: $owner) {
+  subscription OnUpdateUser {
+    onUpdateUser {
       id
       username
       profilePicture
       about
+      followers {
+        id
+        username
+        notifications {
+          type
+          user
+          id
+        }
+      }
+      following {
+        id
+        username
+      }
+      notifications {
+        type
+        user
+        id
+      }
+      owner
       posts {
         items {
           id
@@ -434,7 +605,6 @@ export const onUpdateUser = /* GraphQL */ `
         }
         nextToken
       }
-      owner
     }
   }
 `;
@@ -445,6 +615,25 @@ export const onDeleteUser = /* GraphQL */ `
       username
       profilePicture
       about
+      followers {
+        id
+        username
+        notifications {
+          type
+          user
+          id
+        }
+      }
+      following {
+        id
+        username
+      }
+      notifications {
+        type
+        user
+        id
+      }
+      owner
       posts {
         items {
           id
@@ -461,7 +650,6 @@ export const onDeleteUser = /* GraphQL */ `
         }
         nextToken
       }
-      owner
     }
   }
 `;

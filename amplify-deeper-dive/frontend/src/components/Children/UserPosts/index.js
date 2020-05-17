@@ -46,16 +46,6 @@ const UserPosts = ({ posts, viewDraft }) => {
                       {post.title}
                     </Link>
                   </Typography>
-                  <Typography
-                    className={classes.title}
-                    color='textSecondary'
-                    gutterBottom
-                  >
-                    Owner:
-                  </Typography>
-                  <Typography className={classes.pos} color='textSecondary'>
-                    {post.owner}
-                  </Typography>
                 </div>
               </CardContent>
             </Card>
@@ -80,16 +70,6 @@ const UserPosts = ({ posts, viewDraft }) => {
                     >
                       {post.title}
                     </Link>
-                  </Typography>
-                  <Typography
-                    className={classes.title}
-                    color='textSecondary'
-                    gutterBottom
-                  >
-                    Owner:
-                  </Typography>
-                  <Typography className={classes.pos} color='textSecondary'>
-                    {post.owner}
                   </Typography>
                 </div>
               </CardContent>

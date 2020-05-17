@@ -4,14 +4,14 @@ import { API, graphqlOperation } from 'aws-amplify';
 import PostForm from '../../Children/PostForm';
 import { listPosts, listBlogs } from '../../../graphql/queries';
 
-const PostCreate = ({ history, user }) => {
+const PostCreate = ({ history, user, loggedInUserData }) => {
   const [posts, setPosts] = useState([]);
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
     handleGetPost();
     handleListBlogs();
-  }, []);
+  }, [user.email]);
 
   const handleListBlogs = async () => {
     const { data } = await API.graphql(graphqlOperation(listBlogs));
@@ -20,14 +20,13 @@ const PostCreate = ({ history, user }) => {
 
   const handleGetPost = async () => {
     const { data } = await API.graphql(graphqlOperation(listPosts));
-
     setPosts(data.listPosts.items);
   };
-
   return (
     <div>
       <PostForm
         user={user}
+        loggedInUserData={loggedInUserData}
         posts={posts}
         setPosts={setPosts}
         history={history}
