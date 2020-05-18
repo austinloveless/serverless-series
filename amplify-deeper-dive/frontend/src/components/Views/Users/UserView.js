@@ -71,54 +71,73 @@ const UserView = ({ match, user, loggedInUserData }) => {
       );
     } else {
       let followers = [];
-      if (userData && userData.followers && loggedInUserData.notifications) {
-        console.log('1');
-        followers = [
-          ...userData.followers,
-          {
-            id: loggedInUserData.id,
-            username: loggedInUserData.username,
-            notifications: loggedInUserData.notifications,
-          },
-        ];
-      } else if (
-        userData &&
+      if (
         userData.followers &&
-        !loggedInUserData.notifications
+        userData.followers.length &&
+        loggedInUserData.notifications &&
+        loggedInUserData.notifications.length
       ) {
-        console.log('2');
-
         followers = [
           ...userData.followers,
           {
             id: loggedInUserData.id,
             username: loggedInUserData.username,
-            notifications: loggedInUserData.notifications,
-          },
-        ];
-      } else if (!userData.followers && loggedInUserData.notifications) {
-        console.log('3');
-
-        followers = [
-          {
-            id: loggedInUserData.id,
-            username: loggedInUserData.username,
-            notifications: loggedInUserData.notifications,
+            notifications: {
+              type: loggedInUserData.notifications[0].type,
+              user: loggedInUserData.notifications[0].user,
+              id: loggedInUserData.notifications[0].id,
+            },
           },
         ];
       } else if (
-        userData &&
-        !userData.followers &&
-        loggedInUserData &&
+        userData.followers &&
+        userData.followers.length &&
         !loggedInUserData.notifications
       ) {
-        console.log('4');
-
+        followers = [
+          ...userData.followers,
+          {
+            id: loggedInUserData.id,
+            username: loggedInUserData.username,
+            notifications: {
+              type: null,
+              user: null,
+              id: null,
+            },
+          },
+        ];
+      } else if (
+        userData.followers &&
+        !userData.followers.length &&
+        loggedInUserData.notifications &&
+        loggedInUserData.notifications.length
+      ) {
         followers = [
           {
             id: loggedInUserData.id,
             username: loggedInUserData.username,
-            notifications: loggedInUserData.notifications,
+            notifications: {
+              type: loggedInUserData.notifications[0].type,
+              user: loggedInUserData.notifications[0].user,
+              id: loggedInUserData.notifications[0].id,
+            },
+          },
+        ];
+      } else if (
+        userData.followers &&
+        !userData.followers.length &&
+        loggedInUserData.notifications &&
+        !loggedInUserData.notifications.length
+      ) {
+        followers = [
+          {
+            id: loggedInUserData.id,
+            username: loggedInUserData.username,
+            notifications: {
+              type: null,
+              user: null,
+              id: null,
+            },
           },
         ];
       }

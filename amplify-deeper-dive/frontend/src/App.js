@@ -31,7 +31,7 @@ Amplify.configure(aws_exports);
 const App = () => {
   const [user, setUser] = useState([]);
   const [noUser, setNoUser] = useState(false);
-  const [loggedInUserData, setLoggedInUserDat] = useState([]);
+  const [loggedInUserData, setLoggedInUserData] = useState([]);
 
   useEffect(() => {
     const getCognitoUser = async () => {
@@ -48,7 +48,7 @@ const App = () => {
         username: payload.email,
       })
     );
-    setLoggedInUserDat(data.getUser);
+    setLoggedInUserData(data.getUser);
     if (data.getUser === null) {
       setNoUser(true);
     }

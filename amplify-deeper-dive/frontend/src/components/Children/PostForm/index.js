@@ -42,6 +42,7 @@ const PostForm = ({
   user,
   history,
   blogs,
+  allFollowersData,
 }) => {
   const { values, handleChanges } = useForm(INITIAL_POST_STATE);
   const { title, content, editors, writers, postBlogId } = values;
@@ -78,25 +79,32 @@ const PostForm = ({
     setPosts(updatedPosts);
 
     if (data.createPost) {
-      if (loggedInUserData.followers) {
-        await Promise.all(
-          loggedInUserData.followers.map(async (follower) => {
-            const updateUserPayload = {
-              id: follower.id,
-              username: follower.username,
-              notifications: follower.notifications
-                ? [
-                    ...follower.notifications,
-                    { type: 'post', user: user.email, id: newPost.id },
-                  ]
-                : { type: 'post', user: user.email, id: newPost.id },
-            };
-            await API.graphql(
-              graphqlOperation(updateUser, { input: updateUserPayload })
-            );
-          })
-        );
-      }
+      const notifications = [];
+
+      allFollowersData.notifications.map((notification) => {
+        return notifications.push(notification);
+      });
+
+      const newNotificationObject = {
+        type: 'post',
+        user: user.email,
+        id: newPost.id,
+      };
+      notifications.push(newNotificationObject);
+
+      await Promise.all(
+        loggedInUserData.followers.map(async (follower) => {
+          const updateUserPayload = {
+            id: follower.id,
+            username: follower.username,
+            notifications,
+          };
+          await API.graphql(
+            graphqlOperation(updateUser, { input: updateUserPayload })
+          );
+        })
+      );
+
       await Storage.put(
         `${user.email}/postImages/${imageTitle}/${file.name}`,
         file

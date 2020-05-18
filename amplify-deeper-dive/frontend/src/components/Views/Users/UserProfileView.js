@@ -14,6 +14,7 @@ import { Notifications } from '@material-ui/icons';
 
 // Files
 import { getUser } from '../../../graphql/queries';
+import { updateUser } from '../../../graphql/mutations';
 import UserPosts from '../../Children/UserPosts';
 import UserNotifications from '../../Children/UserNotifications';
 
@@ -54,6 +55,27 @@ const UserProfileView = ({ user }) => {
       : setShowNotifications(false);
   };
 
+  const handleDeleteNotification = async (i) => {
+    const updatedNotification = userData.notifications.filter(
+      (notification, index) => index !== i
+    );
+
+    const updatedUserData = {
+      id: userData.id,
+      username: userData.username,
+      profilePicture: userData.profilePicture,
+      about: userData.about,
+      followers: userData.followers,
+      following: userData.following,
+      notifications: updatedNotification,
+    };
+
+    const { data } = await API.graphql(
+      graphqlOperation(updateUser, { input: updatedUserData })
+    );
+    setUserData(data.updateUser);
+  };
+
   return (
     <Container>
       <Typography>{userData.username}</Typography>
@@ -63,16 +85,23 @@ const UserProfileView = ({ user }) => {
         onClick={handleToggleNotifications}
       >
         <Notifications
-          color={userData.notifications ? 'secondary' : 'primary'}
-        />
-        <Typography>
-          Notifications:{' '}
-          {userData.notifications ? userData.notifications.length : null}
-        </Typography>
+          color={
+            userData.notifications && userData.notifications.length
+              ? 'secondary'
+              : 'primary'
+          }
+        />{' '}
+        {userData.notifications && userData.notifications.length
+          ? userData.notifications.length
+          : null}
       </div>
       <S3Image className={classes.media} imgKey={userData.profilePicture} />
+      <br />
       {showNotifications ? (
-        <UserNotifications userData={userData} />
+        <UserNotifications
+          userData={userData}
+          handleDeleteNotification={handleDeleteNotification}
+        />
       ) : (
         <>
           <Link
