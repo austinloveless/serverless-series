@@ -528,11 +528,6 @@ export const onCreateUser = /* GraphQL */ `
       followers {
         id
         username
-        notifications {
-          type
-          user
-          id
-        }
       }
       following {
         id
@@ -573,11 +568,6 @@ export const onUpdateUser = /* GraphQL */ `
       followers {
         id
         username
-        notifications {
-          type
-          user
-          id
-        }
       }
       following {
         id
@@ -618,11 +608,6 @@ export const onDeleteUser = /* GraphQL */ `
       followers {
         id
         username
-        notifications {
-          type
-          user
-          id
-        }
       }
       following {
         id

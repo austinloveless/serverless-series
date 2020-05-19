@@ -443,11 +443,6 @@ export const createUser = /* GraphQL */ `
       followers {
         id
         username
-        notifications {
-          type
-          user
-          id
-        }
       }
       following {
         id
@@ -491,11 +486,6 @@ export const updateUser = /* GraphQL */ `
       followers {
         id
         username
-        notifications {
-          type
-          user
-          id
-        }
       }
       following {
         id
@@ -539,11 +529,6 @@ export const deleteUser = /* GraphQL */ `
       followers {
         id
         username
-        notifications {
-          type
-          user
-          id
-        }
       }
       following {
         id

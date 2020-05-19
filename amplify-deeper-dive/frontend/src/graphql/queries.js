@@ -242,11 +242,6 @@ export const getUser = /* GraphQL */ `
       followers {
         id
         username
-        notifications {
-          type
-          user
-          id
-        }
       }
       following {
         id

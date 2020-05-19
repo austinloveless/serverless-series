@@ -92,7 +92,6 @@ type Notifications {
 type Followers {
   id: String
   username: String
-  notifications: Notifications
 }
 
 type Following {
