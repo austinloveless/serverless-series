@@ -164,7 +164,7 @@ const UserView = ({ match, user, loggedInUserData }) => {
         followers,
       };
 
-      const { data } = await API.graphql(
+      await API.graphql(
         graphqlOperation(updateUser, { input: followersPayload })
       );
 
@@ -180,7 +180,7 @@ const UserView = ({ match, user, loggedInUserData }) => {
         username: loggedInUserData.username,
         following,
       };
-      const test = await API.graphql(
+      await API.graphql(
         graphqlOperation(updateUser, { input: followingPayload })
       );
 
