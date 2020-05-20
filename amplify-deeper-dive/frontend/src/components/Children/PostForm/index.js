@@ -80,31 +80,53 @@ const PostForm = ({
 
     if (data.createPost) {
       const notifications = [];
+      if (
+        allFollowersData.notifications &&
+        allFollowersData.notifications.length
+      ) {
+        allFollowersData.notifications.map((notification) => {
+          return notifications.push(notification);
+        });
+        const newNotificationObject = {
+          type: 'post',
+          user: user.email,
+          id: newPost.id,
+        };
+        notifications.push(newNotificationObject);
 
-      allFollowersData.notifications.map((notification) => {
-        return notifications.push(notification);
-      });
+        await Promise.all(
+          loggedInUserData.followers.map(async (follower) => {
+            const updateUserPayload = {
+              id: follower.id,
+              username: follower.username,
+              notifications,
+            };
+            await API.graphql(
+              graphqlOperation(updateUser, { input: updateUserPayload })
+            );
+          })
+        );
+      } else {
+        const newNotificationObject = {
+          type: 'post',
+          user: user.email,
+          id: newPost.id,
+        };
+        notifications.push(newNotificationObject);
 
-      const newNotificationObject = {
-        type: 'post',
-        user: user.email,
-        id: newPost.id,
-      };
-      notifications.push(newNotificationObject);
-
-      await Promise.all(
-        loggedInUserData.followers.map(async (follower) => {
-          const updateUserPayload = {
-            id: follower.id,
-            username: follower.username,
-            notifications,
-          };
-          await API.graphql(
-            graphqlOperation(updateUser, { input: updateUserPayload })
-          );
-        })
-      );
-
+        await Promise.all(
+          loggedInUserData.followers.map(async (follower) => {
+            const updateUserPayload = {
+              id: follower.id,
+              username: follower.username,
+              notifications,
+            };
+            await API.graphql(
+              graphqlOperation(updateUser, { input: updateUserPayload })
+            );
+          })
+        );
+      }
       await Storage.put(
         `${user.email}/postImages/${imageTitle}/${file.name}`,
         file

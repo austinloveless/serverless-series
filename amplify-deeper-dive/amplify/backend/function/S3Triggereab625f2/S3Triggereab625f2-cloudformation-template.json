@@ -28,12 +28,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"S3Triggerca1bbc13",
+						"S3Triggereab625f2",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"S3Triggerca1bbc13",
+									"S3Triggereab625f2",
 									"-",
 									{
 										"Ref": "env"
@@ -59,8 +59,8 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-intro-to-amplify-deeperdive-130422-deployment",
-					"S3Key": "amplify-builds/S3Triggerca1bbc13-34517461454b4363674a-build.zip"
+					"S3Bucket": "amplify-amplify-deeper-dive-deeperdive-83508-deployment",
+					"S3Key": "amplify-builds/S3Triggereab625f2-6342646b434546485650-build.zip"
 				}
 			}
 		},
@@ -70,12 +70,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"S3Triggerca1bbc13LambdaRoleca1bbc13",
+						"S3Triggereab625f2LambdaRoleeab625f2",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"S3Triggerca1bbc13LambdaRoleca1bbc13",
+									"S3Triggereab625f2LambdaRoleeab625f2",
 									"-",
 									{
 										"Ref": "env"

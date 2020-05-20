@@ -1,5 +1,5 @@
 projects:
-  amplifyDeeperDive:
+  deeperdive:
     schemaPath: frontend/src/graphql/schema.json
     includes:
       - frontend/src/graphql/**/*.js

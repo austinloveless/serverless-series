@@ -1,10 +1,10 @@
 {
-    "AppSyncApiName": "amplifyDeeperDive",
+    "AppSyncApiName": "deeperdive",
     "DynamoDBBillingMode": "PAY_PER_REQUEST",
     "DynamoDBEnableServerSideEncryption": "false",
     "AuthCognitoUserPoolId": {
         "Fn::GetAtt": [
-            "authamplifydeeperdive26cf4e7c",
+            "authamplifydeeperdive9494f435",
             "Outputs.UserPoolId"
         ]
     }

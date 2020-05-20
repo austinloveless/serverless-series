@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { API, graphqlOperation, Storage } from 'aws-amplify';
-import { TextField, Button, makeStyles, Grid } from '@material-ui/core';
+import {
+  TextField,
+  Button,
+  makeStyles,
+  Grid,
+  Typography,
+} from '@material-ui/core';
 import { PhotoPicker } from 'aws-amplify-react';
 import { v1 as uuidv1 } from 'uuid';
 
@@ -50,6 +56,7 @@ const CreateUser = ({ user, setNoUser }) => {
 
   return (
     <Grid container style={{ justifyContent: 'center' }}>
+      <Typography>Create a User Profile</Typography>
       <form
         onSubmit={handleCreateUser}
         className={classes.root}

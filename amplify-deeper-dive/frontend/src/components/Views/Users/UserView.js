@@ -140,6 +140,22 @@ const UserView = ({ match, user, loggedInUserData }) => {
             },
           },
         ];
+      } else if (
+        userData.followers &&
+        !userData.followers.length &&
+        loggedInUserData.notifications === null
+      ) {
+        followers = [
+          {
+            id: loggedInUserData.id,
+            username: loggedInUserData.username,
+            notifications: {
+              type: null,
+              user: null,
+              id: null,
+            },
+          },
+        ];
       }
 
       const followersPayload = {
@@ -148,7 +164,7 @@ const UserView = ({ match, user, loggedInUserData }) => {
         followers,
       };
 
-      await API.graphql(
+      const { data } = await API.graphql(
         graphqlOperation(updateUser, { input: followersPayload })
       );
 
@@ -164,7 +180,7 @@ const UserView = ({ match, user, loggedInUserData }) => {
         username: loggedInUserData.username,
         following,
       };
-      await API.graphql(
+      const test = await API.graphql(
         graphqlOperation(updateUser, { input: followingPayload })
       );
 

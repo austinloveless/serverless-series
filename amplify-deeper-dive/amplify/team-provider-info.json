@@ -1,19 +1,19 @@
 {
     "deeperdive": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-intro-to-amplify-deeperdive-130422-authRole",
-            "UnauthRoleArn": "arn:aws:iam::807230335956:role/amplify-intro-to-amplify-deeperdive-130422-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::807230335956:role/amplify-intro-to-amplify-deeperdive-130422-authRole",
+            "AuthRoleName": "amplify-amplify-deeper-dive-deeperdive-83508-authRole",
+            "UnauthRoleArn": "arn:aws:iam::807230335956:role/amplify-amplify-deeper-dive-deeperdive-83508-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::807230335956:role/amplify-amplify-deeper-dive-deeperdive-83508-authRole",
             "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-intro-to-amplify-deeperdive-130422-deployment",
-            "UnauthRoleName": "amplify-intro-to-amplify-deeperdive-130422-unauthRole",
-            "StackName": "amplify-intro-to-amplify-deeperdive-130422",
-            "StackId": "arn:aws:cloudformation:us-east-1:807230335956:stack/amplify-intro-to-amplify-deeperdive-130422/be9d6bb0-87f0-11ea-95f0-12328959da6d",
-            "AmplifyAppId": "d3t9rj2r55ofpc"
+            "DeploymentBucketName": "amplify-amplify-deeper-dive-deeperdive-83508-deployment",
+            "UnauthRoleName": "amplify-amplify-deeper-dive-deeperdive-83508-unauthRole",
+            "StackName": "amplify-amplify-deeper-dive-deeperdive-83508",
+            "StackId": "arn:aws:cloudformation:us-east-1:807230335956:stack/amplify-amplify-deeper-dive-deeperdive-83508/1c325ce0-9aa7-11ea-89c6-0e43f2110cc5",
+            "AmplifyAppId": "d3oaogkwftq49n"
         },
         "categories": {
             "auth": {
-                "amplifydeeperdive26cf4e7c": {}
+                "amplifydeeperdive9494f435": {}
             }
         }
     }

@@ -1,4 +1,3 @@
-//  amplify/backend/function/<function_name>/src/index.js.
 const sharp = require('sharp');
 const aws = require('aws-sdk');
 const s3 = new aws.S3();
